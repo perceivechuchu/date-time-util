@@ -63,6 +63,11 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.functionaljava</groupId>
+			<artifactId>functionaljava_1.8</artifactId>
+			<version>4.7</version>
+		</dependency>
 	</dependencies>
 
 	<distributionManagement>
