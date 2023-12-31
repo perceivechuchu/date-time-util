@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class TimeZoneUtilTests {
 
 	@Test
-	void WhenGetAllTimeZonesIsInvoked_ShouldReturnCorrectListOfTimeZones() {
+	void getAllTimeZones_CorrectTimeZoneDetailsList_GetAllTimeZones() {
 		List<TimeZoneDetail> timeZones = TimeZoneUtil.getAllTimeZones();
 		assertNotNull(timeZones);
 		// Verify that Time Zone with Zone Id (Africa/Johannesburg) exists in the list
@@ -26,9 +26,9 @@ class TimeZoneUtilTests {
 	}
 
 	@Test
-	void WhenValidTimeZoneIsSupplied_ShouldReturnTrue() {
+	void isValidTimeZoneId_True_TimeZoneIdValid() {
 		TimeZoneUtil.getAllTimeZones();
-		assertTrue(TimeZoneUtil.isTimeZoneValid("Africa/Johannesburg"));
+		assertTrue(TimeZoneUtil.isValidTimeZoneId("Africa/Johannesburg"));
 	}
 
 }

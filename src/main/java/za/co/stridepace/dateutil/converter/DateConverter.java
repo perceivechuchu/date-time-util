@@ -11,6 +11,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.TimeZone;
 
+/**
+ * This class is a utility for date conversions
+ *
+ * @since 1.0.0
+ */
 public class DateConverter {
 
     private DateConverter() {
@@ -20,20 +25,20 @@ public class DateConverter {
      * Converts Local Date Time to UTC Zoned Date Time in text
      *
      * @param localDateTime the local date time to be converted.
-     * @param localZoneId   the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
+     * @param localTimeZoneId   the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
      * @return the local date time text obtained from the conversion.
      * @throws IllegalArgumentException exception thrown when required parameter is missing.
      * @since 1.0.0
      */
-    public static String convertLocalDateTimeToUTCZonedDateTimeText(final LocalDateTime localDateTime, final String localZoneId) {
+    public static String convertLocalDateTimeToUTCZonedDateTimeText(final LocalDateTime localDateTime, final String localTimeZoneId) {
         if (Objects.isNull(localDateTime)) {
             throw new IllegalArgumentException(ErrorMessages.LOCAL_DATE_TIME_NULL);
         }
-        if (StringUtils.isBlank(localZoneId)) {
+        if (StringUtils.isBlank(localTimeZoneId)) {
             throw new IllegalArgumentException(ErrorMessages.LOCAL_ZONE_ID_EMPTY);
         }
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DateFormatConstant.YYYY_MM_DD_HH_MM_SS_SSSXXX);
-        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localZoneId));
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
         dateFormatter.format(zonedDateTime);
         return dateFormatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of(ZoneConstant.ZONE_ID_UTC)));
     }
@@ -311,21 +316,21 @@ public class DateConverter {
      * Converts Local Date Time to Epoch Millis
      *
      * @param localDateTime the local date time to be converted
-     * @param zoneId        the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @param timeZoneId        the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the epoch millis time obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
      * @throws DateTimeException        if the result exceeds the supported range or if the instant exceeds the maximum or minimum instant
      * @throws ArithmeticException      if numeric overflow occur
      * @since 1.0.0
      */
-    public static long convertLocalDateTimeEpochMillis(final LocalDateTime localDateTime, final String zoneId) {
+    public static long convertLocalDateTimeEpochMillis(final LocalDateTime localDateTime, final String timeZoneId) {
         if (Objects.isNull(localDateTime)) {
             throw new IllegalArgumentException(ErrorMessages.LOCAL_DATE_TIME_NULL);
         }
-        if (StringUtils.isBlank(zoneId)) {
+        if (StringUtils.isBlank(timeZoneId)) {
             throw new IllegalArgumentException(ErrorMessages.ZONE_ID_EMPTY);
         }
-        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(zoneId)).withZoneSameInstant(ZoneId.of(zoneId));
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(timeZoneId)).withZoneSameInstant(ZoneId.of(timeZoneId));
         return zonedDateTime.toInstant().toEpochMilli();
     }
 
@@ -333,44 +338,44 @@ public class DateConverter {
      * Converts Local Date Time to UTC Zoned Date Time
      *
      * @param localDateTime the local date time to be converted
-     * @param localZoneId   the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
+     * @param localTimeZoneId   the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
      * @return the zoned date time obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
      * @throws DateTimeException        if the result exceeds the supported range
      * @since 1.0.0
      */
-    public static ZonedDateTime convertLocalDateTimeToUTCZonedDateTime(final LocalDateTime localDateTime, final String localZoneId) {
+    public static ZonedDateTime convertLocalDateTimeToUTCZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId) {
         if (Objects.isNull(localDateTime)) {
             throw new IllegalArgumentException(ErrorMessages.LOCAL_DATE_TIME_NULL);
         }
-        if (StringUtils.isBlank(localZoneId)) {
+        if (StringUtils.isBlank(localTimeZoneId)) {
             throw new IllegalArgumentException(ErrorMessages.LOCAL_ZONE_ID_EMPTY);
         }
-        return localDateTime.atZone(ZoneId.of(localZoneId)).withZoneSameInstant(TimeZone.getDefault().toZoneId());
+        return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(TimeZone.getDefault().toZoneId());
     }
 
     /**
      * Converts Local Date Time to Zoned Date Time
      *
      * @param localDateTime the local date time to be converted
-     * @param localZoneId   the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
-     * @param targetZoneId   the target time zone id to be applied to the resulting zoned date time e.g. "Africa/Johannesburg"
+     * @param localTimeZoneId   the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
+     * @param targetTimeZoneId   the target time zone id to be applied to the resulting zoned date time e.g. "Africa/Johannesburg"
      * @return the zoned date time obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
      * @throws DateTimeException        if the result exceeds the supported range
      * @since 1.0.0
      */
-    public static ZonedDateTime convertLocalDateTimeToZonedDateTime(final LocalDateTime localDateTime, final String localZoneId, final String targetZoneId) {
+    public static ZonedDateTime convertLocalDateTimeToZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId) {
         if (Objects.isNull(localDateTime)) {
             throw new IllegalArgumentException(ErrorMessages.LOCAL_DATE_TIME_NULL);
         }
-        if (StringUtils.isBlank(localZoneId)) {
+        if (StringUtils.isBlank(localTimeZoneId)) {
             throw new IllegalArgumentException(ErrorMessages.LOCAL_ZONE_ID_EMPTY);
         }
-        if (StringUtils.isBlank(targetZoneId)) {
+        if (StringUtils.isBlank(targetTimeZoneId)) {
             throw new IllegalArgumentException(ErrorMessages.TARGET_ZONE_ID_EMPTY);
         }
-        return localDateTime.atZone(ZoneId.of(localZoneId)).withZoneSameInstant(ZoneId.of(targetZoneId));
+        return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(ZoneId.of(targetTimeZoneId));
     }
 
     private static DateTimeFormatter getDateFormatter(final String dateFormatPattern) {
