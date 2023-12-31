@@ -38,11 +38,18 @@ public class TimeZoneDetail {
     private String abbreviation;
 
     /**
-     * The difference in hours and minutes from Coordinated Universal Time (UTC) e.g. "-2"
+     * The difference in milliseconds from Coordinated Universal Time (UTC) e.g. "19800000"
      *
      * @since 1.0.0
      */
-    private Integer offset;
+    private Integer offsetMillis;
+
+    /**
+     * The difference in hours and minutes from Coordinated Universal Time (UTC) e.g. "+02:00"
+     *
+     * @since 1.0.0
+     */
+    private String offsetText;
 
     /**
      * Gets an instance of a time zone detail
@@ -50,11 +57,12 @@ public class TimeZoneDetail {
      * @param id           the id for a time zone
      * @param displayName  the display name for a time zone e.g. "Africa/Johannesburg"
      * @param abbreviation the abbreviation for a time zone e.g. "SAST"
-     * @param offset       the difference in hours and minutes from Coordinated Universal Time (UTC)
+     * @param offsetMillis the difference in milliseconds from Coordinated Universal Time (UTC)
+     * @param offsetText   the difference in hours and minutes from Coordinated Universal Time (UTC)
      * @return the new time zone detail that has been instantiated
      * @since 1.0.0
      */
-    public static TimeZoneDetail getInstance(String id, String displayName, String abbreviation, Integer offset) {
-        return new TimeZoneDetail(id, displayName, abbreviation, offset);
+    public static TimeZoneDetail getInstance(String id, String displayName, String abbreviation, Integer offsetMillis, String offsetText) {
+        return new TimeZoneDetail(id, displayName, abbreviation, offsetMillis, offsetText);
     }
 }

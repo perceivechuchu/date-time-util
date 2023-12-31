@@ -29,13 +29,19 @@ class DateConverterTests {
 
     @Test
     void convertUTCZonedDateTimeTextToLocalDateTime_IllegalArgumentException_UTCZoneDateTimeTextNull() {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateConverter.convertUTCZonedDateTimeTextToLocalDateTime(null, "+0200"));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateConverter.convertUTCZonedDateTimeTextToLocalDateTime(null, "Africa/Johannesburg"));
+        assertNotNull(illegalArgumentException);
+    }
+
+    @Test
+    void convertUTCZonedDateTimeTextToLocalDateTime_IllegalArgumentException_localZoneIdEmpty() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateConverter.convertUTCZonedDateTimeTextToLocalDateTime("2023-11-10T10:00:00.254", ""));
         assertNotNull(illegalArgumentException);
     }
 
     @Test
     void convertUTCZonedDateTimeTextToLocalDateTime_DateTimeParseException_UTCZoneDateTimeTextInvalid() {
-        DateTimeParseException dateTimeParseException = assertThrows(DateTimeParseException.class, () -> DateConverter.convertUTCZonedDateTimeTextToLocalDateTime("2023-11-10T10:00:00.254", "+0200"));
+        DateTimeParseException dateTimeParseException = assertThrows(DateTimeParseException.class, () -> DateConverter.convertUTCZonedDateTimeTextToLocalDateTime("2023-11-10T10:00:00.254", "Africa/Johannesburg"));
         assertNotNull(dateTimeParseException);
     }
 

@@ -17,10 +17,12 @@ class TimeZoneUtilTests {
 	@Test
 	void getAllTimeZones_CorrectTimeZoneDetailsList_GetAllTimeZones() {
 		List<TimeZoneDetail> timeZones = TimeZoneUtil.getAllTimeZones();
+		System.out.println(timeZones);
 		assertNotNull(timeZones);
 		// Verify that Time Zone with Zone Id (Africa/Johannesburg) exists in the list
 		TimeZoneDetail timeZone = timeZones.stream().filter(timeZoneDetail -> timeZoneDetail.getId().equals("Africa/Johannesburg")).collect(Collectors.toList()).get(0);
-		assertEquals(2, timeZone.getOffset());
+		assertEquals(7200000, timeZone.getOffsetMillis());
+		assertEquals("+02:00", timeZone.getOffsetText());
 		assertEquals("SAST", timeZone.getAbbreviation());
 		assertEquals("South Africa Standard Time", timeZone.getDisplayName());
 	}
@@ -29,6 +31,24 @@ class TimeZoneUtilTests {
 	void isValidTimeZoneId_True_TimeZoneIdValid() {
 		TimeZoneUtil.getAllTimeZones();
 		assertTrue(TimeZoneUtil.isValidTimeZoneId("Africa/Johannesburg"));
+	}
+
+	@Test
+	void deduceZoneOffset_CorrectZoneOffSet_RawZoneOffsetEqualToValidPositiveValue() {
+		String actualTimeZoneText = TimeZoneUtil.deduceZoneOffset(19800000);
+		assertEquals("+05:30", actualTimeZoneText);
+	}
+
+	@Test
+	void deduceZoneOffset_CorrectZoneOffSet_RawZoneOffsetEqualToValidNegativeValue() {
+		String actualTimeZoneText = TimeZoneUtil.deduceZoneOffset(-12600000);
+		assertEquals("-03:30", actualTimeZoneText);
+	}
+
+	@Test
+	void deduceZoneOffset_CorrectZoneOffSet_RawZoneOffsetEqualToZero() {
+		String actualTimeZoneText = TimeZoneUtil.deduceZoneOffset(0);
+		assertEquals("00:00", actualTimeZoneText);
 	}
 
 }

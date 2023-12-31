@@ -43,7 +43,23 @@ public class TimeZoneUtil {
         if (timeZones == null) {
             loadTimeZones();
         }
-        return timeZones.stream().map(timeZone -> TimeZoneDetail.getInstance(timeZone.getID(), timeZone.getDisplayName(), getTimeZoneAbbreviation(timeZone.getID()), timeZone.getRawOffset() / 3600000)).collect(Collectors.toList());
+        return timeZones.stream().map(timeZone -> TimeZoneDetail.getInstance(timeZone.getID(), timeZone.getDisplayName(), getTimeZoneAbbreviation(timeZone.getID()), timeZone.getRawOffset(), deduceZoneOffset(timeZone.getRawOffset()))).collect(Collectors.toList());
+    }
+
+    protected static String deduceZoneOffset(int rawOffset) {
+        double offsetHoursMinutes = rawOffset / 3600000.0;
+        String prefix = "";
+        int offsetIntegerPart = (int) offsetHoursMinutes;
+        if (offsetIntegerPart > 0) {
+          prefix = "+";
+        } else if (offsetIntegerPart < 0) {
+            prefix = "-";
+        }
+        double offsetDecimalPart = offsetHoursMinutes - offsetIntegerPart;
+        String hour = offsetIntegerPart < 10 ? "0" + Math.abs(offsetIntegerPart) : String.valueOf(offsetIntegerPart);
+        int absoluteMinutes = Math.abs((int)(offsetDecimalPart * 60));
+        String minute = absoluteMinutes < 10 ? absoluteMinutes + "0" : String.valueOf(absoluteMinutes);
+        return prefix + hour + ":" + minute;
     }
 
     /**
