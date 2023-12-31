@@ -7,7 +7,31 @@
 	<artifactId>date-util</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
-	<name>Date Util Library</name>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>This a library that provides comprehensive date and time utilities, addressing the challenges of date manipulation, formatting, and timezone handling</description>
+	<url>https://github.com/perceivechuchu/date-util</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Perceive Chuchu</name>
+			<email>perceivechuchu@gmail.com</email>
+			<organization>Stridepace</organization>
+			<organizationUrl>https://stridepace.co.za</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/perceivechuchu/date-util.git</connection>
+		<developerConnection>scm:git:ssh://github.com:perceivechuchu/date-util.git</developerConnection>
+		<url>https://github.com/perceivechuchu/date-util/tree/main</url>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -170,6 +194,46 @@
 						<goals>
 							<goal>jar-no-fork</goal>
 							<goal>test-jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.6.3</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
 						</goals>
 					</execution>
 				</executions>
