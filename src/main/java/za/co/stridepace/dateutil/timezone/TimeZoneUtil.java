@@ -56,10 +56,10 @@ public class TimeZoneUtil {
             prefix = "-";
         }
         double offsetDecimalPart = offsetHoursMinutes - offsetIntegerPart;
-        String hour = offsetIntegerPart < 10 ? "0" + Math.abs(offsetIntegerPart) : String.valueOf(offsetIntegerPart);
+        String hours = offsetIntegerPart < 10 ? "0" + Math.abs(offsetIntegerPart) : String.valueOf(offsetIntegerPart);
         int absoluteMinutes = Math.abs((int)(offsetDecimalPart * 60));
-        String minute = absoluteMinutes < 10 ? absoluteMinutes + "0" : String.valueOf(absoluteMinutes);
-        return prefix + hour + ":" + minute;
+        String minutes = absoluteMinutes < 10 ? absoluteMinutes + "0" : String.valueOf(absoluteMinutes);
+        return prefix + hours + ":" + minutes;
     }
 
     /**

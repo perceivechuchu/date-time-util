@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -34,7 +35,7 @@ class DateConverterTests {
     }
 
     @Test
-    void convertUTCZonedDateTimeTextToLocalDateTime_IllegalArgumentException_localZoneIdEmpty() {
+    void convertUTCZonedDateTimeTextToLocalDateTime_IllegalArgumentException_LocalZoneIdEmpty() {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateConverter.convertUTCZonedDateTimeTextToLocalDateTime("2023-11-10T10:00:00.254", ""));
         assertNotNull(illegalArgumentException);
     }
@@ -43,6 +44,19 @@ class DateConverterTests {
     void convertUTCZonedDateTimeTextToLocalDateTime_DateTimeParseException_UTCZoneDateTimeTextInvalid() {
         DateTimeParseException dateTimeParseException = assertThrows(DateTimeParseException.class, () -> DateConverter.convertUTCZonedDateTimeTextToLocalDateTime("2023-11-10T10:00:00.254", "Africa/Johannesburg"));
         assertNotNull(dateTimeParseException);
+    }
+
+    @Test
+    void convertLocalDateTextToLocalDate_CorrectConvertedLocalDate_LocalDateTextValid() {
+        LocalDate actualLocalDate = DateConverter.convertLocalDateTextToLocalDate("2023-12-05");
+        LocalDate expectedLocalDate = LocalDate.of(2023, 12, 5);
+        assertTrue(actualLocalDate.isEqual(expectedLocalDate));
+    }
+
+    @Test
+    void convertLocalDateTextToLocalDate_IllegalArgumentException_LocalDateTexEmpty() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateConverter.convertLocalDateTextToLocalDate(""));
+        assertNotNull(illegalArgumentException);
     }
 
 }
