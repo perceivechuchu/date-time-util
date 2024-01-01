@@ -100,7 +100,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time text to Local Date Time
+     * Converts Local Date Time text to Local Date Time. The string must represent a valid date and is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE_TIME
      *
      * @param localDateTimeText the local date time (as text) to be converted e.g. "2023-12-08T16:02:10"
      * @return the local date time obtained from the conversion.
@@ -145,7 +145,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date to Local Date Text
+     * Converts Local Date to Local Date Text. The local date is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE
      *
      * @param localDate the local date to be converted
      * @return the local date text obtained from the conversion
@@ -155,15 +155,14 @@ public final class DateConverter {
      */
     public static String convertLocalDateToLocalDateText(final LocalDate localDate) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL));
-        LocalDate newLocalDate = convertLocalDateTextToLocalDate(localDate.toString());
-        return newLocalDate.toString();
+        return String.valueOf(localDate);
     }
 
     /**
      * Converts Local Date to Local Date Text
      *
      * @param localDate the local date to be converted
-     * @param formatter     the formatter that holds the format for the supplied local date
+     * @param formatter     the formatter that holds the format pattern that the local date is to be parsed
      * @return the local date text obtained from the conversion
      * @throws IllegalArgumentException                if parameter is not valid
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
@@ -171,8 +170,7 @@ public final class DateConverter {
      */
     public static String convertLocalDateToLocalDateText(final LocalDate localDate, final DateTimeFormatter formatter) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
-        LocalDate newLocalDate = convertLocalDateTextToLocalDate(localDate.toString(), formatter);
-        return newLocalDate.toString();
+        return localDate.format(formatter);
     }
 
     /**
@@ -188,12 +186,11 @@ public final class DateConverter {
     public static String convertLocalDateToLocalDateText(final LocalDate localDate, final String dateFormatPattern) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
-        LocalDate newLocalDate = convertLocalDateTextToLocalDate(localDate.toString(), formatter);
-        return newLocalDate.toString();
+        return localDate.format(formatter);
     }
 
     /**
-     * Converts Local Date Time to Local Date Text
+     * Converts Local Date Time to Local Date Time Text
      *
      * @param localDateTime the local date time to be converted
      * @return the local date text obtained from the conversion
@@ -201,29 +198,28 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static String convertLocalDateTimeToLocalDateText(final LocalDateTime localDateTime) {
+    public static String convertLocalDateTimeToLocalDateTimeText(final LocalDateTime localDateTime) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL));
-        LocalDateTime newLocalDate = convertLocalDateTimeTextToLocalDateTime(localDateTime.toString());
-        return newLocalDate.toString();
+        return String.valueOf(localDateTime);
     }
 
     /**
-     * Converts Local Date Time to Local Date Text
+     * Converts Local Date Time to Local Date Time Text
      *
      * @param localDateTime the local date time to be converted
+     * @param formatter     the formatter that holds the format pattern that the local date is to be parsed
      * @return the local date text obtained from the conversion
      * @throws IllegalArgumentException                if parameter is not valid
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static String convertLocalDateTimeToLocalDateText(final LocalDateTime localDateTime, final DateTimeFormatter formatter) {
+    public static String convertLocalDateTimeToLocalDateTimeText(final LocalDateTime localDateTime, final DateTimeFormatter formatter) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
-        LocalDateTime newLocalDate = convertLocalDateTimeTextToLocalDateTime(localDateTime.toString(), formatter);
-        return newLocalDate.toString();
+        return localDateTime.format(formatter);
     }
 
     /**
-     * Converts Local Date Time to Local Date Text
+     * Converts Local Date Time to Local Date Time Text
      *
      * @param localDateTime the local date time to be converted e.g. "05/12/2023'T'12:02:01"
      * @param dateFormatPattern the date format pattern for the supplied local date time e.g. "yyyy-MM-dd HH:mm:ss"
@@ -232,11 +228,10 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static String convertLocalDateTimeToLocalDateText(final LocalDateTime localDateTime, final String dateFormatPattern) {
+    public static String convertLocalDateTimeToLocalDateTimeText(final LocalDateTime localDateTime, final String dateFormatPattern) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
-        LocalDateTime newLocalDate = convertLocalDateTimeTextToLocalDateTime(localDateTime.toString(), formatter);
-        return newLocalDate.toString();
+        return localDateTime.format(formatter);
     }
 
     /**
