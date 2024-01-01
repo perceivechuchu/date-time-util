@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class TimeZoneUtilTests {
 
 	@Test
-	void getAllTimeZones_CorrectTimeZoneDetailsList_GetAllTimeZones() {
+	void getAllTimeZones_ReturnCorrectTimeZoneDetailsList_WhenGetAllTimeZonesIsInvoked() {
 		List<TimeZoneDetail> timeZones = TimeZoneUtil.getAllTimeZones();
 		System.out.println(timeZones);
 		assertNotNull(timeZones);
@@ -28,25 +28,25 @@ class TimeZoneUtilTests {
 	}
 
 	@Test
-	void isValidTimeZoneId_True_TimeZoneIdValid() {
+	void isValidTimeZoneId_ReturnTrue_WhenTimeZoneIdIsValid() {
 		TimeZoneUtil.getAllTimeZones();
 		assertTrue(TimeZoneUtil.isValidTimeZoneId("Africa/Johannesburg"));
 	}
 
 	@Test
-	void deduceZoneOffset_CorrectZoneOffSet_RawZoneOffsetEqualToValidPositiveValue() {
+	void deduceZoneOffset_ReturnCorrectZoneOffSet_WhenRawZoneOffsetIsValidPositiveValue() {
 		String actualTimeZoneText = TimeZoneUtil.deduceZoneOffset(19800000);
 		assertEquals("+05:30", actualTimeZoneText);
 	}
 
 	@Test
-	void deduceZoneOffset_CorrectZoneOffSet_RawZoneOffsetEqualToValidNegativeValue() {
+	void deduceZoneOffset_ReturnCorrectZoneOffSet_WhenRawZoneOffsetIsValidNegativeValue() {
 		String actualTimeZoneText = TimeZoneUtil.deduceZoneOffset(-12600000);
 		assertEquals("-03:30", actualTimeZoneText);
 	}
 
 	@Test
-	void deduceZoneOffset_CorrectZoneOffSet_RawZoneOffsetEqualToZero() {
+	void deduceZoneOffset_ReturnCorrectZoneOffSet_WhenRawZoneOffsetIsZero() {
 		String actualTimeZoneText = TimeZoneUtil.deduceZoneOffset(0);
 		assertEquals("00:00", actualTimeZoneText);
 	}
