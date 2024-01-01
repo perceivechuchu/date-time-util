@@ -1,7 +1,7 @@
 date-util
 ==============
 
-[![Build Status](https://github.com/perceivechuchu/date-util/actions/workflows/maven.yml/badge.svg)](https://github.com/perceivechuchu/date-util/actions/workflows/maven.yml)
+[![Date Util CI](https://github.com/perceivechuchu/date-util/actions/workflows/maven.yml/badge.svg)](https://github.com/perceivechuchu/date-util/actions/workflows/maven.yml)
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/za.co.stridepace/date-util/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smattme/date-util/badge.svg)
 
