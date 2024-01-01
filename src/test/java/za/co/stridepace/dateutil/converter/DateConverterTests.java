@@ -154,14 +154,6 @@ class DateConverterTests {
         assertEquals("05/12/2023", actualLocalDateText);
     }
 
-
-
-
-
-
-
-
-
     @Test
     void convertLocalDateTimeToLocalDateTimeText_ThrowIllegalArgumentException_WhenLocalDateTimeIsNull() {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateConverter.convertLocalDateTimeToLocalDateTimeText(null));
