@@ -35,7 +35,7 @@ public final class DateConverter {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DateFormatConstant.YYYY_MM_DD_HH_MM_SS_SSSXXX);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
         dateFormatter.format(zonedDateTime);
-        return dateFormatter.format(zonedDateTime.withZoneSameInstant(TimeZone.getDefault().toZoneId()));
+        return dateFormatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of("UTC")));
     }
 
     /**
