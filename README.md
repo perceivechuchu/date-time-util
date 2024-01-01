@@ -1,7 +1,7 @@
 date-util
 ==============
 
-[![Build Status](https://api.travis-ci.com/perceivechuchu/date-util.svg?branch=main)](https://travis-ci.org/perceivechuchu/date-util)
+[![Build Status](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)]
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/za.co.stridepace/date-util/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smattme/date-util/badge.svg)
 
