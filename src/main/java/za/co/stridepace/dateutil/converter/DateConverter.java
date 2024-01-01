@@ -8,7 +8,6 @@ import za.co.stridepace.dateutil.constant.ErrorMessages;
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 /**
  * This class is a utility for date conversions
@@ -32,7 +31,7 @@ public final class DateConverter {
      * @throws IllegalArgumentException exception thrown when required parameter is missing.
      * @since 1.0.0
      */
-    public static String convertLocalDateTimeToUTCZonedDateTimeText(final LocalDateTime localDateTime, final String localTimeZoneId) {
+    public static String convertToUTCZonedDateTimeText(final LocalDateTime localDateTime, final String localTimeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DateFormatConstant.YYYY_MM_DD_HH_MM_SS_SSSXXX);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
@@ -50,7 +49,7 @@ public final class DateConverter {
      * @throws DateTimeException        if the result exceeds the supported range
      * @since 1.0.0
      */
-    public static ZonedDateTime convertLocalDateTimeToUTCZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId) {
+    public static ZonedDateTime convertToUTCZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
         return localDateTime.atZone(ZoneId.of(localTimeZoneId));
     }
@@ -66,7 +65,7 @@ public final class DateConverter {
      * @throws DateTimeException        if the result exceeds the supported range
      * @since 1.0.0
      */
-    public static ZonedDateTime convertLocalDateTimeToZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId) {
+    public static ZonedDateTime convertToZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY),
                 ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY));
         return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(ZoneId.of(targetTimeZoneId));
@@ -82,7 +81,7 @@ public final class DateConverter {
      * @throws DateTimeException        exception thrown if the result exceeds the supported date range
      * @since 1.0.0
      */
-    public static LocalDateTime convertUTCZonedDateTimeTextToLocalDateTime(final String zonedDateTimeText, final String localZoneId) {
+    public static LocalDateTime convertToLocalDateTimeWithZone(final String zonedDateTimeText, final String localZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(zonedDateTimeText, ErrorMessages.ZONED_DATE_TIME_TEXT), ValidationEntry.getInstance(localZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(zonedDateTimeText).withZoneSameInstant(ZoneId.of(localZoneId));
         return zonedDateTime.toLocalDateTime();
@@ -97,7 +96,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static LocalDate convertLocalDateTextToLocalDate(final String localDateText) {
+    public static LocalDate convertToLocalDate(final String localDateText) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY));
         return LocalDate.parse(localDateText);
     }
@@ -112,7 +111,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static LocalDate convertLocalDateTextToLocalDate(final String localDateText, final DateTimeFormatter formatter) {
+    public static LocalDate convertToLocalDate(final String localDateText, final DateTimeFormatter formatter) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
         return LocalDate.parse(localDateText, formatter);
     }
@@ -127,7 +126,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static LocalDate convertLocalDateTextToLocalDate(final String localDateText, final String dateFormatPattern) {
+    public static LocalDate convertToLocalDate(final String localDateText, final String dateFormatPattern) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
         return LocalDate.parse(localDateText, formatter);
@@ -142,7 +141,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static LocalDateTime convertLocalDateTimeTextToLocalDateTime(final String localDateTimeText) {
+    public static LocalDateTime convertToLocalDateTime(final String localDateTimeText) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY));
         return LocalDateTime.parse(localDateTimeText);
     }
@@ -157,7 +156,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static LocalDateTime convertLocalDateTimeTextToLocalDateTime(final String localDateTimeText, final DateTimeFormatter formatter) {
+    public static LocalDateTime convertToLocalDateTime(final String localDateTimeText, final DateTimeFormatter formatter) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
         return LocalDateTime.parse(localDateTimeText, formatter);
     }
@@ -172,7 +171,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static LocalDateTime convertLocalDateTimeTextToLocalDateTime(final String localDateTimeText, final String dateFormatPattern) {
+    public static LocalDateTime convertToLocalDateTimeWithPattern(final String localDateTimeText, final String dateFormatPattern) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
         return LocalDateTime.parse(localDateTimeText, formatter);
@@ -187,7 +186,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static String convertLocalDateToLocalDateText(final LocalDate localDate) {
+    public static String convertToLocalDateText(final LocalDate localDate) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL));
         return String.valueOf(localDate);
     }
@@ -202,7 +201,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static String convertLocalDateToLocalDateText(final LocalDate localDate, final DateTimeFormatter formatter) {
+    public static String convertToLocalDateText(final LocalDate localDate, final DateTimeFormatter formatter) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
         return localDate.format(formatter);
     }
@@ -217,7 +216,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static String convertLocalDateToLocalDateText(final LocalDate localDate, final String dateFormatPattern) {
+    public static String convertToLocalDateText(final LocalDate localDate, final String dateFormatPattern) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
         return localDate.format(formatter);
@@ -232,7 +231,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static String convertLocalDateTimeToLocalDateTimeText(final LocalDateTime localDateTime) {
+    public static String convertToLocalDateTimeText(final LocalDateTime localDateTime) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL));
         return String.valueOf(localDateTime);
     }
@@ -247,7 +246,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static String convertLocalDateTimeToLocalDateTimeText(final LocalDateTime localDateTime, final DateTimeFormatter formatter) {
+    public static String convertToLocalDateTimeText(final LocalDateTime localDateTime, final DateTimeFormatter formatter) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
         return localDateTime.format(formatter);
     }
@@ -262,7 +261,7 @@ public final class DateConverter {
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
      * @since 1.0.0
      */
-    public static String convertLocalDateTimeToLocalDateTimeText(final LocalDateTime localDateTime, final String dateFormatPattern) {
+    public static String convertToLocalDateTimeText(final LocalDateTime localDateTime, final String dateFormatPattern) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
         return localDateTime.format(formatter);
@@ -276,7 +275,7 @@ public final class DateConverter {
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
-    public static LocalDateTime convertTimestampToLocalDateTime(final Timestamp timestamp) {
+    public static LocalDateTime convertToLocalDateTime(final Timestamp timestamp) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(timestamp, ErrorMessages.TIMESTAMP_NULL));
         return timestamp.toLocalDateTime();
     }
@@ -289,7 +288,7 @@ public final class DateConverter {
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
-    public static Timestamp convertLocalDateTimeToTimestamp(final LocalDateTime localDateTime) {
+    public static Timestamp convertToTimestamp(final LocalDateTime localDateTime) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL));
         return Timestamp.valueOf(localDateTime);
     }
@@ -302,9 +301,9 @@ public final class DateConverter {
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
-    public static Timestamp convertLocalDateTimeTextToTimestamp(final String localDateTimeText) {
+    public static Timestamp convertToTimestamp(final String localDateTimeText) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY));
-        LocalDateTime localDateTime = convertLocalDateTimeTextToLocalDateTime(localDateTimeText);
+        LocalDateTime localDateTime = convertToLocalDateTime(localDateTimeText);
         return Timestamp.valueOf(localDateTime);
     }
 
@@ -345,7 +344,7 @@ public final class DateConverter {
      * @throws ArithmeticException      if numeric overflow occur
      * @since 1.0.0
      */
-    public static long convertLocalDateTimeEpochMillis(final LocalDateTime localDateTime, final String timeZoneId) {
+    public static long convertToTimeEpochMillis(final LocalDateTime localDateTime, final String timeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         return localDateTime.atZone(ZoneId.of(timeZoneId)).withZoneSameInstant(ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
     }
