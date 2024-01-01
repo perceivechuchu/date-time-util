@@ -47,7 +47,7 @@ class TimeZoneUtilTests {
 
 	@Test
 	void deduceZoneOffset_CorrectZoneOffSet_RawZoneOffsetEqualToZero() {
-		String actualTimeZoneText = TimeZoneUtil.deduceZoneOffset(100000);
+		String actualTimeZoneText = TimeZoneUtil.deduceZoneOffset(0);
 		assertEquals("00:00", actualTimeZoneText);
 	}
 
