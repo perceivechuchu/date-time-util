@@ -18,6 +18,8 @@ import java.util.TimeZone;
 @SuppressWarnings("unused")
 public final class DateConverter {
 
+    private static  final String ZONE_ID_UTC = "UTC";
+
     private DateConverter() {
     }
 
@@ -35,7 +37,7 @@ public final class DateConverter {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DateFormatConstant.YYYY_MM_DD_HH_MM_SS_SSSXXX);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
         dateFormatter.format(zonedDateTime);
-        return dateFormatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of("UTC")));
+        return dateFormatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of(ZONE_ID_UTC)));
     }
 
     /**
@@ -315,7 +317,7 @@ public final class DateConverter {
      * @since 1.0.0
      */
     public static LocalDateTime convertEpochMillisToLocalDateTime(final long epochMillis) {
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), TimeZone.getDefault().toZoneId());
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), ZoneId.of(ZONE_ID_UTC));
     }
 
     /**
