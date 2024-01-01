@@ -1,4 +1,4 @@
-package za.co.stridepace.dateutil.domain;
+package za.co.stridepace.dateutil.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package za.co.stridepace.dateutil.timezone;
 
 
-import za.co.stridepace.dateutil.domain.TimeZoneDetail;
+import za.co.stridepace.dateutil.model.TimeZoneDetail;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  *
  * @since 1.0.0
  */
-public class TimeZoneUtil {
+public final class TimeZoneUtil {
 
     /**
      * The regex for time zone id prefixes
@@ -43,23 +43,7 @@ public class TimeZoneUtil {
         if (timeZones == null) {
             loadTimeZones();
         }
-        return timeZones.stream().map(timeZone -> TimeZoneDetail.getInstance(timeZone.getID(), timeZone.getDisplayName(), getTimeZoneAbbreviation(timeZone.getID()), timeZone.getRawOffset(), deduceZoneOffset(timeZone.getRawOffset()))).collect(Collectors.toList());
-    }
-
-    protected static String deduceZoneOffset(int rawOffset) {
-        double offsetHoursMinutes = rawOffset / 3600000.0;
-        String prefix = "";
-        int offsetIntegerPart = (int) offsetHoursMinutes;
-        if (offsetIntegerPart > 0) {
-          prefix = "+";
-        } else if (offsetIntegerPart < 0) {
-            prefix = "-";
-        }
-        double offsetDecimalPart = offsetHoursMinutes - offsetIntegerPart;
-        String hours = offsetIntegerPart < 10 ? "0" + Math.abs(offsetIntegerPart) : String.valueOf(offsetIntegerPart);
-        int absoluteMinutes = Math.abs((int)(offsetDecimalPart * 60));
-        String minutes = absoluteMinutes < 10 ? absoluteMinutes + "0" : String.valueOf(absoluteMinutes);
-        return prefix + hours + ":" + minutes;
+        return timeZones.stream().map(timeZone -> TimeZoneDetail.getInstance(timeZone.getID(), timeZone.getDisplayName(), getTimeZoneAbbreviation(timeZone.getID()), timeZone.getRawOffset(), ZoneOffsetUtil.deduceZoneOffset(timeZone.getRawOffset()))).collect(Collectors.toList());
     }
 
     /**
