@@ -4,7 +4,6 @@ import za.co.stridepace.dateutil.commons.model.ValidationEntry;
 import za.co.stridepace.dateutil.commons.util.ValidationUtil;
 import za.co.stridepace.dateutil.constant.DateFormatConstant;
 import za.co.stridepace.dateutil.constant.ErrorMessages;
-import za.co.stridepace.dateutil.constant.ZoneConstant;
 
 import java.sql.Timestamp;
 import java.time.*;
@@ -36,7 +35,39 @@ public final class DateConverter {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DateFormatConstant.YYYY_MM_DD_HH_MM_SS_SSSXXX);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
         dateFormatter.format(zonedDateTime);
-        return dateFormatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of(ZoneConstant.ZONE_ID_UTC)));
+        return dateFormatter.format(zonedDateTime.withZoneSameInstant(TimeZone.getDefault().toZoneId()));
+    }
+
+    /**
+     * Converts Local Date Time to UTC Zoned Date Time
+     *
+     * @param localDateTime   the local date time to be converted
+     * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
+     * @return the zoned date time obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateTimeException        if the result exceeds the supported range
+     * @since 1.0.0
+     */
+    public static ZonedDateTime convertLocalDateTimeToUTCZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
+        return localDateTime.atZone(ZoneId.of(localTimeZoneId));
+    }
+
+    /**
+     * Converts Local Date Time to Zoned Date Time. You also provide the target time zone the local date time is to be converted
+     *
+     * @param localDateTime    the local date time to be converted
+     * @param localTimeZoneId  the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
+     * @param targetTimeZoneId the target time zone id to be applied to the resulting zoned date time e.g. "Africa/Johannesburg"
+     * @return the zoned date time obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateTimeException        if the result exceeds the supported range
+     * @since 1.0.0
+     */
+    public static ZonedDateTime convertLocalDateTimeToZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY),
+                ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY));
+        return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(ZoneId.of(targetTimeZoneId));
     }
 
     /**
@@ -301,38 +332,6 @@ public final class DateConverter {
     public static long convertLocalDateTimeEpochMillis(final LocalDateTime localDateTime, final String timeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         return localDateTime.atZone(ZoneId.of(timeZoneId)).withZoneSameInstant(ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
-    }
-
-    /**
-     * Converts Local Date Time to UTC Zoned Date Time
-     *
-     * @param localDateTime   the local date time to be converted
-     * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
-     * @return the zoned date time obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeException        if the result exceeds the supported range
-     * @since 1.0.0
-     */
-    public static ZonedDateTime convertLocalDateTimeToUTCZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
-        return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(TimeZone.getDefault().toZoneId());
-    }
-
-    /**
-     * Converts Local Date Time to Zoned Date Time
-     *
-     * @param localDateTime    the local date time to be converted
-     * @param localTimeZoneId  the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
-     * @param targetTimeZoneId the target time zone id to be applied to the resulting zoned date time e.g. "Africa/Johannesburg"
-     * @return the zoned date time obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeException        if the result exceeds the supported range
-     * @since 1.0.0
-     */
-    public static ZonedDateTime convertLocalDateTimeToZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY),
-                ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY));
-        return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(ZoneId.of(targetTimeZoneId));
     }
 
     private static DateTimeFormatter getDateFormatter(final String dateFormatPattern) {

@@ -7,6 +7,8 @@ import za.co.stridepace.dateutil.constant.ErrorMessages;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -21,6 +23,23 @@ class DateConverterTests {
         LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
         String actualZonedDateTime = DateConverter.convertLocalDateTimeToUTCZonedDateTimeText(localDateTime, "Africa/Johannesburg");
         assertEquals("2023-11-10T10:00:00.254Z", actualZonedDateTime);
+    }
+
+    @Test
+    void convertLocalDateTimeToUTCZonedDateTime_ReturnCorrectlyConvertedUTCZonedDateTime_WhenLocalDateTimeIsValid() {
+        LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
+        ZonedDateTime expectedZonedDateTime = ZonedDateTime.of(2023, 11, 10, 12, 0, 0, 254000000, ZoneId.of("Africa/Johannesburg"));
+        ZonedDateTime actualZonedDateTime = DateConverter.convertLocalDateTimeToUTCZonedDateTime(localDateTime, "Africa/Johannesburg");
+        assertTrue(expectedZonedDateTime.isEqual(actualZonedDateTime));
+    }
+
+    @Test
+    void convertLocalDateTimeToZonedDateTime_ReturnCorrectlyConvertedZonedDateTime_WhenLocalDateTimeAndTimeZoneIdsAreValid() {
+        LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
+        ZonedDateTime expectedZonedDateTime = ZonedDateTime.of(2023, 11, 10, 2, 0, 0, 254000000, ZoneId.of("US/Pacific"));
+        // US/Pacific is behind Africa/Johannesburg with 10 hours
+        ZonedDateTime actualZonedDateTime = DateConverter.convertLocalDateTimeToZonedDateTime(localDateTime, "Africa/Johannesburg", "US/Pacific");
+        assertTrue(expectedZonedDateTime.isEqual(actualZonedDateTime));
     }
 
     @Test
