@@ -309,15 +309,29 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Epoch Millis to Local Date Time.
+     * Converts Epoch Millis to Local Date Time. The time zone defaults to UTC
      *
      * @param epochMillis the epoch millis to be converted
-     * @return the local date time obtained from the conversion
+     * @return the local date time obtained from the conversion. The result will be in UTC time zone
      * @throws DateTimeException if the result exceeds the supported range or if the instant exceeds the maximum or minimum instant
      * @since 1.0.0
      */
     public static LocalDateTime convertEpochMillisToLocalDateTime(final long epochMillis) {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), ZoneId.of(ZONE_ID_UTC));
+    }
+
+    /**
+     * Converts Epoch Millis to Local Date Time.
+     *
+     * @param epochMillis the epoch millis to be converted
+     * @param targetTimeZoneId the target time zone id to be applied to the resulting date time e.g. "Africa/Johannesburg"
+     * @return the local date time obtained from the conversion. The result will be converted to the supplied target time zone
+     * @throws DateTimeException if the result exceeds the supported range or if the instant exceeds the maximum or minimum instant
+     * @since 1.0.0
+     */
+    public static LocalDateTime convertEpochMillisToLocalDateTime(final long epochMillis, String targetTimeZoneId) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY));
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), ZoneId.of(targetTimeZoneId));
     }
 
     /**
