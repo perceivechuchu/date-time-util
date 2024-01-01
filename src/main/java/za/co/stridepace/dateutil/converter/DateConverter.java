@@ -2,7 +2,6 @@ package za.co.stridepace.dateutil.converter;
 
 import za.co.stridepace.dateutil.commons.model.ValidationEntry;
 import za.co.stridepace.dateutil.commons.util.ValidationUtil;
-import za.co.stridepace.dateutil.constant.DateFormatConstant;
 import za.co.stridepace.dateutil.constant.ErrorMessages;
 
 import java.sql.Timestamp;
@@ -13,11 +12,20 @@ import java.time.format.DateTimeFormatter;
  * This class is a utility for date conversions
  *
  * @since 1.0.0
+ *
+ * @author Perceive Chuchu
  */
 @SuppressWarnings("unused")
 public final class DateConverter {
 
-    private static  final String ZONE_ID_UTC = "UTC";
+    /**
+     * The zulu date format pattern
+     */
+    public static final String YYYY_MM_DD_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    /**
+     * The UTC zone id
+     */
+    private static final String ZONE_ID_UTC = "UTC";
 
     private DateConverter() {
     }
@@ -33,7 +41,7 @@ public final class DateConverter {
      */
     public static String convertToUTCZonedDateTimeText(final LocalDateTime localDateTime, final String localTimeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DateFormatConstant.YYYY_MM_DD_HH_MM_SS_SSSXXX);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(YYYY_MM_DD_HH_MM_SS_SSSXXX);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
         dateFormatter.format(zonedDateTime);
         return dateFormatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of(ZONE_ID_UTC)));
@@ -119,7 +127,7 @@ public final class DateConverter {
     /**
      * Converts Local Date text to Local Date
      *
-     * @param localDateText the local date (as text) to be converted e.g. "05/12/2023"
+     * @param localDateText     the local date (as text) to be converted e.g. "05/12/2023"
      * @param dateFormatPattern the date format pattern for the supplied local date e.g. "dd/MM/yyyy"
      * @return the local date obtained from the conversion
      * @throws IllegalArgumentException                if parameter is not valid
@@ -150,7 +158,7 @@ public final class DateConverter {
      * Converts Local Date Time text to Local Date Time
      *
      * @param localDateTimeText the local date time (as text) to be converted e.g. "18/11/2023T16:02:10"
-     * @param formatter     the formatter that holds the format pattern for the supplied local date
+     * @param formatter         the formatter that holds the format pattern for the supplied local date
      * @return the local date time obtained from the conversion.
      * @throws IllegalArgumentException                if parameter is not valid
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
@@ -195,7 +203,7 @@ public final class DateConverter {
      * Converts Local Date to Local Date Text
      *
      * @param localDate the local date to be converted
-     * @param formatter     the formatter that holds the format pattern that the local date is to be parsed
+     * @param formatter the formatter that holds the format pattern that the local date is to be parsed
      * @return the local date text obtained from the conversion
      * @throws IllegalArgumentException                if parameter is not valid
      * @throws java.time.format.DateTimeParseException if the text cannot be parsed
@@ -254,7 +262,7 @@ public final class DateConverter {
     /**
      * Converts Local Date Time to Local Date Time Text
      *
-     * @param localDateTime the local date time to be converted e.g. "05/12/2023'T'12:02:01"
+     * @param localDateTime     the local date time to be converted e.g. "05/12/2023'T'12:02:01"
      * @param dateFormatPattern the date format pattern for the supplied local date time e.g. "yyyy-MM-dd HH:mm:ss"
      * @return the local date text obtained from the conversion
      * @throws IllegalArgumentException                if parameter is not valid
@@ -322,7 +330,7 @@ public final class DateConverter {
     /**
      * Converts Epoch Millis to Local Date Time.
      *
-     * @param epochMillis the epoch millis to be converted
+     * @param epochMillis      the epoch millis to be converted
      * @param targetTimeZoneId the target time zone id to be applied to the resulting date time e.g. "Africa/Johannesburg"
      * @return the local date time obtained from the conversion. The result will be converted to the supplied target time zone
      * @throws DateTimeException if the result exceeds the supported range or if the instant exceeds the maximum or minimum instant

@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
  * ValidationEntry class holds the validation details to be used when validating parameter
  *
  * @since 1.0.0
+ *
+ * @author Perceive Chuchu
  */
 @Builder
 @Data
@@ -30,6 +32,14 @@ public class ValidationEntry {
      */
     private String message;
 
+    /**
+     * Instantiates new ValidationEntry object
+     *
+     * @param value the value to validate
+     * @param message message to respond with when validation fails
+     * @return the new ValidationEntry object
+     * @since 1.0.0
+     */
     public static ValidationEntry getInstance(Object value, String message) {
         return new ValidationEntry(value, message);
     }

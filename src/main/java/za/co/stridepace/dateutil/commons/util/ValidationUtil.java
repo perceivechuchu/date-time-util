@@ -9,6 +9,8 @@ import java.util.Objects;
  * This class is a utility for validating input parameters
  *
  * @since 1.0.0
+ *
+ * @author Perceive Chuchu
  */
 public final class ValidationUtil {
 

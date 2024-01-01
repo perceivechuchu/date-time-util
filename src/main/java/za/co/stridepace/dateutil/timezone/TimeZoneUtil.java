@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
  * This class is a utility for time zones
  *
  * @since 1.0.0
+ *
+ * @author Perceive Chuchu
  */
 public final class TimeZoneUtil {
 
@@ -65,6 +67,7 @@ public final class TimeZoneUtil {
     /**
      * Checks is a time zone id is valid
      *
+     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the boolean value showing the validation result: "true or false"
      * @since 1.0.0
      */
@@ -82,6 +85,7 @@ public final class TimeZoneUtil {
     /**
      * Gets abbreviation for a time zone
      *
+     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the abbreviation for a time zone e.g. abbreviation for zone id "Africa/Johannesburg" is "SAST"
      * @since 1.0.0
      */

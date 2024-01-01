@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
  * TimeZoneDetail class holds the time zone details. The fields contain values transformed/mapped from java.util.TimeZone
  *
  * @since 1.0.0
+ *
+ * @author Perceive Chuchu
  */
 @Builder
 @Data

@@ -6,6 +6,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * @author Perceive Chuchu
+ */
 @ExtendWith(MockitoExtension.class)
 class ZoneOffsetUtilTests {
 
