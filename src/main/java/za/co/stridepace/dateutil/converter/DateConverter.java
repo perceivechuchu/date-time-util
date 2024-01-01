@@ -16,6 +16,7 @@ import java.util.TimeZone;
  *
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public final class DateConverter {
 
     private DateConverter() {
@@ -275,7 +276,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Epoch Millis to Local Date Time
+     * Converts Epoch Millis to Local Date Time.
      *
      * @param epochMillis the epoch millis to be converted
      * @return the local date time obtained from the conversion
