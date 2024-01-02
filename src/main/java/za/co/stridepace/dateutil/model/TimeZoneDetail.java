@@ -26,7 +26,7 @@ public class TimeZoneDetail {
     private String id;
 
     /**
-     * The display name for a time zone e.g. "Africa/Johannesburg"
+     * The display name for a time zone e.g. "South Africa Standard Time"
      *
      * @since 1.0.0
      */
@@ -40,7 +40,7 @@ public class TimeZoneDetail {
     private String abbreviation;
 
     /**
-     * The difference in milliseconds from Coordinated Universal Time (UTC) e.g. "19800000"
+     * The difference in milliseconds from Coordinated Universal Time (UTC) e.g. "7200000"
      *
      * @since 1.0.0
      */
@@ -56,11 +56,11 @@ public class TimeZoneDetail {
     /**
      * Gets an instance of a time zone detail
      *
-     * @param id           the id for a time zone
-     * @param displayName  the display name for a time zone e.g. "Africa/Johannesburg"
+     * @param id           the id for a time zone e.g. "Africa/Johannesburg"
+     * @param displayName  the display name for a time zone e.g. "South Africa Standard Time"
      * @param abbreviation the abbreviation for a time zone e.g. "SAST"
-     * @param offsetMillis the difference in milliseconds from Coordinated Universal Time (UTC)
-     * @param offsetText   the difference in hours and minutes from Coordinated Universal Time (UTC)
+     * @param offsetMillis the difference in milliseconds from Coordinated Universal Time (UTC) e.g. "7200000"
+     * @param offsetText   the difference in hours and minutes from Coordinated Universal Time (UTC) e.g. "+02:00"
      * @return the new time zone detail that has been instantiated
      * @since 1.0.0
      */

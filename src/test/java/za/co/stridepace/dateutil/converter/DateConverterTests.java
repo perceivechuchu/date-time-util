@@ -220,9 +220,9 @@ class DateConverterTests {
     }
 
     @Test
-    void convertLocalDateTimeEpochMillis_ReturnCorrectlyConvertedEpochMillis_WhenEpochMillisIsValid() {
+    void convertLocalDateTimeToEpochTimeMillis_ReturnCorrectlyConvertedEpochMillis_WhenEpochMillisIsValid() {
         LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 1, 18, 1, 23);
-        long actualEpochMillis = DateConverter.convertToTimeEpochMillis(localDateTime, "Africa/Johannesburg");
+        long actualEpochMillis = DateConverter.convertLocalDateTimeToEpochTimeMillis(localDateTime, "Africa/Johannesburg");
         assertEquals(1704124883000L, actualEpochMillis);
     }
 

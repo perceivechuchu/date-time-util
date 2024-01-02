@@ -22,6 +22,7 @@ class TimeZoneUtilTests {
         assertNotNull(timeZones);
         // Verify that Time Zone with Zone Id (Africa/Johannesburg) exists in the list
         TimeZoneDetail timeZone = timeZones.stream().filter(timeZoneDetail -> timeZoneDetail.getId().equals("Africa/Johannesburg")).collect(Collectors.toList()).get(0);
+        System.out.println(timeZone);
         assertEquals(7200000, timeZone.getOffsetMillis());
         assertEquals("+02:00", timeZone.getOffsetText());
         assertEquals("SAST", timeZone.getAbbreviation());
@@ -30,8 +31,20 @@ class TimeZoneUtilTests {
 
     @Test
     void isValidTimeZoneId_ReturnTrue_WhenTimeZoneIdIsValid() {
-        TimeZoneUtil.getAllTimeZones();
         assertTrue(TimeZoneUtil.isValidTimeZoneId("Africa/Johannesburg"));
+    }
+
+    @Test
+    void getTimeZoneAbbreviation_ReturnTimeZoneAbbreviation_WhenValidTimeZoneValueIsReceived() {
+        assertEquals("SAST", TimeZoneUtil.getTimeZoneAbbreviation("Africa/Johannesburg"));
+    }
+
+    @Test
+    void searchByOffsetText_ReturnCorrectTimeZoneDetailsList_WhenValidOffsetTextIsReceived() {
+        List<TimeZoneDetail> timeZoneDetails = TimeZoneUtil.searchTimeZonesByOffsetText("+02:00");
+        assertFalse(timeZoneDetails.isEmpty());
+        List<String> abbreviationList = timeZoneDetails.stream().map(TimeZoneDetail::getAbbreviation).collect(Collectors.toList());
+        assertTrue(abbreviationList.contains("SAST"));
     }
 
 }

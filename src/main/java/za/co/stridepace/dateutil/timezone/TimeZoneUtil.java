@@ -1,12 +1,12 @@
 package za.co.stridepace.dateutil.timezone;
 
 
+import za.co.stridepace.dateutil.commons.model.ValidationEntry;
+import za.co.stridepace.dateutil.commons.util.ValidationUtil;
+import za.co.stridepace.dateutil.constant.ErrorMessages;
 import za.co.stridepace.dateutil.model.TimeZoneDetail;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -65,32 +65,46 @@ public final class TimeZoneUtil {
     }
 
     /**
-     * Checks is a time zone id is valid
+     * Checks if a time zone id is valid
      *
      * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the boolean value showing the validation result: "true or false"
+     * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
     public static boolean isValidTimeZoneId(String timeZoneId) {
-        boolean flag = false;
-        for (TimeZone tomeZone : timeZones) {
-            if (tomeZone.getID().equals(timeZoneId)) {
-                flag = true;
-                break;
-            }
-        }
-        return flag;
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        return Objects.nonNull(java.util.TimeZone.getTimeZone(timeZoneId));
     }
 
     /**
-     * Gets abbreviation for a time zone
+     * Gets the abbreviation for a time zone
      *
      * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the abbreviation for a time zone e.g. abbreviation for zone id "Africa/Johannesburg" is "SAST"
+     * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
     public static String getTimeZoneAbbreviation(String timeZoneId) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        if (!isValidTimeZoneId(timeZoneId)) {
+            throw new IllegalArgumentException(ErrorMessages.TIME_ZONE_ID_INVALID);
+        }
         return java.util.TimeZone.getTimeZone(timeZoneId).getDisplayName(false, java.util.TimeZone.SHORT);
+    }
+
+    /**
+     * Search time zones by the offset text e.g. search by "+02:00"
+     *
+     * @param offsetText    The difference in hours and minutes from Coordinated Universal Time (UTC) e.g. "+02:00"
+     * @return the list of time zone details
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 1.0.0
+     */
+    public static List<TimeZoneDetail> searchTimeZonesByOffsetText(String offsetText) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(offsetText, ErrorMessages.TIME_OFFSET_TEXT_EMPTY));
+        List<TimeZoneDetail> timeZoneDetails = TimeZoneUtil.getAllTimeZones();
+        return timeZoneDetails.stream().filter(timeZoneDetail -> timeZoneDetail.getOffsetText().equals(offsetText)).collect(Collectors.toList());
     }
 
 }

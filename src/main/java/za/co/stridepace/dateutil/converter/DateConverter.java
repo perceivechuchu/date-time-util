@@ -31,7 +31,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time to UTC Zoned Date Time in text
+     * Converts a LocalDateTime object to UTC ZonedDateTime in textual format
      *
      * @param localDateTime   the local date time to be converted.
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
@@ -48,7 +48,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time to UTC Zoned Date Time
+     * Converts a LocalDateTime object to a UTC ZonedDateTime object
      *
      * @param localDateTime   the local date time to be converted
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
@@ -63,7 +63,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time to Zoned Date Time. You also provide the target time zone the local date time is to be converted
+     * Converts a LocalDateTime object to a ZonedDateTime object
      *
      * @param localDateTime    the local date time to be converted
      * @param localTimeZoneId  the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
@@ -80,7 +80,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts UTC Zoned Date Time (Zulu time) to Local Date Time for the supplied Zone Id
+     * Converts a UTC ZonedDateTime object (Zulu time) to LocalDateTime in textual format
      *
      * @param zonedDateTimeText the zoned date time text to be converted e.g. "2023-11-10T10:00:00.254Z"
      * @param localZoneId       the local time zone id for the supplied zoned date time e.g. "Africa/Johannesburg"
@@ -96,7 +96,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date text to Local Date. The string must represent a valid date and is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE
+     * Converts LocalDate in textual format with default date formatter to a LocalDate object. The string parameter must represent a valid date and is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE
      *
      * @param localDateText the local date (as text) to be converted e.g. "2023-12-05"
      * @return the local date obtained from the conversion
@@ -110,7 +110,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date text to Local Date
+     * Converts LocalDate in textual format with supplied date formatter to a LocalDate object
      *
      * @param localDateText the local date (as text) to be converted e.g. "2023-12-05"
      * @param formatter     the formatter that holds the format pattern for the supplied local date
@@ -125,7 +125,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date text to Local Date
+     * Converts LocalDate in textual format with supplied date format pattern to a LocalDate object
      *
      * @param localDateText     the local date (as text) to be converted e.g. "05/12/2023"
      * @param dateFormatPattern the date format pattern for the supplied local date e.g. "dd/MM/yyyy"
@@ -141,7 +141,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time text to Local Date Time. The string must represent a valid date and is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE_TIME
+     * Converts LocalDateTime in textual format with default date formatter to a LocalDateTime object. The string must represent a valid date and is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE_TIME
      *
      * @param localDateTimeText the local date time (as text) to be converted e.g. "2023-12-08T16:02:10"
      * @return the local date time obtained from the conversion.
@@ -155,7 +155,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time text to Local Date Time
+     * Converts LocalDateTime in textual format with supplied date formatter to a LocalDateTime object
      *
      * @param localDateTimeText the local date time (as text) to be converted e.g. "18/11/2023T16:02:10"
      * @param formatter         the formatter that holds the format pattern for the supplied local date
@@ -170,7 +170,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time text to Local Date Time
+     * Converts LocalDateTime in textual format with supplied date format pattern to a LocalDateTime object
      *
      * @param localDateTimeText the local date time (as text) to be converted e.g. "18/11/2023T16:02:10"
      * @param dateFormatPattern the date time format pattern for the supplied local date time e.g. "dd/MM/yyyy'T'HH:mm:ss"
@@ -186,7 +186,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date to Local Date Text. The local date is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE
+     * Converts a LocalDate object with default date formatter to LocalDate in textual format. The local date is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE
      *
      * @param localDate the local date to be converted
      * @return the local date text obtained from the conversion
@@ -200,7 +200,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date to Local Date Text
+     * Converts a LocalDate object with supplied date formatter to LocalDate in textual format
      *
      * @param localDate the local date to be converted
      * @param formatter the formatter that holds the format pattern that the local date is to be parsed
@@ -215,7 +215,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date to Local Date Text
+     * Converts a LocalDate object with supplied date format pattern to LocalDate in textual format
      *
      * @param localDate         the local date to be converted e.g. "05/12/2023"
      * @param dateFormatPattern the date format pattern for the supplied local date e.g. "dd/MM/yyyy"
@@ -231,7 +231,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time to Local Date Time Text
+     * Converts a LocalDateTime object with default date formatter to LocalDateTime in textual format
      *
      * @param localDateTime the local date time to be converted
      * @return the local date text obtained from the conversion
@@ -245,7 +245,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time to Local Date Time Text
+     * Converts a LocalDateTime object with supplied date formatter to LocalDateTime in textual format
      *
      * @param localDateTime the local date time to be converted
      * @param formatter     the formatter that holds the format pattern that the local date is to be parsed
@@ -260,7 +260,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time to Local Date Time Text
+     * Converts a LocalDateTime object with supplied date format pattern to LocalDateTime in textual format
      *
      * @param localDateTime     the local date time to be converted e.g. "05/12/2023'T'12:02:01"
      * @param dateFormatPattern the date format pattern for the supplied local date time e.g. "yyyy-MM-dd HH:mm:ss"
@@ -276,7 +276,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Timestamp to Local Date Time
+     * Converts a Timestamp object to a LocalDateTime object
      *
      * @param timestamp the local date time to be converted
      * @return the local date time obtained from the conversion
@@ -289,7 +289,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time to Timestamp
+     * Converts a LocalDateTime object to a Timestamp object
      *
      * @param localDateTime the local date time to be converted
      * @return the timestamp obtained from the conversion
@@ -302,7 +302,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time text to Timestamp
+     * Converts LocalDateTime in textual format to a Timestamp object
      *
      * @param localDateTimeText the local date time text to be converted
      * @return the timestamp obtained from the conversion
@@ -316,7 +316,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Epoch Millis to Local Date Time. The time zone defaults to UTC
+     * Converts an Epoch time value in milliseconds with default zone (UTC) to a LocalDateTime object (Epoch is the number of seconds that have elapsed since 00:00:00 UTC on 1 January 1970). The time zone for the resulting LocalDateTime is defaulted to UTC
      *
      * @param epochMillis the epoch millis to be converted
      * @return the local date time obtained from the conversion. The result will be in UTC time zone
@@ -328,11 +328,12 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Epoch Millis to Local Date Time.
+     * Converts an Epoch time value in milliseconds with supplied zone id to a LocalDateTime object
      *
      * @param epochMillis      the epoch millis to be converted
      * @param targetTimeZoneId the target time zone id to be applied to the resulting date time e.g. "Africa/Johannesburg"
      * @return the local date time obtained from the conversion. The result will be converted to the supplied target time zone
+     * @throws IllegalArgumentException if parameter is not valid
      * @throws DateTimeException if the result exceeds the supported range or if the instant exceeds the maximum or minimum instant
      * @since 1.0.0
      */
@@ -342,7 +343,7 @@ public final class DateConverter {
     }
 
     /**
-     * Converts Local Date Time to Epoch Millis
+     * Converts a LocalDateTime object to Epoch time value in milliseconds
      *
      * @param localDateTime the local date time to be converted
      * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
@@ -352,7 +353,7 @@ public final class DateConverter {
      * @throws ArithmeticException      if numeric overflow occur
      * @since 1.0.0
      */
-    public static long convertToTimeEpochMillis(final LocalDateTime localDateTime, final String timeZoneId) {
+    public static long convertLocalDateTimeToEpochTimeMillis(final LocalDateTime localDateTime, final String timeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         return localDateTime.atZone(ZoneId.of(timeZoneId)).withZoneSameInstant(ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
     }
