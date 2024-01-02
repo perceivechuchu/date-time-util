@@ -43,6 +43,7 @@
 		<junit.platform.version>1.7.0</junit.platform.version>
 		<lombok.version>1.18.28</lombok.version>
 		<commons-lang3.version>3.12.0</commons-lang3.version>
+		<jacoco-version>0.8.11</jacoco-version>
 	</properties>
 
 	<dependencies>
@@ -218,6 +219,31 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>**/model/*</exclude>
+						<exclude>**/constant/*</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -282,6 +308,18 @@
 						<reports>
 							<report>pmd</report>
 							<report>cpd</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-version}</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report</report>
 						</reports>
 					</reportSet>
 				</reportSets>

@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
  * @author Perceive Chuchu
  */
 @SuppressWarnings("unused")
-public final class DateConverter {
+public class DateConverter {
 
     /**
      * The zulu date format pattern
@@ -358,12 +358,17 @@ public final class DateConverter {
         return localDateTime.atZone(ZoneId.of(timeZoneId)).withZoneSameInstant(ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
     }
 
-    private static DateTimeFormatter getDateFormatter(final String dateFormatPattern) {
-        try {
-            return DateTimeFormatter.ofPattern(dateFormatPattern);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid date format pattern supplied -> " + dateFormatPattern);
-        }
+    /**
+     * Converts a date format pattern to a DateTimeFormatter object
+     *
+     * @param dateFormatPattern the date format pattern in textual format e.g. "yyyy-MM-dd HH:mm:ss"
+     * @return the date time formatter object
+     * @throws IllegalArgumentException if date format pattern is not valid
+     * @since 1.0.0
+     */
+    protected static DateTimeFormatter getDateFormatter(final String dateFormatPattern) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
+        return DateTimeFormatter.ofPattern(dateFormatPattern);
     }
 
 }

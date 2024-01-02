@@ -37,7 +37,7 @@ public class ErrorMessages {
     /**
      * The error message for empty invalid timeZoneId parameter validation
      */
-    public static final String TIME_ZONE_ID_INVALID = "Parameter timeZoneId cannot be empty";
+    public static final String TIME_ZONE_ID_INVALID = "Parameter timeZoneId is invalid";
 
     /**
      * The error message for empty localZoneId parameter validation

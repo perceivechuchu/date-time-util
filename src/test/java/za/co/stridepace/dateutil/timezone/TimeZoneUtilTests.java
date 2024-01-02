@@ -3,8 +3,11 @@ package za.co.stridepace.dateutil.timezone;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import za.co.stridepace.dateutil.constant.ErrorMessages;
+import za.co.stridepace.dateutil.converter.DateConverter;
 import za.co.stridepace.dateutil.model.TimeZoneDetail;
 
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,8 +38,32 @@ class TimeZoneUtilTests {
     }
 
     @Test
+    void isValidTimeZoneId_ReturnFalse_WhenTimeZoneIdIsInvalid() {
+        assertFalse(TimeZoneUtil.isValidTimeZoneId("invalid_timezone_id"));
+    }
+
+    @Test
+    void isValidTimeZoneId_ReturnTrue_WhenTimeZoneIdIsGMT() {
+        assertTrue(TimeZoneUtil.isValidTimeZoneId("GMT"));
+    }
+
+    @Test
     void getTimeZoneAbbreviation_ReturnTimeZoneAbbreviation_WhenValidTimeZoneValueIsReceived() {
         assertEquals("SAST", TimeZoneUtil.getTimeZoneAbbreviation("Africa/Johannesburg"));
+    }
+
+    @Test
+    void etTimeZoneAbbreviation_ThrowIllegalArgumentException_WhenLocalDateTimeTextIsNull() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> TimeZoneUtil.getTimeZoneAbbreviation(null));
+        assertNotNull(illegalArgumentException);
+        assertEquals(ErrorMessages.TIME_ZONE_ID_EMPTY, illegalArgumentException.getMessage());
+    }
+
+    @Test
+    void getTimeZoneAbbreviation_ThrowIllegalArgumentException_WhenLocalDateTimeTextIsInvalid() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> TimeZoneUtil.getTimeZoneAbbreviation("invalid_timezone_id"));
+        assertNotNull(illegalArgumentException);
+        assertEquals(ErrorMessages.TIME_ZONE_ID_INVALID, illegalArgumentException.getMessage());
     }
 
     @Test

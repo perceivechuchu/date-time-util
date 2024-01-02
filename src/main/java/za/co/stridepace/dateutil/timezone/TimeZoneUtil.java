@@ -6,6 +6,8 @@ import za.co.stridepace.dateutil.commons.util.ValidationUtil;
 import za.co.stridepace.dateutil.constant.ErrorMessages;
 import za.co.stridepace.dateutil.model.TimeZoneDetail;
 
+import java.time.DateTimeException;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,13 @@ public final class TimeZoneUtil {
      * @since 1.0.0
      */
     private static final String TIMEZONE_ID_PREFIXES = "^(Africa|America|Asia|Atlantic|Australia|Europe|Indian|Pacific)/.*";
+
+    /**
+     * The GMT time zone value
+     *
+     * @since 1.0.0
+     */
+    private static final String ZONE_ID_GMT = "GMT";
 
     /**
      * The list that holds the retrieved time zones
@@ -74,7 +83,7 @@ public final class TimeZoneUtil {
      */
     public static boolean isValidTimeZoneId(String timeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
-        return Objects.nonNull(java.util.TimeZone.getTimeZone(timeZoneId));
+        return (timeZoneId.equals(ZONE_ID_GMT) || !TimeZone.getTimeZone(timeZoneId).getID().equals(ZONE_ID_GMT));
     }
 
     /**
@@ -90,7 +99,8 @@ public final class TimeZoneUtil {
         if (!isValidTimeZoneId(timeZoneId)) {
             throw new IllegalArgumentException(ErrorMessages.TIME_ZONE_ID_INVALID);
         }
-        return java.util.TimeZone.getTimeZone(timeZoneId).getDisplayName(false, java.util.TimeZone.SHORT);
+        TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
+        return timeZone.getDisplayName(false, java.util.TimeZone.SHORT);
     }
 
     /**

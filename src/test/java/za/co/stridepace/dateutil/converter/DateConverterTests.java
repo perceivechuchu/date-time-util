@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import za.co.stridepace.dateutil.constant.ErrorMessages;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -206,6 +207,29 @@ class DateConverterTests {
     }
 
     @Test
+    void convertToLocalDateTime_ReturnCorrectlyConvertedLocalDateTime_WhenTimestampIsValid() {
+        LocalDateTime expectedLocalDateTime = LocalDateTime.of(2024, 1, 1, 16, 1, 23);
+        Timestamp timestamp = Timestamp.valueOf("2024-01-01 16:01:23.0");
+        LocalDateTime actualLocalDateTime = DateConverter.convertToLocalDateTime(timestamp);
+        assertTrue(expectedLocalDateTime.isEqual(actualLocalDateTime));
+    }
+
+    @Test
+    void convertToTimestamp_ReturnCorrectlyConvertedTimestamp_WhenValidLocalDateTimeIsSupplied() {
+        Timestamp expectedTimestamp = Timestamp.valueOf("2024-01-01 16:01:23.0");
+        LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 1, 16, 1, 23);
+        Timestamp actualTimestamp = DateConverter.convertToTimestamp(localDateTime);
+        assertEquals(expectedTimestamp, actualTimestamp);
+    }
+
+    @Test
+    void convertToTimestamp_ReturnCorrectlyConvertedTimestamp_WhenValidLocalDateTimeTextIsSupplied() {
+        Timestamp expectedTimestamp = Timestamp.valueOf("2024-01-01 16:01:23.0");
+        Timestamp actualTimestamp = DateConverter.convertToTimestamp("2024-01-01T16:01:23");
+        assertEquals(expectedTimestamp, actualTimestamp);
+    }
+
+    @Test
     void convertEpochMillisToLocalDateTime_ReturnCorrectlyConvertedLocalDateTime_WhenEpochMillisIsValid() {
         LocalDateTime expectedLocalDateTime = LocalDateTime.of(2024, 1, 1, 16, 1, 23);
         LocalDateTime actualLocalDateTime = DateConverter.convertEpochMillisToLocalDateTime(1704124883000L);
@@ -224,6 +248,24 @@ class DateConverterTests {
         LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 1, 18, 1, 23);
         long actualEpochMillis = DateConverter.convertLocalDateTimeToEpochTimeMillis(localDateTime, "Africa/Johannesburg");
         assertEquals(1704124883000L, actualEpochMillis);
+    }
+
+    @Test
+    void getDateFormatter_ReturnDateFormatter_WhenValidDateFormatPatternIsSupplied() {
+        DateTimeFormatter dateTimeFormatter =  DateConverter.getDateFormatter("dd/MM/yyyy'T'HH:mm:ss");
+        assertNotNull(dateTimeFormatter);
+    }
+
+    @Test
+    void getDateFormatter_IllegalArgumentException_WhenInvalidDateFormatPatternIsSupplied() {
+        assertThrows(IllegalArgumentException.class, () -> DateConverter.getDateFormatter("invalid pattern"));
+    }
+
+    @Test
+    void getDateFormatter_IllegalArgumentException_WhenNullDateFormatPatternIsSupplied() {
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateConverter.getDateFormatter(null));
+        assertNotNull(illegalArgumentException);
+        assertEquals(ErrorMessages.DATE_FORMAT_PATTERN_EMPTY, illegalArgumentException.getMessage());
     }
 
 }
