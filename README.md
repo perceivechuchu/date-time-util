@@ -28,9 +28,17 @@ String dateFormatPattern = "dd/MM/yyyy";
 LocalDate localDate = convertToLocalDate(localDateText, dateFormatPattern);
 ```
 
+Licence
+=======
+The repository code is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
 Author
 ======
 Perceive Chuchu [perceivechuchu@gmail.com](mailto:perceivechuchu@gmail.com) with :green_heart:
+
+Feedback
+========
+Please [leave your feedback](https://github.com/perceivechuchu/date-util/issues) if you have noticed any issue or have a feature request.
 
 Contributions and Support
 =========================
