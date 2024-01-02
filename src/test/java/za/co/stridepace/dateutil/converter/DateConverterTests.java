@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import za.co.stridepace.dateutil.constant.ErrorMessages;
+import za.co.stridepace.dateutil.exception.DateConversionException;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -11,7 +12,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,6 +38,14 @@ class DateConverterTests {
     }
 
     @Test
+    void convertToLocalDateTimeWithZone_ThrowDateConversionException_WhenUTCZoneDateTimeIsInvalid() {
+        LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToUTCZonedDateTime(localDateTime, "invalid_timezone"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
+    }
+
+    @Test
     void convertToZonedDateTime_ReturnCorrectlyConvertedZonedDateTime_WhenLocalDateTimeAndTimeZoneIdsAreValid() {
         LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
         ZonedDateTime expectedZonedDateTime = ZonedDateTime.of(2023, 11, 10, 2, 0, 0, 254000000, ZoneId.of("US/Pacific"));
@@ -47,7 +55,15 @@ class DateConverterTests {
     }
 
     @Test
-    void  convertToLocalDateTimeWithZone_ReturnCorrectlyConvertedLocalDateTime_WhenUTCZoneDateTimeTextIsValid() {
+    void convertToZonedDateTime_ThrowDateConversionException_WhenLocalTimeZoneIdIsInvalid() {
+        LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToZonedDateTime(localDateTime, "invalid_timezone", "US/Pacific"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
+    }
+
+    @Test
+    void convertToLocalDateTimeWithZone_ReturnCorrectlyConvertedLocalDateTime_WhenUTCZoneDateTimeTextIsValid() {
         LocalDateTime localDateTime = DateConverter.convertToLocalDateTimeWithZone("2023-11-10T10:00:00.254Z", "Africa/Johannesburg");
         assertNotNull(localDateTime);
         assertEquals("2023-11-10T12:00:00.254", localDateTime.toString());
@@ -66,9 +82,10 @@ class DateConverterTests {
     }
 
     @Test
-    void convertToLocalDateTimeWithZone_ThrowDateTimeParseException_WhenUTCZoneDateTimeTextIsInvalid() {
-        DateTimeParseException dateTimeParseException = assertThrows(DateTimeParseException.class, () -> DateConverter.convertToLocalDateTimeWithZone("2023-11-10T10:00:00.254", "Africa/Johannesburg"));
-        assertNotNull(dateTimeParseException);
+    void convertToLocalDateTimeWithZone_ThrowDateConversionException_WhenUTCZoneDateTimeTextIsInvalid() {
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToLocalDateTimeWithZone("2023-11-10T10:00:00.254", "Africa/Johannesburg"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
     }
 
     @Test
@@ -86,9 +103,10 @@ class DateConverterTests {
     }
 
     @Test
-    void convertToLocalDate_ThrowDateTimeParseException_WhenLocalDateTextIsInvalid() {
-        DateTimeParseException dateTimeParseException = assertThrows(DateTimeParseException.class, () -> DateConverter.convertToLocalDate("2023-50-05"));
-        assertNotNull(dateTimeParseException);
+    void convertToLocalDate_ThrowDateConversionException_WhenLocalDateTextIsInvalid() {
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToLocalDate("2023-50-05"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
     }
 
     @Test
@@ -100,10 +118,25 @@ class DateConverterTests {
     }
 
     @Test
+    void convertToLocalDate2_ThrowDateConversionException_WhenLocalDateTextIsInvalid() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToLocalDate("2023-50-05", formatter));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
+    }
+
+    @Test
     void convertToLocalDate_ReturnCorrectlyConvertedLocalDate_WhenBothLocalDateTextAndDateFormatPatternAreValid() {
         LocalDate actualLocalDate = DateConverter.convertToLocalDate("05/12/2023", "dd/MM/yyyy");
         LocalDate expectedLocalDate = LocalDate.of(2023, 12, 5);
         assertTrue(actualLocalDate.isEqual(expectedLocalDate));
+    }
+
+    @Test
+    void convertToLocalDate3_ThrowDateConversionException_WhenLocalDateTextIsInvalid() {
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToLocalDate("2023-50-05", "dd/MM/yyyy"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
     }
 
     @Test
@@ -122,10 +155,25 @@ class DateConverterTests {
     }
 
     @Test
+    void convertToLocalDateTime2_ThrowDateConversionException_WhenLocalDateTimeTextIsInvalid() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss");
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToLocalDateTime("18/50/2023T16:02:10", formatter));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
+    }
+
+    @Test
     void convertToLocalDateTimeWithPattern_ReturnCorrectlyConvertedLocalDateTime_WhenLocalDateTimeTextAndDateFormatPatternAreValid() {
         LocalDateTime actualLocalDateTime = DateConverter.convertToLocalDateTimeWithPattern("18/11/2023T16:02:10", "dd/MM/yyyy'T'HH:mm:ss");
         LocalDateTime expectedLocalDateTime = LocalDateTime.of(2023, 11, 18, 16, 2, 10);
         assertTrue(actualLocalDateTime.isEqual(expectedLocalDateTime));
+    }
+
+    @Test
+    void convertToLocalDateTimeWithPattern_ThrowDateConversionException_WhenLocalDateTimeTextIsInvalid() {
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToLocalDateTimeWithPattern("18/50/2023T16:02:10", "dd/MM/yyyy'T'HH:mm:ss"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
     }
 
     @Test
@@ -136,34 +184,34 @@ class DateConverterTests {
     }
 
     @Test
-    void convertToLocalDateTime_ThrowDateTimeParseException_WhenLocalDateTimeTextIsInvalid() {
-        DateTimeParseException dateTimeParseException = assertThrows(DateTimeParseException.class, () -> DateConverter.convertToLocalDateTime("18/11/2023 16:02:10"));
+    void convertToLocalDateTime_ThrowDateConversionException_WhenLocalDateTimeTextIsInvalid() {
+        DateConversionException dateTimeParseException = assertThrows(DateConversionException.class, () -> DateConverter.convertToLocalDateTime("18/11/2023 16:02:10"));
         assertNotNull(dateTimeParseException);
     }
 
     @Test
-    void convertLocalDateToLocalDateText_ReturnCorrectlyConvertedLocalDateText_WhenLocalDateIsValid() {
+    void convertToLocalDateText_ReturnCorrectlyConvertedLocalDateText_WhenLocalDateIsValid() {
         LocalDate localDate = LocalDate.of(2023, 12, 5);
         String actualLocalDateText = DateConverter.convertToLocalDateText(localDate);
         assertEquals("2023-12-05", actualLocalDateText);
     }
 
     @Test
-    void convertLocalDateToLocalDateText_ThrowIllegalArgumentException_WhenLocalDateIsNull() {
+    void convertToLocalDateText_ThrowIllegalArgumentException_WhenLocalDateIsNull() {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateConverter.convertToLocalDateText(null));
         assertNotNull(illegalArgumentException);
         assertEquals(ErrorMessages.LOCAL_DATE_NULL, illegalArgumentException.getMessage());
     }
 
     @Test
-    void convertLocalDateToLocalDateText_ReturnCorrectlyConvertedLocalDateText_WhenBothLocalDateIsValid() {
+    void convertToLocalDateText_ReturnCorrectlyConvertedLocalDateText_WhenBothLocalDateIsValid() {
         LocalDate localDate = LocalDate.of(2023, 12, 5);
         String actualLocalDateText = DateConverter.convertToLocalDateText(localDate);
         assertEquals("2023-12-05", actualLocalDateText);
     }
 
     @Test
-    void convertLocalDateToLocalDateText_ReturnCorrectlyConvertedLocalDateText_WhenBothLocalDateAndFormatterAreValid() {
+    void convertToLocalDateText_ReturnCorrectlyConvertedLocalDateText_WhenBothLocalDateAndFormatterAreValid() {
         LocalDate localDate = LocalDate.of(2023, 12, 5);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String actualLocalDateText = DateConverter.convertToLocalDateText(localDate, formatter);
@@ -171,28 +219,28 @@ class DateConverterTests {
     }
 
     @Test
-    void convertLocalDateToLocalDateText_ReturnCorrectlyConvertedLocalDateText_WhenBothLocalDateTextAndDateFormatPatternAreValid() {
+    void convertToLocalDateText_ReturnCorrectlyConvertedLocalDateText_WhenBothLocalDateTextAndDateFormatPatternAreValid() {
         LocalDate localDate = LocalDate.of(2023, 12, 5);
         String actualLocalDateText = DateConverter.convertToLocalDateText(localDate, "dd/MM/yyyy");
         assertEquals("05/12/2023", actualLocalDateText);
     }
 
     @Test
-    void convertLocalDateTimeToLocalDateTimeText_ThrowIllegalArgumentException_WhenLocalDateTimeIsNull() {
+    void convertToLocalDateTimeText_ThrowIllegalArgumentException_WhenLocalDateTimeIsNull() {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateConverter.convertToLocalDateTimeText(null));
         assertNotNull(illegalArgumentException);
         assertEquals(ErrorMessages.LOCAL_DATE_TIME_NULL, illegalArgumentException.getMessage());
     }
 
     @Test
-    void convertLocalDateTimeToLocalDateTimeText_ReturnCorrectlyConvertedLocalDateTimeText_WhenBothLocalDateTimeIsValid() {
+    void convertToLocalDateTimeText_ReturnCorrectlyConvertedLocalDateTimeText_WhenBothLocalDateTimeIsValid() {
         LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
         String actualLocalDateTimeText = DateConverter.convertToLocalDateTimeText(localDateTime);
         assertEquals("2023-12-05T16:02:10", actualLocalDateTimeText);
     }
 
     @Test
-    void convertLocalDateTimeToLocalDateTimeText_ReturnCorrectlyConvertedLocalDateTimeText_WhenBothLocalDateTimeAndFormatterAreValid() {
+    void convertToLocalDateTimeText_ReturnCorrectlyConvertedLocalDateTimeText_WhenBothLocalDateTimeAndFormatterAreValid() {
         LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss");
         String actualLocalDateText = DateConverter.convertToLocalDateTimeText(localDateTime, formatter);
@@ -200,7 +248,7 @@ class DateConverterTests {
     }
 
     @Test
-    void convertLocalDateTimeToLocalDateTimeText_ReturnCorrectlyConvertedLocalDateTimeText_WhenBothLocalDateTimeTextAndDateFormatPatternAreValid() {
+    void convertToLocalDateTimeText_ReturnCorrectlyConvertedLocalDateTimeText_WhenBothLocalDateTimeTextAndDateFormatPatternAreValid() {
         LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
         String actualLocalDateText = DateConverter.convertToLocalDateTimeText(localDateTime, "dd/MM/yyyy'T'HH:mm:ss");
         assertEquals("05/12/2023T16:02:10", actualLocalDateText);
@@ -244,15 +292,30 @@ class DateConverterTests {
     }
 
     @Test
+    void convertEpochMillisToLocalDateTime_ThrowDateConversionException_WhenTimezoneIdIsInvalid() {
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertEpochMillisToLocalDateTime(1704124883000L, "invalid_timezone_id"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
+    }
+
+    @Test
     void convertLocalDateTimeToEpochTimeMillis_ReturnCorrectlyConvertedEpochMillis_WhenEpochMillisIsValid() {
         LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 1, 18, 1, 23);
-        long actualEpochMillis = DateConverter.convertLocalDateTimeToEpochTimeMillis(localDateTime, "Africa/Johannesburg");
+        long actualEpochMillis = DateConverter.convertLocalDateTimeToEpochMillis(localDateTime, "Africa/Johannesburg");
         assertEquals(1704124883000L, actualEpochMillis);
     }
 
     @Test
+    void convertLocalDateTimeToEpochTimeMillis_ThrowDateConversionException_WhenTimezoneIdIsInvalid() {
+        LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 1, 18, 1, 23);
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertLocalDateTimeToEpochMillis(localDateTime, "invalid_timezone_id"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
+    }
+
+    @Test
     void getDateFormatter_ReturnDateFormatter_WhenValidDateFormatPatternIsSupplied() {
-        DateTimeFormatter dateTimeFormatter =  DateConverter.getDateFormatter("dd/MM/yyyy'T'HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateConverter.getDateFormatter("dd/MM/yyyy'T'HH:mm:ss");
         assertNotNull(dateTimeFormatter);
     }
 

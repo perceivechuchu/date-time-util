@@ -81,7 +81,7 @@ public final class TimeZoneUtil {
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
-    public static boolean isValidTimeZoneId(String timeZoneId) {
+    public static boolean isValidTimeZoneId(final String timeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         return (timeZoneId.equals(ZONE_ID_GMT) || !TimeZone.getTimeZone(timeZoneId).getID().equals(ZONE_ID_GMT));
     }
@@ -94,7 +94,7 @@ public final class TimeZoneUtil {
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
-    public static String getTimeZoneAbbreviation(String timeZoneId) {
+    public static String getTimeZoneAbbreviation(final String timeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         if (!isValidTimeZoneId(timeZoneId)) {
             throw new IllegalArgumentException(ErrorMessages.TIME_ZONE_ID_INVALID);
@@ -111,7 +111,7 @@ public final class TimeZoneUtil {
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
-    public static List<TimeZoneDetail> searchTimeZonesByOffsetText(String offsetText) {
+    public static List<TimeZoneDetail> searchTimeZonesByOffsetText(final String offsetText) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(offsetText, ErrorMessages.TIME_OFFSET_TEXT_EMPTY));
         List<TimeZoneDetail> timeZoneDetails = TimeZoneUtil.getAllTimeZones();
         return timeZoneDetails.stream().filter(timeZoneDetail -> timeZoneDetail.getOffsetText().equals(offsetText)).collect(Collectors.toList());

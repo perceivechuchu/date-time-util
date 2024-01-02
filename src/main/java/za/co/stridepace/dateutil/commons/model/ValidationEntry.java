@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ValidationEntry class holds the validation details to be used when validating parameter
+ * ValidationEntry class holds the value and message during parameter validation
  *
  * @since 1.0.0
  *

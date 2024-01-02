@@ -18,10 +18,10 @@ public final class ValidationUtil {
     }
 
     /**
-     * Validates and rejects empty input parameter
+     * Validates and rejects null or empty input parameter
      *
      * @param value   the value of the input
-     * @param message message to return in case of the field being blank (This is optional)
+     * @param message message to return in case of the field being null or empty (This is optional)
      * @throws IllegalArgumentException if parameter is empty
      * @since 1.0.0
      */
@@ -32,7 +32,7 @@ public final class ValidationUtil {
     }
 
     /**
-     * Validates and rejects empty input parameters
+     * Validates and rejects null or empty input parameters
      *
      * @param validationEntries the value of the input
      * @throws IllegalArgumentException if parameter is empty

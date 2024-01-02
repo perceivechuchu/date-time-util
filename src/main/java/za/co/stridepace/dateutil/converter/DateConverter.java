@@ -3,6 +3,7 @@ package za.co.stridepace.dateutil.converter;
 import za.co.stridepace.dateutil.commons.model.ValidationEntry;
 import za.co.stridepace.dateutil.commons.util.ValidationUtil;
 import za.co.stridepace.dateutil.constant.ErrorMessages;
+import za.co.stridepace.dateutil.exception.DateConversionException;
 
 import java.sql.Timestamp;
 import java.time.*;
@@ -11,9 +12,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * This class is a utility for date conversions
  *
- * @since 1.0.0
- *
  * @author Perceive Chuchu
+ * @since 1.0.0
  */
 @SuppressWarnings("unused")
 public class DateConverter {
@@ -33,9 +33,9 @@ public class DateConverter {
     /**
      * Converts a LocalDateTime object to UTC ZonedDateTime in textual format
      *
-     * @param localDateTime   the local date time to be converted.
+     * @param localDateTime   the local date time to be converted
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
-     * @return the local date time text obtained from the conversion.
+     * @return the local date time in textual format obtained from the conversion e.g. "2023-11-10T10:00:00.254Z"
      * @throws IllegalArgumentException exception thrown when required parameter is missing.
      * @since 1.0.0
      */
@@ -52,14 +52,18 @@ public class DateConverter {
      *
      * @param localDateTime   the local date time to be converted
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
-     * @return the zoned date time obtained from the conversion
+     * @return the zoned date time object obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeException        if the result exceeds the supported range
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static ZonedDateTime convertToUTCZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
-        return localDateTime.atZone(ZoneId.of(localTimeZoneId));
+        try {
+            return localDateTime.atZone(ZoneId.of(localTimeZoneId));
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
@@ -67,131 +71,161 @@ public class DateConverter {
      *
      * @param localDateTime    the local date time to be converted
      * @param localTimeZoneId  the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
-     * @param targetTimeZoneId the target time zone id to be applied to the resulting zoned date time e.g. "Africa/Johannesburg"
-     * @return the zoned date time obtained from the conversion
+     * @param targetTimeZoneId the target time zone id to be applied to the resulting zoned date time e.g. "US/Pacific"
+     * @return the zoned date time object obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeException        if the result exceeds the supported range
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static ZonedDateTime convertToZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY),
-                ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY));
-        return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(ZoneId.of(targetTimeZoneId));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY), ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY));
+        try {
+            return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(ZoneId.of(targetTimeZoneId));
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
      * Converts a UTC ZonedDateTime object (Zulu time) to LocalDateTime in textual format
      *
-     * @param zonedDateTimeText the zoned date time text to be converted e.g. "2023-11-10T10:00:00.254Z"
+     * @param zonedDateTimeText the zoned date time in textual format to be converted e.g. "2023-11-10T10:00:00.254Z"
      * @param localZoneId       the local time zone id for the supplied zoned date time e.g. "Africa/Johannesburg"
-     * @return the local date time obtained from the conversion
+     * @return the local date time object obtained from the conversion
      * @throws IllegalArgumentException exception thrown when required parameter is missing
-     * @throws DateTimeException        exception thrown if the result exceeds the supported date range
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTimeWithZone(final String zonedDateTimeText, final String localZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(zonedDateTimeText, ErrorMessages.ZONED_DATE_TIME_TEXT), ValidationEntry.getInstance(localZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
-        ZonedDateTime zonedDateTime = ZonedDateTime.parse(zonedDateTimeText).withZoneSameInstant(ZoneId.of(localZoneId));
-        return zonedDateTime.toLocalDateTime();
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(zonedDateTimeText, ErrorMessages.ZONED_DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(localZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
+        try {
+            ZonedDateTime zonedDateTime = ZonedDateTime.parse(zonedDateTimeText).withZoneSameInstant(ZoneId.of(localZoneId));
+            return zonedDateTime.toLocalDateTime();
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
      * Converts LocalDate in textual format with default date formatter to a LocalDate object. The string parameter must represent a valid date and is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE
      *
-     * @param localDateText the local date (as text) to be converted e.g. "2023-12-05"
+     * @param localDateText the local date in textual format to be converted e.g. "2023-12-05"
      * @return the local date obtained from the conversion
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY));
-        return LocalDate.parse(localDateText);
+        try {
+            return LocalDate.parse(localDateText);
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
      * Converts LocalDate in textual format with supplied date formatter to a LocalDate object
      *
-     * @param localDateText the local date (as text) to be converted e.g. "2023-12-05"
+     * @param localDateText the local date in textual format to be converted e.g. "2023-12-05"
      * @param formatter     the formatter that holds the format pattern for the supplied local date
      * @return the local date obtained from the conversion
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText, final DateTimeFormatter formatter) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
-        return LocalDate.parse(localDateText, formatter);
+        try {
+            return LocalDate.parse(localDateText, formatter);
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
      * Converts LocalDate in textual format with supplied date format pattern to a LocalDate object
      *
-     * @param localDateText     the local date (as text) to be converted e.g. "05/12/2023"
+     * @param localDateText     the local date in textual format to be converted e.g. "05/12/2023"
      * @param dateFormatPattern the date format pattern for the supplied local date e.g. "dd/MM/yyyy"
      * @return the local date obtained from the conversion
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText, final String dateFormatPattern) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
-        DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
-        return LocalDate.parse(localDateText, formatter);
+        try {
+            DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
+            return LocalDate.parse(localDateText, formatter);
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
      * Converts LocalDateTime in textual format with default date formatter to a LocalDateTime object. The string must represent a valid date and is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE_TIME
      *
-     * @param localDateTimeText the local date time (as text) to be converted e.g. "2023-12-08T16:02:10"
+     * @param localDateTimeText the local date time in textual format to be converted e.g. "2023-12-08T16:02:10"
      * @return the local date time obtained from the conversion.
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTime(final String localDateTimeText) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY));
-        return LocalDateTime.parse(localDateTimeText);
+        try {
+            return LocalDateTime.parse(localDateTimeText);
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
      * Converts LocalDateTime in textual format with supplied date formatter to a LocalDateTime object
      *
-     * @param localDateTimeText the local date time (as text) to be converted e.g. "18/11/2023T16:02:10"
+     * @param localDateTimeText the local date time in textual format to be converted e.g. "18/11/2023T16:02:10"
      * @param formatter         the formatter that holds the format pattern for the supplied local date
-     * @return the local date time obtained from the conversion.
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @return the local date time object obtained from the conversion.
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTime(final String localDateTimeText, final DateTimeFormatter formatter) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
-        return LocalDateTime.parse(localDateTimeText, formatter);
+        try {
+            return LocalDateTime.parse(localDateTimeText, formatter);
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
      * Converts LocalDateTime in textual format with supplied date format pattern to a LocalDateTime object
      *
-     * @param localDateTimeText the local date time (as text) to be converted e.g. "18/11/2023T16:02:10"
+     * @param localDateTimeText the local date time in textual format to be converted e.g. "18/11/2023T16:02:10"
      * @param dateFormatPattern the date time format pattern for the supplied local date time e.g. "dd/MM/yyyy'T'HH:mm:ss"
-     * @return the local date time obtained from the conversion.
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @return the local date time object obtained from the conversion.
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTimeWithPattern(final String localDateTimeText, final String dateFormatPattern) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
-        DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
-        return LocalDateTime.parse(localDateTimeText, formatter);
+        try {
+            DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
+            return LocalDateTime.parse(localDateTimeText, formatter);
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
-     * Converts a LocalDate object with default date formatter to LocalDate in textual format. The local date is parsed using formatter DateTimeFormatter.ISO_LOCAL_DATE
+     * Converts a LocalDate object with default date formatter to LocalDate in textual format.
      *
-     * @param localDate the local date to be converted
+     * @param localDate the local date object to be converted
      * @return the local date text obtained from the conversion
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
     public static String convertToLocalDateText(final LocalDate localDate) {
@@ -202,11 +236,11 @@ public class DateConverter {
     /**
      * Converts a LocalDate object with supplied date formatter to LocalDate in textual format
      *
-     * @param localDate the local date to be converted
+     * @param localDate the local date object to be converted
      * @param formatter the formatter that holds the format pattern that the local date is to be parsed
      * @return the local date text obtained from the conversion
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateTimeException        if an error occurs during printing
      * @since 1.0.0
      */
     public static String convertToLocalDateText(final LocalDate localDate, final DateTimeFormatter formatter) {
@@ -217,11 +251,11 @@ public class DateConverter {
     /**
      * Converts a LocalDate object with supplied date format pattern to LocalDate in textual format
      *
-     * @param localDate         the local date to be converted e.g. "05/12/2023"
+     * @param localDate         the local date object to be converted e.g. "05/12/2023"
      * @param dateFormatPattern the date format pattern for the supplied local date e.g. "dd/MM/yyyy"
      * @return the local date text obtained from the conversion
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateTimeException        if an error occurs during printing
      * @since 1.0.0
      */
     public static String convertToLocalDateText(final LocalDate localDate, final String dateFormatPattern) {
@@ -233,10 +267,9 @@ public class DateConverter {
     /**
      * Converts a LocalDateTime object with default date formatter to LocalDateTime in textual format
      *
-     * @param localDateTime the local date time to be converted
+     * @param localDateTime the local date time object to be converted
      * @return the local date text obtained from the conversion
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
     public static String convertToLocalDateTimeText(final LocalDateTime localDateTime) {
@@ -250,8 +283,8 @@ public class DateConverter {
      * @param localDateTime the local date time to be converted
      * @param formatter     the formatter that holds the format pattern that the local date is to be parsed
      * @return the local date text obtained from the conversion
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateTimeException        if an error occurs during printing
      * @since 1.0.0
      */
     public static String convertToLocalDateTimeText(final LocalDateTime localDateTime, final DateTimeFormatter formatter) {
@@ -262,11 +295,11 @@ public class DateConverter {
     /**
      * Converts a LocalDateTime object with supplied date format pattern to LocalDateTime in textual format
      *
-     * @param localDateTime     the local date time to be converted e.g. "05/12/2023'T'12:02:01"
-     * @param dateFormatPattern the date format pattern for the supplied local date time e.g. "yyyy-MM-dd HH:mm:ss"
-     * @return the local date text obtained from the conversion
-     * @throws IllegalArgumentException                if parameter is not valid
-     * @throws java.time.format.DateTimeParseException if the text cannot be parsed
+     * @param localDateTime     the local date time object to be converted
+     * @param dateFormatPattern the date format pattern for the supplied local date time e.g. "dd/MM/yyyy'T'HH:mm:ss"
+     * @return the local date text obtained from the conversion  e.g. "05/12/2023T16:02:10"
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateTimeException        if an error occurs during printing
      * @since 1.0.0
      */
     public static String convertToLocalDateTimeText(final LocalDateTime localDateTime, final String dateFormatPattern) {
@@ -278,8 +311,8 @@ public class DateConverter {
     /**
      * Converts a Timestamp object to a LocalDateTime object
      *
-     * @param timestamp the local date time to be converted
-     * @return the local date time obtained from the conversion
+     * @param timestamp the timestamp object to be converted
+     * @return the local date time object obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
@@ -291,8 +324,8 @@ public class DateConverter {
     /**
      * Converts a LocalDateTime object to a Timestamp object
      *
-     * @param localDateTime the local date time to be converted
-     * @return the timestamp obtained from the conversion
+     * @param localDateTime the local date time object to be converted
+     * @return the timestamp object obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
@@ -305,7 +338,7 @@ public class DateConverter {
      * Converts LocalDateTime in textual format to a Timestamp object
      *
      * @param localDateTimeText the local date time text to be converted
-     * @return the timestamp obtained from the conversion
+     * @return the timestamp object obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
      */
@@ -318,9 +351,8 @@ public class DateConverter {
     /**
      * Converts an Epoch time value in milliseconds with default zone (UTC) to a LocalDateTime object (Epoch is the number of seconds that have elapsed since 00:00:00 UTC on 1 January 1970). The time zone for the resulting LocalDateTime is defaulted to UTC
      *
-     * @param epochMillis the epoch millis to be converted
-     * @return the local date time obtained from the conversion. The result will be in UTC time zone
-     * @throws DateTimeException if the result exceeds the supported range or if the instant exceeds the maximum or minimum instant
+     * @param epochMillis the epoch time value to be converted, in milliseconds
+     * @return the local date time object obtained from the conversion. The result will be in UTC time zone
      * @since 1.0.0
      */
     public static LocalDateTime convertEpochMillisToLocalDateTime(final long epochMillis) {
@@ -330,16 +362,20 @@ public class DateConverter {
     /**
      * Converts an Epoch time value in milliseconds with supplied zone id to a LocalDateTime object
      *
-     * @param epochMillis      the epoch millis to be converted
+     * @param epochMillis      the epoch time value to be converted, in milliseconds
      * @param targetTimeZoneId the target time zone id to be applied to the resulting date time e.g. "Africa/Johannesburg"
      * @return the local date time obtained from the conversion. The result will be converted to the supplied target time zone
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeException if the result exceeds the supported range or if the instant exceeds the maximum or minimum instant
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertEpochMillisToLocalDateTime(final long epochMillis, String targetTimeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY));
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), ZoneId.of(targetTimeZoneId));
+        try {
+            return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), ZoneId.of(targetTimeZoneId));
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**
@@ -347,15 +383,18 @@ public class DateConverter {
      *
      * @param localDateTime the local date time to be converted
      * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
-     * @return the epoch millis time obtained from the conversion
+     * @return the epoch millis time value obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeException        if the result exceeds the supported range or if the instant exceeds the maximum or minimum instant
-     * @throws ArithmeticException      if numeric overflow occur
+     * @throws DateConversionException  if the date conversion fails
      * @since 1.0.0
      */
-    public static long convertLocalDateTimeToEpochTimeMillis(final LocalDateTime localDateTime, final String timeZoneId) {
+    public static long convertLocalDateTimeToEpochMillis(final LocalDateTime localDateTime, final String timeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
-        return localDateTime.atZone(ZoneId.of(timeZoneId)).withZoneSameInstant(ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
+        try {
+            return localDateTime.atZone(ZoneId.of(timeZoneId)).withZoneSameInstant(ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
+        } catch (Exception e) {
+            throw new DateConversionException(e.getMessage());
+        }
     }
 
     /**

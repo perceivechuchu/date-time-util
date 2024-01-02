@@ -25,9 +25,9 @@ public class ErrorMessages {
     public static final String LOCAL_DATE_TEXT_EMPTY = "Parameter localDateText cannot be null";
 
     /**
-     * The error message for null localDateTimeText parameter validation
+     * The error message for empty localDateTimeText parameter validation
      */
-    public static final String LOCAL_DATE_TIME_TEXT_EMPTY = "Parameter localDateTimeText cannot be null";
+    public static final String LOCAL_DATE_TIME_TEXT_EMPTY = "Parameter localDateTimeText cannot be empty";
 
     /**
      * The error message for empty timeZoneId parameter validation
@@ -52,7 +52,7 @@ public class ErrorMessages {
     /**
      * The error message for empty zonedDateTimeText parameter validation
      */
-    public static final String ZONED_DATE_TIME_TEXT = "Parameter zonedDateTimeText cannot be empty";
+    public static final String ZONED_DATE_TIME_TEXT_EMPTY = "Parameter zonedDateTimeText cannot be empty";
 
     /**
      * The error message for null formatter parameter validation

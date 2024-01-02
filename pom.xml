@@ -241,6 +241,7 @@
 					<excludes>
 						<exclude>**/model/*</exclude>
 						<exclude>**/constant/*</exclude>
+						<exclude>**/exception/*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -354,6 +355,7 @@
 				</reportSets>
 				<configuration>
 					<doclint>none</doclint>
+					<source>8</source>
 				</configuration>
 			</plugin>
 			<plugin>

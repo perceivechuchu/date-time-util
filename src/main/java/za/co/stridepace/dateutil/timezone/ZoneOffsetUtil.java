@@ -17,7 +17,7 @@ public class ZoneOffsetUtil {
      * @return the calculated string offset
      * @since 1.0.0
      */
-    protected static String deduceZoneOffset(int rawOffset) {
+    protected static String deduceZoneOffset(final int rawOffset) {
         double offsetHoursMinutes = rawOffset / 3600000.0;
         String prefix = "";
         int offsetIntegerPart = (int) offsetHoursMinutes;
