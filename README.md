@@ -73,7 +73,7 @@ LocalDate localDate = DateConverter.convertToLocalDate("2023-12-05");
 Usage:
 ```
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-LocalDate localDate = convertToLocalDate("05/12/2023", formatter);
+LocalDate localDate = DateConverter.convertToLocalDate("05/12/2023", formatter);
 // Output: (LocalDate object")
 ```
 
@@ -212,7 +212,7 @@ LocalDateTime localDateTime = DateConverter.convertEpochMillisToLocalDateTime(17
 Usage:
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
-long epochMillis = convertLocalDateTimeToEpochTimeMillis(localDateTime, "Africa/Johannesburg");
+long epochMillis = DateConverter.convertLocalDateTimeToEpochTimeMillis(localDateTime, "Africa/Johannesburg");
 // Output: 1704124883000L
 ```
 
@@ -247,7 +247,7 @@ String abbreviation = TimeZoneUtil.getTimeZoneAbbreviation("Africa/Johannesburg"
 Usage:
 ```
 // Get all the time zones that are 2 hours from UTC
-List<TimeZoneDetail> timeZones = searchTimeZonesByOffsetText("+02:00")
+List<TimeZoneDetail> timeZones = TimeZoneUtil.searchTimeZonesByOffsetText("+02:00")
 // Output: "List of TimeZoneDetail objects"
 ```
 
