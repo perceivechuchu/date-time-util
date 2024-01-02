@@ -40,7 +40,7 @@ class DateConverterTests {
     @Test
     void convertToLocalDateTimeWithZone_ThrowDateConversionException_WhenUTCZoneDateTimeIsInvalid() {
         LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
-        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToUTCZonedDateTime(localDateTime, "invalid_timezone"));
+        DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertToUTCZonedDateTime(localDateTime, "invalid_timezone_id"));
         assertNotNull(dateConversionException);
         assertNotNull(dateConversionException.getMessage());
     }
@@ -292,7 +292,7 @@ class DateConverterTests {
     }
 
     @Test
-    void convertEpochMillisToLocalDateTime_ThrowDateConversionException_WhenTimezoneIdIsInvalid() {
+    void convertEpochMillisToLocalDateTime_ThrowDateConversionException_WhenTimeZoneIdIsInvalid() {
         DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertEpochMillisToLocalDateTime(1704124883000L, "invalid_timezone_id"));
         assertNotNull(dateConversionException);
         assertNotNull(dateConversionException.getMessage());
@@ -306,7 +306,7 @@ class DateConverterTests {
     }
 
     @Test
-    void convertLocalDateTimeToEpochTimeMillis_ThrowDateConversionException_WhenTimezoneIdIsInvalid() {
+    void convertLocalDateTimeToEpochTimeMillis_ThrowDateConversionException_WhenTimeZoneIdIsInvalid() {
         LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 1, 18, 1, 23);
         DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertLocalDateTimeToEpochMillis(localDateTime, "invalid_timezone_id"));
         assertNotNull(dateConversionException);

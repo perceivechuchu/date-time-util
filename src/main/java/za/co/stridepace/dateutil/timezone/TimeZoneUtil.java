@@ -6,17 +6,17 @@ import za.co.stridepace.dateutil.commons.util.ValidationUtil;
 import za.co.stridepace.dateutil.constant.ErrorMessages;
 import za.co.stridepace.dateutil.model.TimeZoneDetail;
 
-import java.time.DateTimeException;
-import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 /**
  * This class is a utility for time zones
  *
- * @since 1.0.0
- *
  * @author Perceive Chuchu
+ * @since 1.0.0
  */
 public final class TimeZoneUtil {
 
@@ -76,7 +76,7 @@ public final class TimeZoneUtil {
     /**
      * Checks if a time zone id is valid
      *
-     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @param timeZoneId the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the boolean value showing the validation result: "true or false"
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
@@ -89,7 +89,7 @@ public final class TimeZoneUtil {
     /**
      * Gets the abbreviation for a time zone
      *
-     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @param timeZoneId the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the abbreviation for a time zone e.g. abbreviation for zone id "Africa/Johannesburg" is "SAST"
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
@@ -106,7 +106,7 @@ public final class TimeZoneUtil {
     /**
      * Search time zones by the offset text e.g. search by "+02:00"
      *
-     * @param offsetText    The difference in hours and minutes from Coordinated Universal Time (UTC) e.g. "+02:00"
+     * @param offsetText The difference in hours and minutes from Coordinated Universal Time (UTC) e.g. "+02:00"
      * @return the list of time zone details
      * @throws IllegalArgumentException if parameter is not valid
      * @since 1.0.0
