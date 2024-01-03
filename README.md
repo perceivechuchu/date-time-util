@@ -24,7 +24,8 @@ Features & Usage
 ========
 This library provides the following features:  
 
-## 1. DateConverter <br /><br />
+## 1. DateConverter 
+<br />
 
 * **Converting a LocalDateTime object to UTC ZonedDateTime in textual format**
 
@@ -239,7 +240,8 @@ long epochMillis = DateConverter.convertLocalDateTimeToEpochTimeMillis(localDate
 ```
 <br />
 
-## 2. TimeZoneUtil <br /><br />
+## 2. TimeZoneUtil 
+<br />
 
 * **Gets all available time zones**
 
