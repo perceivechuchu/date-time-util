@@ -28,8 +28,6 @@ This library provides the following features:
 <br />
 
 * **Converting a LocalDateTime object to UTC ZonedDateTime in textual format**
-
-Usage:
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
 String zonedDateTimeText = DateConverter.convertToUTCZonedDateTimeText(localDateTime, "Africa/Johannesburg");
@@ -38,8 +36,6 @@ String zonedDateTimeText = DateConverter.convertToUTCZonedDateTimeText(localDate
 <br />
 
 * **Converting a LocalDateTime object to a UTC ZonedDateTime object**
-
-Usage:
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
 ZonedDateTime zonedDateTime = DateConverter.convertToUTCZonedDateTime(localDateTime, "Africa/Johannesburg");
@@ -48,8 +44,6 @@ ZonedDateTime zonedDateTime = DateConverter.convertToUTCZonedDateTime(localDateT
 <br />
 
 * **Converting a LocalDateTime object to a ZonedDateTime object**
-
-Usage:
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
 ZonedDateTime zonedDateTime = DateConverter.convertToZonedDateTime(localDateTime, "Africa/Johannesburg", "US/Pacific");
@@ -58,8 +52,6 @@ ZonedDateTime zonedDateTime = DateConverter.convertToZonedDateTime(localDateTime
 <br />
 
 * **Converting a UTC ZonedDateTime object (Zulu time) to LocalDateTime in textual format**
-
-Usage:
 ```
 ZonedDateTime zonedDateTime = DateConverter.convertToLocalDateTimeWithZone("2023-11-10T10:00:00.254Z", "Africa/Johannesburg");
 // Output: (ZonedDateTime object with zone -> "Africa/Johannesburg");
@@ -67,8 +59,6 @@ ZonedDateTime zonedDateTime = DateConverter.convertToLocalDateTimeWithZone("2023
 <br />
 
 * **Converting LocalDate in textual format with default date formatter to a LocalDate object**
-
-Usage:
 ```
 LocalDate localDate = DateConverter.convertToLocalDate("2023-12-05");
 // Output: (LocalDate object")
@@ -76,8 +66,6 @@ LocalDate localDate = DateConverter.convertToLocalDate("2023-12-05");
 <br />
 
 * **Converting LocalDate in textual format with supplied date formatter to a LocalDate object**
-
-Usage:
 ```
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 LocalDate localDate = DateConverter.convertToLocalDate("05/12/2023", formatter);
@@ -86,8 +74,6 @@ LocalDate localDate = DateConverter.convertToLocalDate("05/12/2023", formatter);
 <br />
 
 * **Converting LocalDate in textual format with supplied date format pattern to a LocalDate object**
-
-Usage:
 ```
 LocalDate localDate = DateConverter.convertToLocalDate("05/12/2023", "dd/MM/yyyy");
 // Output: (LocalDate object")
@@ -95,8 +81,6 @@ LocalDate localDate = DateConverter.convertToLocalDate("05/12/2023", "dd/MM/yyyy
 <br />
 
 * **Converting LocalDateTime in textual format with default date formatter to a LocalDateTime object**
-
-Usage:
 ```
 LocalDateTime localDateTime = DateConverter.convertToLocalDateTime("2023-11-18T16:02:10");
 // Output: (LocalDateTime object")
@@ -104,8 +88,6 @@ LocalDateTime localDateTime = DateConverter.convertToLocalDateTime("2023-11-18T1
 <br />
 
 * **Converting LocalDateTime in textual format with supplied date formatter to a LocalDateTime object**
-
-Usage:
 ```
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss");
 LocalDateTime localDateTime = DateConverter.convertToLocalDateTime("18/11/2023T16:02:10", formatter);
@@ -114,8 +96,6 @@ LocalDateTime localDateTime = DateConverter.convertToLocalDateTime("18/11/2023T1
 <br />
 
 * **Converting LocalDateTime in textual format with supplied date format pattern to a LocalDateTime object**
-
-Usage:
 ```
 LocalDateTime localDateTime = DateConverter.convertToLocalDateTimeWithPattern("18/11/2023T16:02:10", "dd/MM/yyyy'T'HH:mm:ss");
 // Output: (LocalDateTime object")
@@ -123,8 +103,6 @@ LocalDateTime localDateTime = DateConverter.convertToLocalDateTimeWithPattern("1
 <br />
 
 * **Converting a LocalDate object with default date formatter to LocalDate in textual format**
-
-Usage:
 ```
 LocalDate localDate = LocalDate.of(2023, 12, 5);
 String localDateText = DateConverter.convertToLocalDateText(localDate);
@@ -133,8 +111,6 @@ String localDateText = DateConverter.convertToLocalDateText(localDate);
 <br />
 
 * **Converting a LocalDate object with supplied date formatter to LocalDate in textual format**
-
-Usage:
 ```
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 LocalDate localDate = LocalDate.of(2023, 12, 5);
@@ -144,8 +120,6 @@ String localDateText = DateConverter.convertToLocalDateText(localDate, formatter
 <br />
 
 * **Converting a LocalDate object with supplied date format pattern to LocalDate in textual format**
-
-Usage:
 ```
 LocalDate localDate = LocalDate.of(2023, 12, 5);
 String localDateText = DateConverter.convertToLocalDateText(localDate, "dd/MM/yyyy");
@@ -154,8 +128,6 @@ String localDateText = DateConverter.convertToLocalDateText(localDate, "dd/MM/yy
 <br />
 
 * **Converting a LocalDateTime object with default date formatter to LocalDateTime in textual format**
-
-Usage:
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
 String localDateText = DateConverter.convertToLocalDateTimeText(localDateTime);
@@ -164,8 +136,6 @@ String localDateText = DateConverter.convertToLocalDateTimeText(localDateTime);
 <br />
 
 * **Converting a LocalDateTime object with supplied date formatter to LocalDateTime in textual format**
-
-Usage:
 ```
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss");
 String localDateTimeText = DateConverter.convertToLocalDateTimeText(localDateTime, formatter);
@@ -174,8 +144,6 @@ String localDateTimeText = DateConverter.convertToLocalDateTimeText(localDateTim
 <br />
 
 * **Converting a LocalDateTime object with supplied date format pattern to LocalDateTime in textual format**
-
-Usage:
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
 String localDateTimeText = DateConverter.convertToLocalDateTimeText(localDateTime, "dd/MM/yyyy'T'HH:mm:ss");
@@ -184,8 +152,6 @@ String localDateTimeText = DateConverter.convertToLocalDateTimeText(localDateTim
 <br />
 
 * **Converting a Timestamp object to a LocalDateTime object**
-
-Usage:
 ```
 Timestamp timestampObject = ...
 LocalDateTime localDateTime = DateConverter.convertToLocalDateTime(timestampObject);
@@ -194,8 +160,6 @@ LocalDateTime localDateTime = DateConverter.convertToLocalDateTime(timestampObje
 <br />
 
 * **Converting a LocalDateTime object to a Timestamp object**
-
-Usage:
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
 Timestamp timestamp = DateConverter.convertToTimestamp(localDateTime);
@@ -204,8 +168,6 @@ Timestamp timestamp = DateConverter.convertToTimestamp(localDateTime);
 <br />
 
 * **Converting LocalDateTime in textual format to a Timestamp object**
-
-Usage:
 ```
 Timestamp timestamp = DateConverter.convertToTimestamp("2023-12-05T16:02:10");
 // Output: (Timestamp object)
@@ -213,8 +175,6 @@ Timestamp timestamp = DateConverter.convertToTimestamp("2023-12-05T16:02:10");
 <br />
 
 * **Converting an Epoch time value in milliseconds with default zone (UTC) to a LocalDateTime object**
-
-Usage:
 ```
 LocalDateTime localDateTime = DateConverter.convertEpochMillisToLocalDateTime(1704124883000L);
 // Output: (LocalDateTime object)
@@ -222,8 +182,6 @@ LocalDateTime localDateTime = DateConverter.convertEpochMillisToLocalDateTime(17
 <br />
 
 * **Converting an Epoch time value in milliseconds with supplied zone id to a LocalDateTime object**
-
-Usage:
 ```
 LocalDateTime localDateTime = DateConverter.convertEpochMillisToLocalDateTime(1704124883000L, "Africa/Johannesburg");
 // Output: (LocalDateTime object)
@@ -231,8 +189,6 @@ LocalDateTime localDateTime = DateConverter.convertEpochMillisToLocalDateTime(17
 <br />
 
 * **Converting a LocalDateTime object to Epoch time value in milliseconds**
-
-Usage:
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
 long epochMillis = DateConverter.convertLocalDateTimeToEpochTimeMillis(localDateTime, "Africa/Johannesburg");
@@ -244,8 +200,6 @@ long epochMillis = DateConverter.convertLocalDateTimeToEpochTimeMillis(localDate
 <br />
 
 * **Gets all available time zones**
-
-Usage:
 ```
 List<TimeZoneDetail> timeZoneDetails = TimeZoneUtil.getAllTimeZones();
 // Output: (List of TimeZoneDetail objects)
@@ -253,8 +207,6 @@ List<TimeZoneDetail> timeZoneDetails = TimeZoneUtil.getAllTimeZones();
 <br />
 
 * **Checks if a time zone id is valid**
-
-Usage:
 ```
 boolean valid = TimeZoneUtil.isValidTimeZoneId("Africa/Johannesburg");
 // Output: true
@@ -262,8 +214,6 @@ boolean valid = TimeZoneUtil.isValidTimeZoneId("Africa/Johannesburg");
 <br />
 
 * **Gets the abbreviation for a time zone**
-
-Usage:
 ```
 String abbreviation = TimeZoneUtil.getTimeZoneAbbreviation("Africa/Johannesburg");
 // Output: "SAST"
@@ -271,14 +221,11 @@ String abbreviation = TimeZoneUtil.getTimeZoneAbbreviation("Africa/Johannesburg"
 <br />
 
 * **Search time zones by the offset text e.g. search by "+02:00"**
-
-Usage:
 ```
 // Get all the time zones that are 2 hours from UTC
 List<TimeZoneDetail> timeZones = TimeZoneUtil.searchTimeZonesByOffsetText("+02:00")
 // Output: "List of TimeZoneDetail objects"
 ```
-<br />
 
 <br /> TimeZoneDetails class is below, showing all the fields:
 
