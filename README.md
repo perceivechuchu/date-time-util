@@ -12,7 +12,7 @@ The artifact is available on Maven Central and can be added to the project's pom
 
 ```xml
 <dependency>
-    <groupId>za.co.stridepace</groupId>
+    <groupId>io.github.perceivechuchu</groupId>
     <artifactId>date-util</artifactId>
     <version>1.0.0</version>
 </dependency>
