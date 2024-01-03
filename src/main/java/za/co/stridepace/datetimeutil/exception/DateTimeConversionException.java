@@ -1,4 +1,4 @@
-package za.co.stridepace.dateutil.exception;
+package za.co.stridepace.datetimeutil.exception;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * DateConversionException is thrown when date conversion fails
+ * DateTimeConversionException is thrown when date conversion fails
  *
  * @since 1.0.0
  *
@@ -16,7 +16,7 @@ import lombok.ToString;
 @Builder
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class DateConversionException extends RuntimeException {
+public class DateTimeConversionException extends RuntimeException {
 
     /**
      * the message that is returned when the exception is thrown
@@ -26,12 +26,12 @@ public class DateConversionException extends RuntimeException {
     private final String message;
 
     /**
-     * the constructor that instantiates an instance of DateConversionException
+     * the constructor that instantiates an instance of DateTimeConversionException
      *
      * @param message the message that is returned when the exception is thrown
      * @since 1.0.0
      */
-    public DateConversionException(String message) {
+    public DateTimeConversionException(String message) {
         super(message);
         this.message = message;
     }

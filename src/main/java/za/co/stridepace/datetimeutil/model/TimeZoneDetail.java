@@ -1,4 +1,4 @@
-package za.co.stridepace.dateutil.model;
+package za.co.stridepace.datetimeutil.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

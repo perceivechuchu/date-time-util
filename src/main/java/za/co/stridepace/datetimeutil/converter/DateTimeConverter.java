@@ -1,9 +1,9 @@
-package za.co.stridepace.dateutil.converter;
+package za.co.stridepace.datetimeutil.converter;
 
-import za.co.stridepace.dateutil.commons.model.ValidationEntry;
-import za.co.stridepace.dateutil.commons.util.ValidationUtil;
-import za.co.stridepace.dateutil.constant.ErrorMessages;
-import za.co.stridepace.dateutil.exception.DateConversionException;
+import za.co.stridepace.datetimeutil.commons.model.ValidationEntry;
+import za.co.stridepace.datetimeutil.commons.util.ValidationUtil;
+import za.co.stridepace.datetimeutil.constant.ErrorMessages;
+import za.co.stridepace.datetimeutil.exception.DateTimeConversionException;
 
 import java.sql.Timestamp;
 import java.time.*;
@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
-public class DateConverter {
+public class DateTimeConverter {
 
     /**
      * The zulu date format pattern
@@ -27,7 +27,7 @@ public class DateConverter {
      */
     private static final String ZONE_ID_UTC = "UTC";
 
-    private DateConverter() {
+    private DateTimeConverter() {
     }
 
     /**
@@ -54,7 +54,7 @@ public class DateConverter {
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
      * @return the zoned date time object obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static ZonedDateTime convertToUTCZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId) {
@@ -62,7 +62,7 @@ public class DateConverter {
         try {
             return localDateTime.atZone(ZoneId.of(localTimeZoneId));
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -74,7 +74,7 @@ public class DateConverter {
      * @param targetTimeZoneId the target time zone id to be applied to the resulting zoned date time e.g. "US/Pacific"
      * @return the zoned date time object obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static ZonedDateTime convertToZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId) {
@@ -82,7 +82,7 @@ public class DateConverter {
         try {
             return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(ZoneId.of(targetTimeZoneId));
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class DateConverter {
      * @param localZoneId       the local time zone id for the supplied zoned date time e.g. "Africa/Johannesburg"
      * @return the local date time object obtained from the conversion
      * @throws IllegalArgumentException exception thrown when required parameter is missing
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTimeWithZone(final String zonedDateTimeText, final String localZoneId) {
@@ -102,7 +102,7 @@ public class DateConverter {
             ZonedDateTime zonedDateTime = ZonedDateTime.parse(zonedDateTimeText).withZoneSameInstant(ZoneId.of(localZoneId));
             return zonedDateTime.toLocalDateTime();
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -112,7 +112,7 @@ public class DateConverter {
      * @param localDateText the local date in textual format to be converted e.g. "2023-12-05"
      * @return the local date obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText) {
@@ -120,7 +120,7 @@ public class DateConverter {
         try {
             return LocalDate.parse(localDateText);
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -131,7 +131,7 @@ public class DateConverter {
      * @param formatter     the formatter that holds the format pattern for the supplied local date
      * @return the local date obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText, final DateTimeFormatter formatter) {
@@ -139,7 +139,7 @@ public class DateConverter {
         try {
             return LocalDate.parse(localDateText, formatter);
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -150,7 +150,7 @@ public class DateConverter {
      * @param dateFormatPattern the date format pattern for the supplied local date e.g. "dd/MM/yyyy"
      * @return the local date obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText, final String dateFormatPattern) {
@@ -159,7 +159,7 @@ public class DateConverter {
             DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
             return LocalDate.parse(localDateText, formatter);
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -169,7 +169,7 @@ public class DateConverter {
      * @param localDateTimeText the local date time in textual format to be converted e.g. "2023-12-08T16:02:10"
      * @return the local date time obtained from the conversion.
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTime(final String localDateTimeText) {
@@ -177,7 +177,7 @@ public class DateConverter {
         try {
             return LocalDateTime.parse(localDateTimeText);
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -188,7 +188,7 @@ public class DateConverter {
      * @param formatter         the formatter that holds the format pattern for the supplied local date
      * @return the local date time object obtained from the conversion.
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTime(final String localDateTimeText, final DateTimeFormatter formatter) {
@@ -196,7 +196,7 @@ public class DateConverter {
         try {
             return LocalDateTime.parse(localDateTimeText, formatter);
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -207,7 +207,7 @@ public class DateConverter {
      * @param dateFormatPattern the date time format pattern for the supplied local date time e.g. "dd/MM/yyyy'T'HH:mm:ss"
      * @return the local date time object obtained from the conversion.
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTimeWithPattern(final String localDateTimeText, final String dateFormatPattern) {
@@ -216,7 +216,7 @@ public class DateConverter {
             DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
             return LocalDateTime.parse(localDateTimeText, formatter);
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -366,7 +366,7 @@ public class DateConverter {
      * @param targetTimeZoneId the target time zone id to be applied to the resulting date time e.g. "Africa/Johannesburg"
      * @return the local date time obtained from the conversion. The result will be converted to the supplied target time zone
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertEpochMillisToLocalDateTime(final long epochMillis, String targetTimeZoneId) {
@@ -374,7 +374,7 @@ public class DateConverter {
         try {
             return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), ZoneId.of(targetTimeZoneId));
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 
@@ -385,7 +385,7 @@ public class DateConverter {
      * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the epoch millis time value obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateConversionException  if the date conversion fails
+     * @throws DateTimeConversionException  if the date conversion fails
      * @since 1.0.0
      */
     public static long convertLocalDateTimeToEpochMillis(final LocalDateTime localDateTime, final String timeZoneId) {
@@ -393,7 +393,7 @@ public class DateConverter {
         try {
             return localDateTime.atZone(ZoneId.of(timeZoneId)).withZoneSameInstant(ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
         } catch (Exception e) {
-            throw new DateConversionException(e.getMessage());
+            throw new DateTimeConversionException(e.getMessage());
         }
     }
 

@@ -1,10 +1,10 @@
-package za.co.stridepace.dateutil.timezone;
+package za.co.stridepace.datetimeutil.timezone;
 
 
-import za.co.stridepace.dateutil.commons.model.ValidationEntry;
-import za.co.stridepace.dateutil.commons.util.ValidationUtil;
-import za.co.stridepace.dateutil.constant.ErrorMessages;
-import za.co.stridepace.dateutil.model.TimeZoneDetail;
+import za.co.stridepace.datetimeutil.commons.model.ValidationEntry;
+import za.co.stridepace.datetimeutil.commons.util.ValidationUtil;
+import za.co.stridepace.datetimeutil.constant.ErrorMessages;
+import za.co.stridepace.datetimeutil.model.TimeZoneDetail;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,7 +1,7 @@
-package za.co.stridepace.dateutil.commons.util;
+package za.co.stridepace.datetimeutil.commons.util;
 
 import org.apache.commons.lang3.StringUtils;
-import za.co.stridepace.dateutil.commons.model.ValidationEntry;
+import za.co.stridepace.datetimeutil.commons.model.ValidationEntry;
 
 import java.util.Objects;
 

@@ -4,12 +4,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.perceivechuchu</groupId>
-	<artifactId>date-util</artifactId>
+	<artifactId>date-time-util</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>This a library that provides comprehensive date and time utilities, addressing the challenges of date manipulation, formatting, and timezone handling</description>
-	<url>https://github.com/perceivechuchu/date-util</url>
+	<url>https://github.com/perceivechuchu/date-time-util</url>
 
 	<licenses>
 		<license>
@@ -28,9 +28,9 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://github.com/perceivechuchu/date-util.git</connection>
-		<developerConnection>scm:git:ssh://github.com:perceivechuchu/date-util.git</developerConnection>
-		<url>https://github.com/perceivechuchu/date-util/tree/main</url>
+		<connection>scm:git:git://github.com/perceivechuchu/date-time-util.git</connection>
+		<developerConnection>scm:git:ssh://github.com:perceivechuchu/date-time-util.git</developerConnection>
+		<url>https://github.com/perceivechuchu/date-time-util/tree/main</url>
 	</scm>
 
 	<properties>
@@ -245,6 +245,17 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.8</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>false</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -390,16 +401,6 @@
 							</tagClass>
 						</tagClasses>
 					</tagListOptions>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.8</version>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>false</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
 		</plugins>

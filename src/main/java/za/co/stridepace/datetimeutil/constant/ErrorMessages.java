@@ -1,4 +1,4 @@
-package za.co.stridepace.dateutil.constant;
+package za.co.stridepace.datetimeutil.constant;
 
 /**
  * This class is a utility for error message constant variables

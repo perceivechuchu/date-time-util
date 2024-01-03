@@ -1,4 +1,4 @@
-package za.co.stridepace.dateutil.timezone;
+package za.co.stridepace.datetimeutil.timezone;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

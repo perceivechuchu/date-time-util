@@ -1,10 +1,10 @@
-date-util
+date-time-util
 ==============
 
-[![Build Status](https://github.com/perceivechuchu/date-util/actions/workflows/maven.yml/badge.svg)](https://github.com/perceivechuchu/date-util/actions/workflows/maven.yml)
+[![Build Status](https://github.com/perceivechuchu/date-time-util/actions/workflows/maven.yml/badge.svg)](https://github.com/perceivechuchu/date-time-util/actions/workflows/maven.yml)
 [![Jacoco Coverage](/.github/badges/jacoco.svg)](/.github/badges/jacoco.svg)
 
-date-util is a library that provides comprehensive date and time utilities, addressing the challenges of date manipulation, formatting, and timezone handling
+date-time-util is a library that provides comprehensive date and time utilities, addressing the challenges of date manipulation, formatting, and timezone handling
 
 Installation
 ============
@@ -13,7 +13,7 @@ The artifact is available on Maven Central and can be added to the project's pom
 ```xml
 <dependency>
     <groupId>io.github.perceivechuchu</groupId>
-    <artifactId>date-util</artifactId>
+    <artifactId>date-time-util</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -24,13 +24,13 @@ Features & Usage
 ========
 This library provides the following features:  
 
-## 1. DateConverter 
+## 1. DateTimeConverter 
 <br />
 
 * **Converting a LocalDateTime object to UTC ZonedDateTime in textual format**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
-String zonedDateTimeText = DateConverter.convertToUTCZonedDateTimeText(localDateTime, "Africa/Johannesburg");
+String zonedDateTimeText = DateTimeConverter.convertToUTCZonedDateTimeText(localDateTime, "Africa/Johannesburg");
 // Output: "2023-11-10T10:00:00.254Z"
 ```
 <br />
@@ -38,7 +38,7 @@ String zonedDateTimeText = DateConverter.convertToUTCZonedDateTimeText(localDate
 * **Converting a LocalDateTime object to a UTC ZonedDateTime object**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
-ZonedDateTime zonedDateTime = DateConverter.convertToUTCZonedDateTime(localDateTime, "Africa/Johannesburg");
+ZonedDateTime zonedDateTime = DateTimeConverter.convertToUTCZonedDateTime(localDateTime, "Africa/Johannesburg");
 // Output: (ZonedDateTime object with time zone -> "Africa/Johannesburg");
 ```
 <br />
@@ -46,21 +46,21 @@ ZonedDateTime zonedDateTime = DateConverter.convertToUTCZonedDateTime(localDateT
 * **Converting a LocalDateTime object to a ZonedDateTime object**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
-ZonedDateTime zonedDateTime = DateConverter.convertToZonedDateTime(localDateTime, "Africa/Johannesburg", "US/Pacific");
+ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(localDateTime, "Africa/Johannesburg", "US/Pacific");
 // Output: (ZonedDateTime object with time zone -> "US/Pacific");
 ```
 <br />
 
 * **Converting a UTC ZonedDateTime object (Zulu time) to LocalDateTime in textual format**
 ```
-ZonedDateTime zonedDateTime = DateConverter.convertToLocalDateTimeWithZone("2023-11-10T10:00:00.254Z", "Africa/Johannesburg");
+ZonedDateTime zonedDateTime = DateTimeConverter.convertToLocalDateTimeWithZone("2023-11-10T10:00:00.254Z", "Africa/Johannesburg");
 // Output: (ZonedDateTime object with zone -> "Africa/Johannesburg");
 ```
 <br />
 
 * **Converting LocalDate in textual format with default date formatter to a LocalDate object**
 ```
-LocalDate localDate = DateConverter.convertToLocalDate("2023-12-05");
+LocalDate localDate = DateTimeConverter.convertToLocalDate("2023-12-05");
 // Output: (LocalDate object")
 ```
 <br />
@@ -68,21 +68,21 @@ LocalDate localDate = DateConverter.convertToLocalDate("2023-12-05");
 * **Converting LocalDate in textual format with supplied date formatter to a LocalDate object**
 ```
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-LocalDate localDate = DateConverter.convertToLocalDate("05/12/2023", formatter);
+LocalDate localDate = DateTimeConverter.convertToLocalDate("05/12/2023", formatter);
 // Output: (LocalDate object")
 ```
 <br />
 
 * **Converting LocalDate in textual format with supplied date format pattern to a LocalDate object**
 ```
-LocalDate localDate = DateConverter.convertToLocalDate("05/12/2023", "dd/MM/yyyy");
+LocalDate localDate = DateTimeConverter.convertToLocalDate("05/12/2023", "dd/MM/yyyy");
 // Output: (LocalDate object")
 ```
 <br />
 
 * **Converting LocalDateTime in textual format with default date formatter to a LocalDateTime object**
 ```
-LocalDateTime localDateTime = DateConverter.convertToLocalDateTime("2023-11-18T16:02:10");
+LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTime("2023-11-18T16:02:10");
 // Output: (LocalDateTime object")
 ```
 <br />
@@ -90,14 +90,14 @@ LocalDateTime localDateTime = DateConverter.convertToLocalDateTime("2023-11-18T1
 * **Converting LocalDateTime in textual format with supplied date formatter to a LocalDateTime object**
 ```
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss");
-LocalDateTime localDateTime = DateConverter.convertToLocalDateTime("18/11/2023T16:02:10", formatter);
+LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTime("18/11/2023T16:02:10", formatter);
 // Output: (LocalDateTime object")
 ```
 <br />
 
 * **Converting LocalDateTime in textual format with supplied date format pattern to a LocalDateTime object**
 ```
-LocalDateTime localDateTime = DateConverter.convertToLocalDateTimeWithPattern("18/11/2023T16:02:10", "dd/MM/yyyy'T'HH:mm:ss");
+LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTimeWithPattern("18/11/2023T16:02:10", "dd/MM/yyyy'T'HH:mm:ss");
 // Output: (LocalDateTime object")
 ```
 <br />
@@ -105,7 +105,7 @@ LocalDateTime localDateTime = DateConverter.convertToLocalDateTimeWithPattern("1
 * **Converting a LocalDate object with default date formatter to LocalDate in textual format**
 ```
 LocalDate localDate = LocalDate.of(2023, 12, 5);
-String localDateText = DateConverter.convertToLocalDateText(localDate);
+String localDateText = DateTimeConverter.convertToLocalDateText(localDate);
 // Output: "2023-12-05"
 ```
 <br />
@@ -114,7 +114,7 @@ String localDateText = DateConverter.convertToLocalDateText(localDate);
 ```
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 LocalDate localDate = LocalDate.of(2023, 12, 5);
-String localDateText = DateConverter.convertToLocalDateText(localDate, formatter);
+String localDateText = DateTimeConverter.convertToLocalDateText(localDate, formatter);
 // Output: "05/12/2023"
 ```
 <br />
@@ -122,7 +122,7 @@ String localDateText = DateConverter.convertToLocalDateText(localDate, formatter
 * **Converting a LocalDate object with supplied date format pattern to LocalDate in textual format**
 ```
 LocalDate localDate = LocalDate.of(2023, 12, 5);
-String localDateText = DateConverter.convertToLocalDateText(localDate, "dd/MM/yyyy");
+String localDateText = DateTimeConverter.convertToLocalDateText(localDate, "dd/MM/yyyy");
 // Output: "05/12/2023"
 ```
 <br />
@@ -130,7 +130,7 @@ String localDateText = DateConverter.convertToLocalDateText(localDate, "dd/MM/yy
 * **Converting a LocalDateTime object with default date formatter to LocalDateTime in textual format**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
-String localDateText = DateConverter.convertToLocalDateTimeText(localDateTime);
+String localDateText = DateTimeConverter.convertToLocalDateTimeText(localDateTime);
 // Output: "2023-12-05T16:02:10"
 ```
 <br />
@@ -138,7 +138,7 @@ String localDateText = DateConverter.convertToLocalDateTimeText(localDateTime);
 * **Converting a LocalDateTime object with supplied date formatter to LocalDateTime in textual format**
 ```
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss");
-String localDateTimeText = DateConverter.convertToLocalDateTimeText(localDateTime, formatter);
+String localDateTimeText = DateTimeConverter.convertToLocalDateTimeText(localDateTime, formatter);
 // Output: "2023-12-05T16:02:10"
 ```
 <br />
@@ -146,7 +146,7 @@ String localDateTimeText = DateConverter.convertToLocalDateTimeText(localDateTim
 * **Converting a LocalDateTime object with supplied date format pattern to LocalDateTime in textual format**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
-String localDateTimeText = DateConverter.convertToLocalDateTimeText(localDateTime, "dd/MM/yyyy'T'HH:mm:ss");
+String localDateTimeText = DateTimeConverter.convertToLocalDateTimeText(localDateTime, "dd/MM/yyyy'T'HH:mm:ss");
 // Output: "2023-12-05T16:02:10"
 ```
 <br />
@@ -154,7 +154,7 @@ String localDateTimeText = DateConverter.convertToLocalDateTimeText(localDateTim
 * **Converting a Timestamp object to a LocalDateTime object**
 ```
 Timestamp timestampObject = ...
-LocalDateTime localDateTime = DateConverter.convertToLocalDateTime(timestampObject);
+LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTime(timestampObject);
 // Output: (LocalDateTime object)
 ```
 <br />
@@ -162,28 +162,28 @@ LocalDateTime localDateTime = DateConverter.convertToLocalDateTime(timestampObje
 * **Converting a LocalDateTime object to a Timestamp object**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
-Timestamp timestamp = DateConverter.convertToTimestamp(localDateTime);
+Timestamp timestamp = DateTimeConverter.convertToTimestamp(localDateTime);
 // Output: (Timestamp object)
 ```
 <br />
 
 * **Converting LocalDateTime in textual format to a Timestamp object**
 ```
-Timestamp timestamp = DateConverter.convertToTimestamp("2023-12-05T16:02:10");
+Timestamp timestamp = DateTimeConverter.convertToTimestamp("2023-12-05T16:02:10");
 // Output: (Timestamp object)
 ```
 <br />
 
 * **Converting an Epoch time value in milliseconds with default zone (UTC) to a LocalDateTime object**
 ```
-LocalDateTime localDateTime = DateConverter.convertEpochMillisToLocalDateTime(1704124883000L);
+LocalDateTime localDateTime = DateTimeConverter.convertEpochMillisToLocalDateTime(1704124883000L);
 // Output: (LocalDateTime object)
 ```
 <br />
 
 * **Converting an Epoch time value in milliseconds with supplied zone id to a LocalDateTime object**
 ```
-LocalDateTime localDateTime = DateConverter.convertEpochMillisToLocalDateTime(1704124883000L, "Africa/Johannesburg");
+LocalDateTime localDateTime = DateTimeConverter.convertEpochMillisToLocalDateTime(1704124883000L, "Africa/Johannesburg");
 // Output: (LocalDateTime object)
 ```
 <br />
@@ -191,7 +191,7 @@ LocalDateTime localDateTime = DateConverter.convertEpochMillisToLocalDateTime(17
 * **Converting a LocalDateTime object to Epoch time value in milliseconds**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
-long epochMillis = DateConverter.convertLocalDateTimeToEpochTimeMillis(localDateTime, "Africa/Johannesburg");
+long epochMillis = DateTimeConverter.convertLocalDateTimeToEpochTimeMillis(localDateTime, "Africa/Johannesburg");
 // Output: 1704124883000L
 ```
 <br />
@@ -253,7 +253,7 @@ Perceive Chuchu [perceivechuchu@gmail.com](mailto:perceivechuchu@gmail.com) with
 
 Feedback
 ========
-Please [leave your feedback](https://github.com/perceivechuchu/date-util/issues) if you have noticed any issue or have a feature request.
+Please [leave your feedback](https://github.com/perceivechuchu/date-time-util/issues) if you have noticed any issue or have a feature request.
 
 Contributions and Support
 =========================

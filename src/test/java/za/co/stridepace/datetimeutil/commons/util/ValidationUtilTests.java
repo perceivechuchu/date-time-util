@@ -1,4 +1,4 @@
-package za.co.stridepace.dateutil.commons.util;
+package za.co.stridepace.datetimeutil.commons.util;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

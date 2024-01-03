@@ -1,13 +1,11 @@
-package za.co.stridepace.dateutil.timezone;
+package za.co.stridepace.datetimeutil.timezone;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import za.co.stridepace.dateutil.constant.ErrorMessages;
-import za.co.stridepace.dateutil.converter.DateConverter;
-import za.co.stridepace.dateutil.model.TimeZoneDetail;
+import za.co.stridepace.datetimeutil.constant.ErrorMessages;
+import za.co.stridepace.datetimeutil.model.TimeZoneDetail;
 
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,4 +1,4 @@
-package za.co.stridepace.dateutil.timezone;
+package za.co.stridepace.datetimeutil.timezone;
 
 /**
  * This class is a utility for time zone offset
