@@ -305,13 +305,13 @@ class DateConverterTests {
         assertEquals(1704124883000L, actualEpochMillis);
     }
 
-    /*@Test
+    @Test
     void convertLocalDateTimeToEpochTimeMillis_ThrowDateConversionException_WhenTimeZoneIdIsInvalid() {
         LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 1, 18, 1, 23);
         DateConversionException dateConversionException = assertThrows(DateConversionException.class, () -> DateConverter.convertLocalDateTimeToEpochMillis(localDateTime, "invalid_timezone_id"));
         assertNotNull(dateConversionException);
         assertNotNull(dateConversionException.getMessage());
-    }*/
+    }
 
     @Test
     void getDateFormatter_ReturnDateFormatter_WhenValidDateFormatPatternIsSupplied() {
