@@ -2,7 +2,7 @@ date-util
 ==============
 
 [![Build Status](https://github.com/perceivechuchu/date-util/actions/workflows/maven.yml/badge.svg)](https://github.com/perceivechuchu/date-util/actions/workflows/maven.yml)
-[![Jacoco Coverage](https://github.com/perceivechuchu/date-util/blob/bedd00d3cda849b6dc022e09ea7f08864149a944/.github/badges/jacoco.svg)](https://github.com/perceivechuchu/date-util/blob/bedd00d3cda849b6dc022e09ea7f08864149a944/.github/badges/jacoco.svg)
+[![Jacoco Coverage](.github/badges/jacoco.svg)](.github/badges/jacoco.svg)
 
 date-util is a library that provides comprehensive date and time utilities, addressing the challenges of date manipulation, formatting, and timezone handling
 
