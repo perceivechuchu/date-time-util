@@ -427,7 +427,7 @@ public class DateTimeConverter {
     }
 
     /**
-     * Converts a java.util.Date object to a LocalDateTime object
+     * Converts a java.util.Date object with supplied time zone id to a LocalDateTime object
      *
      * @param date       the date object to be converted
      * @param timeZoneId the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
@@ -529,7 +529,7 @@ public class DateTimeConverter {
     }
 
     /**
-     * Converts a ZonedDateTime object to a Calendar object
+     * Converts a ZonedDateTime object with supplied time zone id to a Calendar object
      *
      * @param localDateTime the local date time to be converted
      * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"

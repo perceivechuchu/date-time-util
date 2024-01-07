@@ -8,7 +8,7 @@
 	<version>2.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
-	<description>This is a library that provides comprehensive date and time utilities, addressing the challenges of date and time manipulation, formatting, and timezone handling</description>
+	<description>A library that provides comprehensive date and time utilities, addressing the challenges of date and time manipulation, formatting, and timezone handling</description>
 	<url>https://github.com/perceivechuchu/date-time-util</url>
 
 	<licenses>
