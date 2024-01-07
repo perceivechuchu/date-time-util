@@ -30,16 +30,6 @@ public class ErrorMessages {
     public static final String LOCAL_DATE_TIME_TEXT_EMPTY = "Parameter localDateTimeText cannot be empty";
 
     /**
-     * The error message for null date parameter validation
-     */
-    public static final String DATE_NULL = "Parameter date cannot be null";
-
-    /**
-     * The error message for null calendar parameter validation
-     */
-    public static final String CALENDAR_NULL = "Parameter calendar cannot be null";
-
-    /**
      * The error message for empty timeZoneId parameter validation
      */
     public static final String TIME_ZONE_ID_EMPTY = "Parameter timeZoneId cannot be empty";
@@ -58,11 +48,6 @@ public class ErrorMessages {
      * The error message for empty targetTimeZoneId parameter validation
      */
     public static final String TARGET_TIME_ZONE_ID_EMPTY = "Parameter targetTimeZoneId cannot be empty";
-
-    /**
-     * The error message for null zonedDateTime parameter validation
-     */
-    public static final String ZONED_DATE_TIME_NULL = "Parameter zonedDateTime cannot be null";
 
     /**
      * The error message for empty zonedDateTimeText parameter validation

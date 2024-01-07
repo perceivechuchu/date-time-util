@@ -196,127 +196,31 @@ long epochMillis = DateTimeConverter.convertLocalDateTimeToEpochTimeMillis(local
 ```
 <br />
 
-* **Converts a java.util.Date object to a LocalDateTime object**
-```
-Date date = new Date(1704124883000L);
-LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTime(date);
-// Output: (LocalDateTime object)
-```
-<br />
-
-* **Converts a java.util.Date object with supplied time zone id to a LocalDateTime object**
-```
-Date date = new Date(1704124883000L);
-LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTime(date, "Asia/Tokyo)
-// Output: (LocalDateTime object)
-```
-
-* **Converts a java.util.Calendar object with supplied time zone id to a LocalDateTime object**
-```
-Calendar calendar = Calendar.getInstance();
-calendar.set(Calendar.YEAR, 2024);
-calendar.set(Calendar.MONTH, Calendar.JANUARY);
-calendar.set(Calendar.DAY_OF_MONTH, 1);
-calendar.set(Calendar.HOUR_OF_DAY, 18);
-calendar.set(Calendar.MINUTE, 1);
-calendar.set(Calendar.SECOND, 23);
-calendar.set(Calendar.MILLISECOND, 0);
-
-LocalDateTime actualLocalDateTime = DateTimeConverter.convertToLocalDateTime(calendar, "Africa/Johannesburg");
-
-// Output: (LocalDateTime object)
-```
-
-* **Converts a java.util.Date object to a ZonedDateTime object**
-```
-Date date = new Date(1704124883000L);
-ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(date)
-// Output: (ZonedDateTime object)
-```
-
-* **Converts a java.util.Calendar object to a ZonedDateTime object**
-```
-Calendar calendar = Calendar.getInstance();
-calendar.set(Calendar.YEAR, 2024);
-calendar.set(Calendar.MONTH, Calendar.JANUARY);
-calendar.set(Calendar.DAY_OF_MONTH, 1);
-calendar.set(Calendar.HOUR_OF_DAY, 18);
-calendar.set(Calendar.MINUTE, 1);
-calendar.set(Calendar.SECOND, 23);
-calendar.set(Calendar.MILLISECOND, 0);
-
-ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(calendar)
-// Output: (ZonedDateTime object)
-```
-
-* **Converts a LocalDateTime object with supplied time zone id to a ZonedDateTime object**
-```
-LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
-ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(localDateTime, "Africa/Johannesburg")
-// Output: (ZonedDateTime object)
-```
-
-* **Converts a ZonedDateTime object to a Calendar object**
-```
-ZonedDateTime zonedDateTime = ZonedDateTime.of(2024, 1, 2, 1, 1, 23, 0, ZoneId.of("Africa/Johannesburg"));
-Calendar calendar = DateTimeConverter.convertToCalendar(zonedDateTime);
-// Output: (Calendar object)
-```
-
-* **Converts a LocalDateTime object with supplied time zone id to a Calendar object**
-```
-LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
-Calendar calendar = DateTimeConverter.convertToCalendar(localDateTime, "Africa/Johannesburg");
-// Output: (Calendar object)
-```
-
-* **Converts a java.util.Date object to a java.util.Calendar object**
-```
-Date date = new Date(1704124883000L);
-Calendar calendar = DateTimeConverter.convertToCalendar(date);
-// Output: (Calendar object)
-```
-
-* **Converts a java.util.Calendar object to a java.util.Date object**
-```
-Calendar calendar = Calendar.getInstance();
-calendar.set(Calendar.YEAR, 2024);
-calendar.set(Calendar.MONTH, Calendar.JANUARY);
-calendar.set(Calendar.DAY_OF_MONTH, 1);
-calendar.set(Calendar.HOUR_OF_DAY, 18);
-calendar.set(Calendar.MINUTE, 1);
-calendar.set(Calendar.SECOND, 23);
-calendar.set(Calendar.MILLISECOND, 0);
-
-Date date = DateTimeConverter.convertToDate(calendar);
-// Output: (Date object)
-```
-
 ## 2. TimeZoneUtil 
 <br />
 
-* **Getting all available time zones**
+* **Gets all available time zones**
 ```
 List<TimeZoneDetail> timeZoneDetails = TimeZoneUtil.getAllTimeZones();
 // Output: (List of TimeZoneDetail objects)
 ```
 <br />
 
-* **Checking if a time zone id is valid**
+* **Checks if a time zone id is valid**
 ```
 boolean valid = TimeZoneUtil.isValidTimeZoneId("Africa/Johannesburg");
 // Output: true
 ```
 <br />
 
-* **Getting the abbreviation for a time zone**
+* **Gets the abbreviation for a time zone**
 ```
 String abbreviation = TimeZoneUtil.getTimeZoneAbbreviation("Africa/Johannesburg");
 // Output: "SAST"
 ```
 <br />
 
-* **Searching time zones by the offset text e.g. search by "+02:00"**
+* **Search time zones by the offset text e.g. search by "+02:00"**
 ```
 // Get all the time zones that are 2 hours from UTC
 List<TimeZoneDetail> timeZones = TimeZoneUtil.searchTimeZonesByOffsetText("+02:00")
