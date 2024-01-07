@@ -18,7 +18,7 @@ The artifact is available on Maven Central and can be added to the project's pom
 </dependency>
 ```
 
-The latest version can be found [here]()
+The latest version can be found [here](https://central.sonatype.com/artifact/io.github.perceivechuchu/date-time-util)
 
 Features & Usage
 ========
