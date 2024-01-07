@@ -429,10 +429,10 @@ public class DateTimeConverter {
     /**
      * Converts a java.util.Date object to a LocalDateTime object
      *
-     * @param date the date object to be converted
-     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @param date       the date object to be converted
+     * @param timeZoneId the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the local date time object obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
+     * @throws IllegalArgumentException    if parameter is not valid
      * @throws DateTimeConversionException if the date conversion fails
      * @since 2.0.2
      */
@@ -449,10 +449,10 @@ public class DateTimeConverter {
     /**
      * Converts a java.util.Calendar object with supplied time zone id to a LocalDateTime object
      *
-     * @param calendar the calendar object to be converted
-     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @param calendar   the calendar object to be converted
+     * @param timeZoneId the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the local date time object obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
+     * @throws IllegalArgumentException    if parameter is not valid
      * @throws DateTimeConversionException if the date conversion fails
      * @since 2.0.2
      */
@@ -492,6 +492,16 @@ public class DateTimeConverter {
         return ZonedDateTime.ofInstant(calendar.toInstant(), ZoneId.systemDefault());
     }
 
+    /**
+     * Converts a LocalDateTime object with supplied time zone id to a ZonedDateTime object
+     *
+     * @param localDateTime the local date time to be converted
+     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @return the zoned date time object obtained from the conversion
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
+     * @since 2.0.2
+     */
     public static ZonedDateTime convertToZonedDateTime(LocalDateTime localDateTime, String timeZoneId) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         try {
@@ -502,18 +512,15 @@ public class DateTimeConverter {
         }
     }
 
+    /**
+     * Converts a ZonedDateTime object to a Calendar object
+     *
+     * @param zonedDateTime the zoned date time to be converted
+     * @return the calendar object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 2.0.2
+     */
     public static Calendar convertToCalendar(ZonedDateTime zonedDateTime) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(zonedDateTime, ErrorMessages.ZONED_DATE_TIME_NULL));
-        return getCalendarFromZonedDate(zonedDateTime);
-    }
-
-    public static Calendar convertToCalendar(LocalDateTime localDateTime, String timeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
-        ZonedDateTime zonedDateTime = convertToZonedDateTime(localDateTime, timeZoneId);
-        return getCalendarFromZonedDate(zonedDateTime);
-    }
-
-    protected static Calendar getCalendarFromZonedDate(ZonedDateTime zonedDateTime) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(zonedDateTime, ErrorMessages.ZONED_DATE_TIME_NULL));
         Date date = Date.from(zonedDateTime.toInstant());
         Calendar calendar = Calendar.getInstance();
@@ -521,6 +528,29 @@ public class DateTimeConverter {
         return calendar;
     }
 
+    /**
+     * Converts a ZonedDateTime object to a Calendar object
+     *
+     * @param localDateTime the local date time to be converted
+     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @return the calendar object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 2.0.2
+     */
+    public static Calendar convertToCalendar(LocalDateTime localDateTime, String timeZoneId) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        ZonedDateTime zonedDateTime = convertToZonedDateTime(localDateTime, timeZoneId);
+        return convertToCalendar(zonedDateTime);
+    }
+
+    /**
+     * Converts a java.util.Date object to a java.util.Calendar object
+     *
+     * @param date the date to be converted
+     * @return the calendar object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 2.0.2
+     */
     public static Calendar convertToCalendar(Date date) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(date, ErrorMessages.DATE_NULL));
         Calendar calendar = Calendar.getInstance();
@@ -528,6 +558,14 @@ public class DateTimeConverter {
         return calendar;
     }
 
+    /**
+     * Converts a java.util.Calendar object to a java.util.Date object
+     *
+     * @param calendar the calendar to be converted
+     * @return the date object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 2.0.2
+     */
     public static Date convertToDate(Calendar calendar) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(calendar, ErrorMessages.CALENDAR_NULL));
         return calendar.getTime();
