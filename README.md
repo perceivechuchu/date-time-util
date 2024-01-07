@@ -356,4 +356,3 @@ Contributions and Support
 If you want to create a new feature, though not compulsory, it will be helpful to reach out to me first before proceeding.
 
 This avoids a scenario where one would submit a PR for an issue that someone else is working on already.
-
