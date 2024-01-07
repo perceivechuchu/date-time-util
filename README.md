@@ -196,7 +196,7 @@ long epochMillis = DateTimeConverter.convertLocalDateTimeToEpochTimeMillis(local
 ```
 <br />
 
-* **Converts a java.util.Date object to a LocalDateTime object**
+* **Converting a java.util.Date object to a LocalDateTime object**
 ```
 Date date = new Date(1704124883000L);
 LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTime(date);
@@ -204,14 +204,14 @@ LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTime(date);
 ```
 <br />
 
-* **Converts a java.util.Date object with supplied time zone id to a LocalDateTime object**
+* **Converting a java.util.Date object with supplied time zone id to a LocalDateTime object**
 ```
 Date date = new Date(1704124883000L);
 LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTime(date, "Asia/Tokyo)
 // Output: (LocalDateTime object)
 ```
 
-* **Converts a java.util.Calendar object with supplied time zone id to a LocalDateTime object**
+* **Converting a java.util.Calendar object with supplied time zone id to a LocalDateTime object**
 ```
 Calendar calendar = Calendar.getInstance();
 calendar.set(Calendar.YEAR, 2024);
@@ -227,14 +227,14 @@ LocalDateTime actualLocalDateTime = DateTimeConverter.convertToLocalDateTime(cal
 // Output: (LocalDateTime object)
 ```
 
-* **Converts a java.util.Date object to a ZonedDateTime object**
+* **Converting a java.util.Date object to a ZonedDateTime object**
 ```
 Date date = new Date(1704124883000L);
 ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(date)
 // Output: (ZonedDateTime object)
 ```
 
-* **Converts a java.util.Calendar object to a ZonedDateTime object**
+* **Converting a java.util.Calendar object to a ZonedDateTime object**
 ```
 Calendar calendar = Calendar.getInstance();
 calendar.set(Calendar.YEAR, 2024);
@@ -249,35 +249,35 @@ ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(calendar)
 // Output: (ZonedDateTime object)
 ```
 
-* **Converts a LocalDateTime object with supplied time zone id to a ZonedDateTime object**
+* **Converting a LocalDateTime object with supplied time zone id to a ZonedDateTime object**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
 ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(localDateTime, "Africa/Johannesburg")
 // Output: (ZonedDateTime object)
 ```
 
-* **Converts a ZonedDateTime object to a Calendar object**
+* **Converting a ZonedDateTime object to a Calendar object**
 ```
 ZonedDateTime zonedDateTime = ZonedDateTime.of(2024, 1, 2, 1, 1, 23, 0, ZoneId.of("Africa/Johannesburg"));
 Calendar calendar = DateTimeConverter.convertToCalendar(zonedDateTime);
 // Output: (Calendar object)
 ```
 
-* **Converts a LocalDateTime object with supplied time zone id to a Calendar object**
+* **Converting a LocalDateTime object with supplied time zone id to a Calendar object**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
 Calendar calendar = DateTimeConverter.convertToCalendar(localDateTime, "Africa/Johannesburg");
 // Output: (Calendar object)
 ```
 
-* **Converts a java.util.Date object to a java.util.Calendar object**
+* **Converting a java.util.Date object to a java.util.Calendar object**
 ```
 Date date = new Date(1704124883000L);
 Calendar calendar = DateTimeConverter.convertToCalendar(date);
 // Output: (Calendar object)
 ```
 
-* **Converts a java.util.Calendar object to a java.util.Date object**
+* **Converting a java.util.Calendar object to a java.util.Date object**
 ```
 Calendar calendar = Calendar.getInstance();
 calendar.set(Calendar.YEAR, 2024);
