@@ -1,17 +1,16 @@
 package io.github.perceivechuchu.datetimeutil.converter;
 
+import io.github.perceivechuchu.datetimeutil.constant.ErrorMessages;
 import io.github.perceivechuchu.datetimeutil.exception.DateTimeConversionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import io.github.perceivechuchu.datetimeutil.constant.ErrorMessages;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -329,6 +328,181 @@ class DateTimeConverterTests {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> DateTimeConverter.getDateFormatter(null));
         assertNotNull(illegalArgumentException);
         assertEquals(ErrorMessages.DATE_FORMAT_PATTERN_EMPTY, illegalArgumentException.getMessage());
+    }
+
+    @Test
+    void convertToLocalDateTime_ReturnLocalDateTime_WhenDateIsSupplied() {
+        LocalDateTime actualLocalDateTime = DateTimeConverter.convertToLocalDateTime(new Date(1704124883000L));
+        assertNotNull(actualLocalDateTime);
+    }
+
+    @Test
+    void convertToLocalDateTime_ReturnLocalDateTime_WhenDateAndTimeZoneIdAreSupplied() {
+        LocalDateTime expectedLocalDateTime = LocalDateTime.of(2024, 1, 2, 1, 1, 23);
+        // 1704124883000L = 2024-01-01T18:01:23 +02:00 SAST
+        // "Asia/Tokyo" = +09:00 JST
+        LocalDateTime actualLocalDateTime = DateTimeConverter.convertToLocalDateTime(new Date(1704124883000L), "Asia/Tokyo");
+        assertNotNull(actualLocalDateTime);
+        assertTrue(actualLocalDateTime.isEqual(expectedLocalDateTime));
+    }
+
+    @Test
+    void convertToLocalDateTime_ThrowDateTimeConversionException_WhenTimeZoneIdSuppliedIsInvalid() {
+        DateTimeConversionException dateConversionException = assertThrows(DateTimeConversionException.class, () -> DateTimeConverter.convertToLocalDateTime(new Date(1704124883000L), "invalid_time_zone_id"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
+    }
+
+    @Test
+    void convertToLocalDateTime_ReturnLocalDateTime_WhenCalendarAndTimeZoneIdAreSupplied() {
+        LocalDateTime expectedLocalDateTime = LocalDateTime.of(2024, 1, 2, 1, 1, 23);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        calendar.set(Calendar.MINUTE, 1);
+        calendar.set(Calendar.SECOND, 23);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // "Asia/Tokyo" = +09:00 JST
+        LocalDateTime actualLocalDateTime = DateTimeConverter.convertToLocalDateTime(calendar, "Asia/Tokyo");
+        assertNotNull(actualLocalDateTime);
+        assertTrue(actualLocalDateTime.isEqual(expectedLocalDateTime));
+    }
+
+    @Test
+    void convertToLocalDateTime_ThrowsDateTimeConversionException_WhenValidCalendarIsAndTimeZoneIdSuppliedIsInvalid() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        calendar.set(Calendar.MINUTE, 1);
+        calendar.set(Calendar.SECOND, 23);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        DateTimeConversionException dateConversionException = assertThrows(DateTimeConversionException.class, () -> DateTimeConverter.convertToLocalDateTime(calendar, "invalid_time_zone_id"));
+
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
+    }
+
+    @Test
+    void convertToZonedDateTime_ReturnZonedDateTime_WhenDateIsSupplied() {
+        ZonedDateTime expectedZonedDateTime = ZonedDateTime.of(2024, 1, 1, 18, 1, 23, 0, ZoneId.systemDefault());
+        // 1704124883000L = 2024-01-01T18:01:23 +02:00 SAST
+        ZonedDateTime actualZonedDateTime = DateTimeConverter.convertToZonedDateTime(new Date(1704124883000L));
+        assertNotNull(actualZonedDateTime);
+        assertTrue(actualZonedDateTime.isEqual(expectedZonedDateTime));
+    }
+
+    @Test
+    void convertToCalendar_ReturnCalendar_WhenZonedDateTimeIsSupplied() {
+        Calendar expectedCalendar = Calendar.getInstance();
+        expectedCalendar.set(Calendar.YEAR, 2024);
+        expectedCalendar.set(Calendar.MONTH, Calendar.JANUARY);
+        expectedCalendar.set(Calendar.DAY_OF_MONTH, 1);
+        expectedCalendar.set(Calendar.HOUR_OF_DAY, 18);
+        expectedCalendar.set(Calendar.MINUTE, 1);
+        expectedCalendar.set(Calendar.SECOND, 23);
+        expectedCalendar.set(Calendar.MILLISECOND, 0);
+
+        Calendar actualCalendar = DateTimeConverter.convertToCalendar(new Date(1704124883000L));
+        assertNotNull(actualCalendar);
+        assertEquals(expectedCalendar, actualCalendar);
+    }
+
+    @Test
+    void convertToZonedDateTime_ReturnZonedDateTime_WhenCalendarIsSupplied() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        calendar.set(Calendar.MINUTE, 1);
+        calendar.set(Calendar.SECOND, 23);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(calendar);
+        assertNotNull(zonedDateTime);
+        assertEquals(2024, zonedDateTime.getYear());
+        assertEquals(Month.JANUARY, zonedDateTime.getMonth());
+        assertEquals(1, zonedDateTime.getDayOfMonth());
+        assertEquals(18, zonedDateTime.getHour());
+        assertEquals(1, zonedDateTime.getMinute());
+        assertEquals(23, zonedDateTime.getSecond());
+    }
+
+    @Test
+    void convertToZonedDateTime_ReturnZonedDateTime_WhenLocalDateAndTimeZoneAreSupplied() {
+        LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 2, 1, 1, 23);
+        ZonedDateTime expectedZonedDateTime = ZonedDateTime.of(2024, 1, 2, 1, 1, 23, 0, ZoneId.of("Africa/Johannesburg"));
+        ZonedDateTime actualZonedDateTime = DateTimeConverter.convertToZonedDateTime(localDateTime, "Africa/Johannesburg");
+        assertNotNull(actualZonedDateTime);
+        assertTrue(actualZonedDateTime.isEqual(expectedZonedDateTime));
+    }
+
+    @Test
+    void convertToZonedDateTime_ThrowDateTimeConversionException_WhenTimeZoneIdSuppliedIsInvalid() {
+        LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 2, 1, 1, 23);
+        DateTimeConversionException dateConversionException = assertThrows(DateTimeConversionException.class, () -> DateTimeConverter.convertToZonedDateTime(localDateTime, "invalid_time_zone_id"));
+        assertNotNull(dateConversionException);
+        assertNotNull(dateConversionException.getMessage());
+    }
+
+    @Test
+    void convertZonedDateTimeToCalendar_ReturnCalendar_WhenZonedDateTimeIsSupplied() {
+        Calendar expectedCalendar = Calendar.getInstance();
+        expectedCalendar.set(Calendar.YEAR, 2024);
+        expectedCalendar.set(Calendar.MONTH, Calendar.JANUARY);
+        expectedCalendar.set(Calendar.DAY_OF_MONTH, 2);
+        expectedCalendar.set(Calendar.HOUR_OF_DAY, 1);
+        expectedCalendar.set(Calendar.MINUTE, 1);
+        expectedCalendar.set(Calendar.SECOND, 23);
+        expectedCalendar.set(Calendar.MILLISECOND, 0);
+
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(2024, 1, 2, 1, 1, 23, 0, ZoneId.of("Africa/Johannesburg"));
+        Calendar actualCalendar = DateTimeConverter.convertToCalendar(zonedDateTime);
+        assertNotNull(actualCalendar);
+        assertEquals(expectedCalendar, actualCalendar);
+    }
+
+    @Test
+    void convertZonedDateTimeToCalendar_ReturnCalendar_WhenZonedDateTimeAndTimeZoneIdAreSupplied() {
+        Calendar expectedCalendar = Calendar.getInstance();
+        expectedCalendar.set(Calendar.YEAR, 2024);
+        expectedCalendar.set(Calendar.MONTH, Calendar.JANUARY);
+        expectedCalendar.set(Calendar.DAY_OF_MONTH, 2);
+        expectedCalendar.set(Calendar.HOUR_OF_DAY, 1);
+        expectedCalendar.set(Calendar.MINUTE, 1);
+        expectedCalendar.set(Calendar.SECOND, 23);
+        expectedCalendar.set(Calendar.MILLISECOND, 0);
+
+        LocalDateTime localDateTime = LocalDateTime.of(2024, 1, 2, 1, 1, 23);
+        Calendar actualCalendar = DateTimeConverter.convertToCalendar(localDateTime, "Africa/Johannesburg");
+        assertNotNull(actualCalendar);
+        assertEquals(expectedCalendar, actualCalendar);
+    }
+
+    @Test
+    void convertToDate_ReturnDate_WhenCalendarIsSupplied() {
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(2024, 1, 2, 1, 1, 23, 0, ZoneId.of("Africa/Johannesburg"));
+        Date expectedDate = Date.from(zonedDateTime.toInstant());
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.DAY_OF_MONTH, 2);
+        calendar.set(Calendar.HOUR_OF_DAY, 1);
+        calendar.set(Calendar.MINUTE, 1);
+        calendar.set(Calendar.SECOND, 23);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date actualDate = DateTimeConverter.convertToDate(calendar);
+        assertNotNull(actualDate);
+        assertEquals(expectedDate, actualDate);
     }
 
 }
