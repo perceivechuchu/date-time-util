@@ -222,8 +222,6 @@ calendar.set(Calendar.MINUTE, 1);
 calendar.set(Calendar.SECOND, 23);
 calendar.set(Calendar.MILLISECOND, 0);
 
-String timeZoneId = "Asia/Tokyo";
-
 LocalDateTime actualLocalDateTime = DateTimeConverter.convertToLocalDateTime(calendar, "Africa/Johannesburg");
 
 // Output: (LocalDateTime object)
@@ -232,7 +230,7 @@ LocalDateTime actualLocalDateTime = DateTimeConverter.convertToLocalDateTime(cal
 * **Converts a java.util.Date object to a ZonedDateTime object**
 ```
 Date date = new Date(1704124883000L);
-ZonedDateTime zonedDateTime = DateTimeConverter.convertToLocalDateTime(date)
+ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(date)
 // Output: (ZonedDateTime object)
 ```
 
@@ -265,7 +263,7 @@ Calendar calendar = DateTimeConverter.convertToCalendar(zonedDateTime);
 // Output: (Calendar object)
 ```
 
-* **Converts a ZonedDateTime object with supplied time zone id to a Calendar object**
+* **Converts a LocalDateTime object with supplied time zone id to a Calendar object**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 12, 5, 16, 2, 10);
 Calendar calendar = DateTimeConverter.convertToCalendar(localDateTime, "Africa/Johannesburg");
@@ -291,7 +289,7 @@ calendar.set(Calendar.SECOND, 23);
 calendar.set(Calendar.MILLISECOND, 0);
 
 Date date = DateTimeConverter.convertToDate(calendar);
-// Output: (date object)
+// Output: (Date object)
 ```
 
 ## 2. TimeZoneUtil 

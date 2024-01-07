@@ -472,6 +472,7 @@ public class DateTimeConverter {
      * @param date the date object to be converted
      * @return the zoned date time object obtained from the conversion
      * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateTimeException        if the result exceeds the supported range
      * @since 2.0.2
      */
     public static ZonedDateTime convertToZonedDateTime(Date date) {
@@ -529,7 +530,7 @@ public class DateTimeConverter {
     }
 
     /**
-     * Converts a ZonedDateTime object with supplied time zone id to a Calendar object
+     * Converts a LocalDateTime object with supplied time zone id to a Calendar object
      *
      * @param localDateTime the local date time to be converted
      * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
