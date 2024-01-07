@@ -8,6 +8,8 @@ import io.github.perceivechuchu.datetimeutil.exception.DateTimeConversionExcepti
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * This class is a utility for date conversions
@@ -21,7 +23,7 @@ public class DateTimeConverter {
     /**
      * The zulu date format pattern
      */
-    public static final String YYYY_MM_DD_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    protected static final String YYYY_MM_DD_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
     /**
      * The UTC zone id
      */
@@ -53,8 +55,8 @@ public class DateTimeConverter {
      * @param localDateTime   the local date time to be converted
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
      * @return the zoned date time object obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static ZonedDateTime convertToUTCZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId) {
@@ -73,8 +75,8 @@ public class DateTimeConverter {
      * @param localTimeZoneId  the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
      * @param targetTimeZoneId the target time zone id to be applied to the resulting zoned date time e.g. "US/Pacific"
      * @return the zoned date time object obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static ZonedDateTime convertToZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId) {
@@ -92,8 +94,8 @@ public class DateTimeConverter {
      * @param zonedDateTimeText the zoned date time in textual format to be converted e.g. "2023-11-10T10:00:00.254Z"
      * @param localZoneId       the local time zone id for the supplied zoned date time e.g. "Africa/Johannesburg"
      * @return the local date time object obtained from the conversion
-     * @throws IllegalArgumentException exception thrown when required parameter is missing
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    exception thrown when required parameter is missing
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTimeWithZone(final String zonedDateTimeText, final String localZoneId) {
@@ -111,8 +113,8 @@ public class DateTimeConverter {
      *
      * @param localDateText the local date in textual format to be converted e.g. "2023-12-05"
      * @return the local date obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText) {
@@ -130,8 +132,8 @@ public class DateTimeConverter {
      * @param localDateText the local date in textual format to be converted e.g. "2023-12-05"
      * @param formatter     the formatter that holds the format pattern for the supplied local date
      * @return the local date obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText, final DateTimeFormatter formatter) {
@@ -149,8 +151,8 @@ public class DateTimeConverter {
      * @param localDateText     the local date in textual format to be converted e.g. "05/12/2023"
      * @param dateFormatPattern the date format pattern for the supplied local date e.g. "dd/MM/yyyy"
      * @return the local date obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText, final String dateFormatPattern) {
@@ -168,8 +170,8 @@ public class DateTimeConverter {
      *
      * @param localDateTimeText the local date time in textual format to be converted e.g. "2023-12-08T16:02:10"
      * @return the local date time obtained from the conversion.
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTime(final String localDateTimeText) {
@@ -187,8 +189,8 @@ public class DateTimeConverter {
      * @param localDateTimeText the local date time in textual format to be converted e.g. "18/11/2023T16:02:10"
      * @param formatter         the formatter that holds the format pattern for the supplied local date
      * @return the local date time object obtained from the conversion.
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTime(final String localDateTimeText, final DateTimeFormatter formatter) {
@@ -206,8 +208,8 @@ public class DateTimeConverter {
      * @param localDateTimeText the local date time in textual format to be converted e.g. "18/11/2023T16:02:10"
      * @param dateFormatPattern the date time format pattern for the supplied local date time e.g. "dd/MM/yyyy'T'HH:mm:ss"
      * @return the local date time object obtained from the conversion.
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTimeWithPattern(final String localDateTimeText, final String dateFormatPattern) {
@@ -365,8 +367,8 @@ public class DateTimeConverter {
      * @param epochMillis      the epoch time value to be converted, in milliseconds
      * @param targetTimeZoneId the target time zone id to be applied to the resulting date time e.g. "Africa/Johannesburg"
      * @return the local date time obtained from the conversion. The result will be converted to the supplied target time zone
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static LocalDateTime convertEpochMillisToLocalDateTime(final long epochMillis, String targetTimeZoneId) {
@@ -384,8 +386,8 @@ public class DateTimeConverter {
      * @param localDateTime the local date time to be converted
      * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
      * @return the epoch millis time value obtained from the conversion
-     * @throws IllegalArgumentException if parameter is not valid
-     * @throws DateTimeConversionException  if the date conversion fails
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
      * @since 1.0.0
      */
     public static long convertLocalDateTimeToEpochMillis(final LocalDateTime localDateTime, final String timeZoneId) {
@@ -408,6 +410,166 @@ public class DateTimeConverter {
     protected static DateTimeFormatter getDateFormatter(final String dateFormatPattern) {
         ValidationUtil.rejectEmpty(ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         return DateTimeFormatter.ofPattern(dateFormatPattern);
+    }
+
+    /**
+     * Converts a java.util.Date object to a LocalDateTime object
+     *
+     * @param date the date object to be converted
+     * @return the local date time object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateTimeException        if the result exceeds the supported range
+     * @since 2.0.2
+     */
+    public static LocalDateTime convertToLocalDateTime(Date date) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(date, ErrorMessages.DATE_NULL));
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+
+    /**
+     * Converts a java.util.Date object with supplied time zone id to a LocalDateTime object
+     *
+     * @param date       the date object to be converted
+     * @param timeZoneId the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @return the local date time object obtained from the conversion
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
+     * @since 2.0.2
+     */
+    public static LocalDateTime convertToLocalDateTime(Date date, String timeZoneId) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(date, ErrorMessages.DATE_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        try {
+            ZoneId zoneId = ZoneId.of(timeZoneId);
+            return LocalDateTime.ofInstant(date.toInstant(), zoneId);
+        } catch (Exception e) {
+            throw new DateTimeConversionException(e.getMessage());
+        }
+    }
+
+    /**
+     * Converts a java.util.Calendar object with supplied time zone id to a LocalDateTime object
+     *
+     * @param calendar   the calendar object to be converted
+     * @param timeZoneId the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @return the local date time object obtained from the conversion
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
+     * @since 2.0.2
+     */
+    public static LocalDateTime convertToLocalDateTime(Calendar calendar, String timeZoneId) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(calendar, ErrorMessages.CALENDAR_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        try {
+            ZoneId zoneId = ZoneId.of(timeZoneId);
+            return LocalDateTime.ofInstant(calendar.toInstant(), zoneId);
+        } catch (Exception e) {
+            throw new DateTimeConversionException(e.getMessage());
+        }
+    }
+
+    /**
+     * Converts a java.util.Date object to a ZonedDateTime object
+     *
+     * @param date the date object to be converted
+     * @return the zoned date time object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @throws DateTimeException        if the result exceeds the supported range
+     * @since 2.0.2
+     */
+    public static ZonedDateTime convertToZonedDateTime(Date date) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(date, ErrorMessages.DATE_NULL));
+        return ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+
+    /**
+     * Converts a java.util.Calendar object to a ZonedDateTime object
+     *
+     * @param calendar the calendar object to be converted
+     * @return the zoned date time object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 2.0.2
+     */
+    public static ZonedDateTime convertToZonedDateTime(Calendar calendar) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(calendar, ErrorMessages.CALENDAR_NULL));
+        return ZonedDateTime.ofInstant(calendar.toInstant(), ZoneId.systemDefault());
+    }
+
+    /**
+     * Converts a LocalDateTime object with supplied time zone id to a ZonedDateTime object
+     *
+     * @param localDateTime the local date time to be converted
+     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @return the zoned date time object obtained from the conversion
+     * @throws IllegalArgumentException    if parameter is not valid
+     * @throws DateTimeConversionException if the date conversion fails
+     * @since 2.0.2
+     */
+    public static ZonedDateTime convertToZonedDateTime(LocalDateTime localDateTime, String timeZoneId) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        try {
+            ZoneId zoneId = ZoneId.of(timeZoneId);
+            return localDateTime.atZone(zoneId);
+        } catch (Exception e) {
+            throw new DateTimeConversionException(e.getMessage());
+        }
+    }
+
+    /**
+     * Converts a ZonedDateTime object to a Calendar object
+     *
+     * @param zonedDateTime the zoned date time to be converted
+     * @return the calendar object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 2.0.2
+     */
+    public static Calendar convertToCalendar(ZonedDateTime zonedDateTime) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(zonedDateTime, ErrorMessages.ZONED_DATE_TIME_NULL));
+        Date date = Date.from(zonedDateTime.toInstant());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+
+    /**
+     * Converts a LocalDateTime object with supplied time zone id to a Calendar object
+     *
+     * @param localDateTime the local date time to be converted
+     * @param timeZoneId    the time zone id to be used in the conversion e.g. "Africa/Johannesburg"
+     * @return the calendar object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 2.0.2
+     */
+    public static Calendar convertToCalendar(LocalDateTime localDateTime, String timeZoneId) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        ZonedDateTime zonedDateTime = convertToZonedDateTime(localDateTime, timeZoneId);
+        return convertToCalendar(zonedDateTime);
+    }
+
+    /**
+     * Converts a java.util.Date object to a java.util.Calendar object
+     *
+     * @param date the date to be converted
+     * @return the calendar object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 2.0.2
+     */
+    public static Calendar convertToCalendar(Date date) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(date, ErrorMessages.DATE_NULL));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+
+    /**
+     * Converts a java.util.Calendar object to a java.util.Date object
+     *
+     * @param calendar the calendar to be converted
+     * @return the date object obtained from the conversion
+     * @throws IllegalArgumentException if parameter is not valid
+     * @since 2.0.2
+     */
+    public static Date convertToDate(Calendar calendar) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(calendar, ErrorMessages.CALENDAR_NULL));
+        return calendar.getTime();
     }
 
 }
