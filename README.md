@@ -14,7 +14,7 @@ The artifact is available on Maven Central and can be added to the project's pom
 <dependency>
     <groupId>io.github.perceivechuchu</groupId>
     <artifactId>date-time-util</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.2</version>
 </dependency>
 ```
 
