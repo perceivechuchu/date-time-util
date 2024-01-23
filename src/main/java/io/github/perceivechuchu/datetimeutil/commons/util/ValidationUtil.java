@@ -27,7 +27,7 @@ public final class ValidationUtil {
      */
     public static void rejectEmpty(Object value, String message) {
         if (Objects.isNull(value) || (value instanceof String && StringUtils.isBlank((String) value))) {
-            throw new IllegalArgumentException(message);
+            throw new IllegalArgumentException(message + " - " + value);
         }
     }
 
