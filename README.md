@@ -4,7 +4,7 @@ date-time-util
 [![Build Status](https://github.com/perceivechuchu/date-time-util/actions/workflows/maven.yml/badge.svg)](https://github.com/perceivechuchu/date-time-util/actions/workflows/maven.yml)
 [![Jacoco Coverage](/.github/badges/jacoco.svg)](/.github/badges/jacoco.svg)
 
-date-time-util is a library that provides comprehensive date and time utilities, addressing the challenges of date manipulation, formatting, and timezone handling
+date-time-util is a library that provides comprehensive date and time utilities, addressing the challenges of date and time conversions, validations, formatting, and timezone handling
 
 Installation
 ============
