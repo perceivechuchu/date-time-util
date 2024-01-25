@@ -3,10 +3,6 @@ yyyyMMddZ
 yyyyMMdd
 yyyy-MM-dd G
 yyyy-MM-ddXXX
-yyyy-MM-dd'T'HH:mm:ss.SSS'['VV']'
-yyyy-MM-dd'T'HH:mm:ss,SSS'['VV']'
-yyyy-MM-dd HH:mm:ss.SSS'['VV']'
-yyyy-MM-dd HH:mm:ss,SSS'['VV']'
 yyyy-MM-dd'T'HH:mm:ss.SSS
 yyyy-MM-dd'T'HH:mm:ss,SSS
 yyyy-MM-dd HH:mm:ss.SSS
@@ -29,14 +25,6 @@ yyyy-MM-dd HH:mm:ssX
 yyyy-MM-dd'T'HH:mm:ssXXX
 yyyy-MM-dd HH:mm:ssXXX
 yyyy-DDDXXX
-YYYY'W'wc
-YYYY-'W'w-c
-yyyy-MM-dd'T'HH:mm:ss.SSSXXX'['VV']'
-yyyy-MM-dd'T'HH:mm:ss,SSSXXX'['VV']'
-yyyy-MM-dd HH:mm:ss.SSSXXX'['VV']'
-yyyy-MM-dd HH:mm:ss,SSSXXX'['VV']'
-yyyy-MM-dd'T'HH:mm:ssXXX'['VV']'
-yyyy-MM-dd HH:mm:ssXXX'['VV']'
 
 Belarussian_Formats
 d.M.yy
@@ -76,9 +64,8 @@ dd-MMM-yyyy
 dd MMMM yyyy HH:mm:ss z
 EEEE, d MMMM yyyy HH:mm:ss 'o''clock' z
 dd-MMM-yyyy HH:mm:ss
-dd-MMM-yy hh.mm.ss.nnnnnnnnn a
 
-English_United_States
+English_United_States_Formats
 M/d/yy
 MM/dd/yy
 MM-dd-yy
@@ -216,7 +203,7 @@ Hebrew_Formats
 HH:mm dd/MM/yy
 HH:mm:ss dd/MM/yyyy
 
-Japanese_Japan
+Japanese_Japan_Formats
 yy/MM/dd
 yyyy/MM/dd
 MM/dd/yy H:mm
@@ -287,7 +274,7 @@ Vietnamese_Formats
 HH:mm:ss dd-MM-yyyy
 HH:mm dd/MM/yyyy
 
-Chinese_China
+Chinese_China_Formats
 yy-M-d
 yyyy-M-d
 yyyy'年'M'月'd'日'

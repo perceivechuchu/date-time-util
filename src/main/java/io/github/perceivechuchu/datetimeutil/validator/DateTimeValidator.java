@@ -26,43 +26,41 @@ import java.util.stream.Collectors;
 public class DateTimeValidator {
 
     /**
-     * The location for the file that contains date format patterns
+     * The location of the file that contains date format patterns
      *
      * @since 2.1.0
      */
-    private static final String FILE_LOCATION = "datetime/formats/all-formats.txt";
+    protected static String fileLocation = "datetime/formats/all_formats.txt";
 
     /**
-     * The holder for all the date formats list items
+     * The holder for all the date format list items
      *
      * @since 2.1.0
      */
-    private static List<String> dateFormats;
+    protected static List<String> dateFormats;
 
     private DateTimeValidator() {
     }
 
     /**
-     * Validates datetime in textual format. This uses the default local.
+     * Validates the date and time in textual format. This method uses the default locale -> "Locale.ENGLISH".
      *
      * @param dateTimeText the date time text to be validated
      * @return the boolean flag to indicate validity of the supplied datetime text
-     * @throws IllegalArgumentException    if parameter is not valid
-     * @throws DateTimeValidationException thrown when datetime validation fails.
+     * @throws IllegalArgumentException    if parameter is not valid or the date string or pattern array is null
      * @since 2.1.0
      */
     public static boolean isValid(String dateTimeText) {
-        return isValid(dateTimeText, Locale.getDefault());
+        return isValid(dateTimeText, Locale.ENGLISH);
     }
 
     /**
-     * Validates datetime in textual format with the locale
+     * Validates the date and time in textual format with the locale
      *
      * @param dateTimeText the date time text to be validated
      * @param locale       the locale for the dateTimeText value
      * @return the boolean flag to indicate validity of the supplied datetime text
-     * @throws IllegalArgumentException    if parameter is not valid
-     * @throws DateTimeValidationException thrown when datetime validation fails.
+     * @throws IllegalArgumentException    if parameter is not valid or the date string or pattern array is null
      * @since 2.1.0
      */
     public static boolean isValid(String dateTimeText, Locale locale) {
@@ -73,34 +71,30 @@ public class DateTimeValidator {
             return true;
         } catch (ParseException e) {
             return false;
-        } catch (Exception e) {
-            throw new DateTimeValidationException("Failed to validate datetime -> " + dateTimeText);
         }
     }
 
     /**
-     * Validates datetime in textual format with the date format pattern to validate against
+     * Validates the date and time in textual format with the date format pattern to validate against. This method uses the default locale -> "Locale.ENGLISH"
      *
      * @param dateTimeText      the date time text to be validated
      * @param dateFormatPattern the date format pattern to validate against
      * @return the boolean flag to indicate validity of the supplied datetime text
-     * @throws IllegalArgumentException    if parameter is not valid
-     * @throws DateTimeValidationException if the datetime validation fails.
+     * @throws IllegalArgumentException    if parameter is not valid or the date string or pattern array is null
      * @since 2.1.0
      */
     public static boolean isValid(String dateTimeText, String dateFormatPattern) {
-        return isValid(dateTimeText, Locale.getDefault(), dateFormatPattern);
+        return isValid(dateTimeText, Locale.ENGLISH, dateFormatPattern);
     }
 
     /**
-     * Validates datetime in textual format with locale and the date format pattern to validate against
+     * Validates the date and time in textual format with locale and the date format pattern to validate against
      *
      * @param dateTimeText      the date time text to be validated
      * @param locale            the locale for the dateTimeText value
      * @param dateFormatPattern the date format pattern to validate against
      * @return the boolean flag to indicate validity of the supplied datetime text
-     * @throws IllegalArgumentException    if parameter is not valid
-     * @throws DateTimeValidationException if the datetime validation fails.
+     * @throws IllegalArgumentException    if parameter is not valid or the date string or pattern array is null
      * @since 2.1.0
      */
     public static boolean isValid(String dateTimeText, Locale locale, String dateFormatPattern) {
@@ -111,8 +105,6 @@ public class DateTimeValidator {
             return true;
         } catch (ParseException e) {
             return false;
-        } catch (Exception e) {
-            throw new DateTimeValidationException("Failed to validate datetime -> " + dateTimeText);
         }
     }
 
@@ -120,7 +112,7 @@ public class DateTimeValidator {
      * Validates the date format pattern contained in a file
      *
      * @param dateFormatPattern the date format pattern contained in the file
-     * @return the boolean flag to indicate validity of the supplied date format pattern text
+     * @return the boolean flag to identify valid date format pattern entries in the file, thereby eliminating section headers in the file
      * @since 2.1.0
      */
     private static boolean isValidDateFormatPattern(String dateFormatPattern) {
@@ -128,7 +120,7 @@ public class DateTimeValidator {
     }
 
     /**
-     * Loads date formats from a file
+     * Loads date format patterns from a file
      *
      * @since 2.1.0
      */
@@ -142,15 +134,15 @@ public class DateTimeValidator {
     /**
      * Gets all the date format patterns in a file
      *
-     * @return the boolean flag to indicate validity of the supplied date format pattern text
-     * @throws DateTimeValidationException thrown when datetime validation fails.
+     * @return the list of date format patterns form a file
+     * @throws DateTimeValidationException thrown when date format pattern file is not found.
      * @since 2.1.0
      */
     protected static List<String> getFileFromResourceAsStream() {
         ClassLoader classLoader = DateTimeValidator.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(FILE_LOCATION);
+        InputStream inputStream = classLoader.getResourceAsStream(fileLocation);
         if (Objects.isNull(inputStream)) {
-            throw new DateTimeValidationException("File not found -> " + FILE_LOCATION);
+            throw new DateTimeValidationException("File not found -> " + fileLocation);
         } else {
             return new BufferedReader(new InputStreamReader(inputStream)).lines().map(String::trim).collect(Collectors.toList());
         }
