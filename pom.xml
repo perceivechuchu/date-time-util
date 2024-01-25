@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.perceivechuchu</groupId>
 	<artifactId>date-time-util</artifactId>
-	<version>2.0.3-SNAPSHOT</version>
+	<version>2.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A library that provides comprehensive date and time utilities, addressing the challenges of date and time conversions, formatting, and timezone handling</description>
@@ -140,6 +140,12 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 
 		<plugins>
 			<plugin>

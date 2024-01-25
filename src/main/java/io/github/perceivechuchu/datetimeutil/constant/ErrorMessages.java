@@ -22,7 +22,7 @@ public class ErrorMessages {
     /**
      * The error message for null localDateText parameter validation
      */
-    public static final String LOCAL_DATE_TEXT_EMPTY = "Parameter localDateText cannot be null";
+    public static final String LOCAL_DATE_TEXT_EMPTY = "Parameter localDateText cannot be empty";
 
     /**
      * The error message for empty localDateTimeText parameter validation
@@ -88,4 +88,14 @@ public class ErrorMessages {
      * The error message for empty offsetText parameter validation
      */
     public static final String TIME_OFFSET_TEXT_EMPTY = "Parameter offsetText cannot be empty";
+
+    /**
+     * The error message for null dateTimeText parameter validation
+     */
+    public static final String DATE_TIME_TEXT_EMPTY = "Parameter dateTimeText cannot be empty";
+
+    /**
+     * The error message for null locale parameter validation
+     */
+    public static final String LOCALE_NULL = "Parameter locale cannot be null";
 }
