@@ -342,28 +342,28 @@ public class TimeZoneDetail {
 ## 3. DateTimeValidator
 <br />
 
-* **Validating the date and time in textual format. This method uses the default locale -> "Locale.ENGLISH"**
+* **Validates the date and time in textual format. This method uses the default locale -> "Locale.ENGLISH"**
 ```
 boolean valid = DateTimeValidator.isValid("2024-03-22T05:06:07Z");
 // Output: true
 ```
 <br />
 
-* **Validating the date and time in textual format with the locale**
+* **Validates the date and time in textual format with the locale**
 ```
 boolean valid = DateTimeValidator.isValid("Montag, 22. März 1999 05:06 Uhr MEZ", Locale.GERMANY);
 // Output: true
 ```
 <br />
 
-* **Validating the date and time in textual format with the date format pattern to validate against. This method uses the default locale -> "Locale.ENGLISH"**
+* **Validates the date and time in textual format with the date format pattern to validate against. This method uses the default locale -> "Locale.ENGLISH"**
 ```
 boolean valid = DateTimeValidator.isValid("2024-03-22T05:06:07Z", "yyyy-MM-dd'T'HH:mm:ssX");
 // Output: true
 ```
 <br />
 
-* **Validating the date and time in textual format with locale and the date format pattern to validate against**
+* **Validates the date and time in textual format with locale and the date format pattern to validate against**
 ```
 boolean valid = DateTimeValidator.isValid("lundi 22 mars 1999 05 h 06 CET", Locale.FRENCH, "EEEE d MMMM yyyy HH' h 'mm z");
 // Output: true
