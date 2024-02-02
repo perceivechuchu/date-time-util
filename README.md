@@ -379,7 +379,7 @@ Perceive Chuchu [perceivechuchu@gmail.com](mailto:perceivechuchu@gmail.com) with
 
 API Reference
 ========
-* [jwt-util Java Docs](https://javadoc.io/doc/io.github.perceivechuchu/date-time-util/latest/index.html)
+* [date-time-util Java Docs](https://javadoc.io/doc/io.github.perceivechuchu/date-time-util/latest/index.html)
 
 Feedback
 ========
