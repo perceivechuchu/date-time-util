@@ -377,6 +377,10 @@ Author
 ======
 Perceive Chuchu [perceivechuchu@gmail.com](mailto:perceivechuchu@gmail.com) with :green_heart:
 
+API Reference
+========
+* [jwt-util Java Docs](https://javadoc.io/doc/io.github.perceivechuchu/date-time-util/latest/index.html)
+
 Feedback
 ========
 Please [leave your feedback](https://github.com/perceivechuchu/date-time-util/issues) if you have noticed any issue or have a feature request.
