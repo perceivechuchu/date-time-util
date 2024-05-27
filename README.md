@@ -35,7 +35,7 @@ String zonedDateTimeText = DateTimeConverter.convertToUTCZonedDateTimeText(local
 ```
 <br />
 
-* **Converts a LocalDateTime object to UTC ZonedDateTime in textual format using provided date time formatter**
+* **Converting a LocalDateTime object to UTC ZonedDateTime in textual format using provided date time formatter**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
@@ -44,7 +44,7 @@ String zonedDateTimeText = DateTimeConverter.convertToUTCZonedDateTimeText(local
 ```
 <br />
 
-* **CConverts a LocalDateTime object to UTC ZonedDateTime in textual format using provided date format pattern**
+* **Converting a LocalDateTime object to UTC ZonedDateTime in textual format using provided date format pattern**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
 String zonedDateTimeText = DateTimeConverter.convertToUTCZonedDateTimeText(localDateTime, "Africa/Johannesburg", "yyyy-MM-dd'T'HH:mm:ssX");
