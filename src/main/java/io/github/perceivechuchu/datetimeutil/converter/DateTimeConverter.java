@@ -33,7 +33,7 @@ public class DateTimeConverter {
     }
 
     /**
-     * Converts a LocalDateTime object to UTC ZonedDateTime in textual format
+     * Converts a LocalDateTime object to UTC ZonedDateTime in textual format using default date time formatter (yyyy-MM-dd'T'HH:mm:ss.SSSXXX)
      *
      * @param localDateTime   the local date time to be converted
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
@@ -42,11 +42,51 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static String convertToUTCZonedDateTimeText(final LocalDateTime localDateTime, final String localTimeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(YYYY_MM_DD_HH_MM_SS_SSSXXX);
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
         dateFormatter.format(zonedDateTime);
         return dateFormatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of(ZONE_ID_UTC)));
+    }
+
+    /**
+     * Converts a LocalDateTime object to UTC ZonedDateTime in textual format using provided date time formatter
+     *
+     * @param localDateTime   the local date time to be converted
+     * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
+     * @param formatter     the formatter that holds the format pattern that the output is to be formatted
+     * @return the local date time in textual format obtained from the conversion e.g. "2023-11-10T10:00:00.254Z"
+     * @throws IllegalArgumentException exception thrown when required parameter is missing.
+     * @since 2.1.1
+     */
+    public static String convertToUTCZonedDateTimeText(final LocalDateTime localDateTime, final String localTimeZoneId, final DateTimeFormatter formatter) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY),
+                ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
+        formatter.format(zonedDateTime);
+        return formatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of(ZONE_ID_UTC)));
+    }
+
+    /**
+     * Converts a LocalDateTime object to UTC ZonedDateTime in textual format using provided date format pattern
+     *
+     * @param localDateTime   the local date time to be converted
+     * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
+     * @param dateFormatPattern the date time format pattern for the supplied local date time e.g. "yyyy-MM-dd'T'HH:mm:ssXXX"
+     * @return the local date time in textual format obtained from the conversion e.g. "2023-11-10T10:00:00Z"
+     * @throws IllegalArgumentException exception thrown when required parameter is missing.
+     * @since 2.1.1
+     */
+    public static String convertToUTCZonedDateTimeText(final LocalDateTime localDateTime, final String localTimeZoneId, final String dateFormatPattern) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY),
+                ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatPattern);
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
+        formatter.format(zonedDateTime);
+        return formatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of(ZONE_ID_UTC)));
     }
 
     /**
@@ -80,7 +120,9 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static ZonedDateTime convertToZonedDateTime(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY), ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY),
+                ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY));
         try {
             return localDateTime.atZone(ZoneId.of(localTimeZoneId)).withZoneSameInstant(ZoneId.of(targetTimeZoneId));
         } catch (Exception e) {
@@ -99,7 +141,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTimeWithZone(final String zonedDateTimeText, final String localZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(zonedDateTimeText, ErrorMessages.ZONED_DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(localZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(zonedDateTimeText, ErrorMessages.ZONED_DATE_TIME_TEXT_EMPTY),
+                ValidationEntry.getInstance(localZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY));
         try {
             ZonedDateTime zonedDateTime = ZonedDateTime.parse(zonedDateTimeText).withZoneSameInstant(ZoneId.of(localZoneId));
             return zonedDateTime.toLocalDateTime();
@@ -137,7 +180,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText, final DateTimeFormatter formatter) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY),
+                ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
         try {
             return LocalDate.parse(localDateText, formatter);
         } catch (Exception e) {
@@ -156,7 +200,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static LocalDate convertToLocalDate(final String localDateText, final String dateFormatPattern) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateText, ErrorMessages.LOCAL_DATE_TEXT_EMPTY),
+                ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         try {
             DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
             return LocalDate.parse(localDateText, formatter);
@@ -194,7 +239,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTime(final String localDateTimeText, final DateTimeFormatter formatter) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY),
+                ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
         try {
             return LocalDateTime.parse(localDateTimeText, formatter);
         } catch (Exception e) {
@@ -213,7 +259,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static LocalDateTime convertToLocalDateTimeWithPattern(final String localDateTimeText, final String dateFormatPattern) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTimeText, ErrorMessages.LOCAL_DATE_TIME_TEXT_EMPTY),
+                ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         try {
             DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
             return LocalDateTime.parse(localDateTimeText, formatter);
@@ -246,7 +293,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static String convertToLocalDateText(final LocalDate localDate, final DateTimeFormatter formatter) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL),
+                ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
         return localDate.format(formatter);
     }
 
@@ -261,7 +309,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static String convertToLocalDateText(final LocalDate localDate, final String dateFormatPattern) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDate, ErrorMessages.LOCAL_DATE_NULL),
+                ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
         return localDate.format(formatter);
     }
@@ -290,7 +339,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static String convertToLocalDateTimeText(final LocalDateTime localDateTime, final DateTimeFormatter formatter) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(formatter, ErrorMessages.DATE_FORMATTER_NULL));
         return localDateTime.format(formatter);
     }
 
@@ -305,7 +355,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static String convertToLocalDateTimeText(final LocalDateTime localDateTime, final String dateFormatPattern) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         DateTimeFormatter formatter = getDateFormatter(dateFormatPattern);
         return localDateTime.format(formatter);
     }
@@ -391,7 +442,8 @@ public class DateTimeConverter {
      * @since 1.0.0
      */
     public static long convertLocalDateTimeToEpochMillis(final LocalDateTime localDateTime, final String timeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         try {
             return localDateTime.atZone(ZoneId.of(timeZoneId)).withZoneSameInstant(ZoneId.of(timeZoneId)).toInstant().toEpochMilli();
         } catch (Exception e) {
@@ -437,7 +489,8 @@ public class DateTimeConverter {
      * @since 2.0.2
      */
     public static LocalDateTime convertToLocalDateTime(Date date, String timeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(date, ErrorMessages.DATE_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(date, ErrorMessages.DATE_NULL),
+                ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         try {
             ZoneId zoneId = ZoneId.of(timeZoneId);
             return LocalDateTime.ofInstant(date.toInstant(), zoneId);
@@ -457,7 +510,8 @@ public class DateTimeConverter {
      * @since 2.0.2
      */
     public static LocalDateTime convertToLocalDateTime(Calendar calendar, String timeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(calendar, ErrorMessages.CALENDAR_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(calendar, ErrorMessages.CALENDAR_NULL),
+                ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         try {
             ZoneId zoneId = ZoneId.of(timeZoneId);
             return LocalDateTime.ofInstant(calendar.toInstant(), zoneId);
@@ -504,7 +558,8 @@ public class DateTimeConverter {
      * @since 2.0.2
      */
     public static ZonedDateTime convertToZonedDateTime(LocalDateTime localDateTime, String timeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         try {
             ZoneId zoneId = ZoneId.of(timeZoneId);
             return localDateTime.atZone(zoneId);
@@ -539,7 +594,8 @@ public class DateTimeConverter {
      * @since 2.0.2
      */
     public static Calendar convertToCalendar(LocalDateTime localDateTime, String timeZoneId) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL), ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(timeZoneId, ErrorMessages.TIME_ZONE_ID_EMPTY));
         ZonedDateTime zonedDateTime = convertToZonedDateTime(localDateTime, timeZoneId);
         return convertToCalendar(zonedDateTime);
     }

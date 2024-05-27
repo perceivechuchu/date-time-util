@@ -64,7 +64,8 @@ public class DateTimeValidator {
      * @since 2.1.0
      */
     public static boolean isValid(String dateTimeText, Locale locale) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(dateTimeText, ErrorMessages.DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(locale, ErrorMessages.LOCALE_NULL));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(dateTimeText, ErrorMessages.DATE_TIME_TEXT_EMPTY),
+                ValidationEntry.getInstance(locale, ErrorMessages.LOCALE_NULL));
         try {
             loadDateFormats();
             DateUtils.parseDateStrictly(dateTimeText, locale, dateFormats.toArray(new String[0]));
@@ -98,7 +99,9 @@ public class DateTimeValidator {
      * @since 2.1.0
      */
     public static boolean isValid(String dateTimeText, Locale locale, String dateFormatPattern) {
-        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(dateTimeText, ErrorMessages.DATE_TIME_TEXT_EMPTY), ValidationEntry.getInstance(locale, ErrorMessages.LOCALE_NULL), ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(dateTimeText, ErrorMessages.DATE_TIME_TEXT_EMPTY),
+                ValidationEntry.getInstance(locale, ErrorMessages.LOCALE_NULL),
+                ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
         try {
             loadDateFormats();
             DateUtils.parseDateStrictly(dateTimeText, locale, dateFormatPattern);
