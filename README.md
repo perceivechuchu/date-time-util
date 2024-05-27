@@ -53,8 +53,8 @@ ZonedDateTime zonedDateTime = DateTimeConverter.convertToZonedDateTime(localDate
 
 * **Converting a UTC ZonedDateTime object (Zulu time) to LocalDateTime in textual format**
 ```
-ZonedDateTime zonedDateTime = DateTimeConverter.convertToLocalDateTimeWithZone("2023-11-10T10:00:00.254Z", "Africa/Johannesburg");
-// Output: (ZonedDateTime object with zone -> "Africa/Johannesburg");
+LocalDateTime localDateTime = DateTimeConverter.convertToLocalDateTimeWithZone("2023-11-10T10:00:00.254Z", "Africa/Johannesburg");
+// Output: (LocalDateTime object with zone -> "Africa/Johannesburg");
 ```
 <br />
 
