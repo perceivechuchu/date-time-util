@@ -27,7 +27,7 @@ This library provides the following features:
 ## 1. DateTimeConverter 
 <br />
 
-* **Converting a LocalDateTime object to UTC ZonedDateTime in textual format**
+* **Converts a LocalDateTime object to UTC ZonedDateTime in textual format using default date time formatter (yyyy-MM-dd'T'HH:mm:ss.SSSXXX)**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
 String zonedDateTimeText = DateTimeConverter.convertToUTCZonedDateTimeText(localDateTime, "Africa/Johannesburg");
