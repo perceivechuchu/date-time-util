@@ -44,6 +44,13 @@ class DateTimeConverterTests {
     }
 
     @Test
+    void convertToZonedDateTimeText_ReturnCorrectlyConvertedUTCZonedDateTime_WhenLocalDateTimeAndLocalZoneIdAndTargetZoneIdAndDateFormatPatternIsValid() {
+        LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
+        String actualZonedDateTime = DateTimeConverter.convertToZonedDateTimeText(localDateTime, "UTC", "Africa/Johannesburg", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        assertEquals("2023-11-10T14:00:00.254+02:00", actualZonedDateTime);
+    }
+
+    @Test
     void convertToUTCZonedDateTime_ReturnCorrectlyConvertedUTCZonedDateTime_WhenLocalDateTimeIsValid() {
         LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
         ZonedDateTime expectedZonedDateTime = ZonedDateTime.of(2023, 11, 10, 12, 0, 0, 254000000, ZoneId.of("Africa/Johannesburg"));

@@ -37,7 +37,7 @@ public class DateTimeConverter {
      *
      * @param localDateTime   the local date time to be converted
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
-     * @return the local date time in textual format obtained from the conversion e.g. "2023-11-10T10:00:00.254Z"
+     * @return the zoned date time in textual format obtained from the conversion e.g. "2023-11-10T10:00:00.254Z"
      * @throws IllegalArgumentException exception thrown when required parameter is missing.
      * @since 1.0.0
      */
@@ -56,7 +56,7 @@ public class DateTimeConverter {
      * @param localDateTime   the local date time to be converted
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
      * @param formatter     the formatter that holds the format pattern that the output is to be formatted
-     * @return the local date time in textual format obtained from the conversion e.g. "2023-11-10T10:00:00.254Z"
+     * @return the zoned date time in textual format obtained from the conversion e.g. "2023-11-10T10:00:00.254Z"
      * @throws IllegalArgumentException exception thrown when required parameter is missing.
      * @since 2.1.1
      */
@@ -75,7 +75,7 @@ public class DateTimeConverter {
      * @param localDateTime   the local date time to be converted
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
      * @param dateFormatPattern the date time format pattern for the supplied local date time e.g. "yyyy-MM-dd'T'HH:mm:ssXXX"
-     * @return the local date time in textual format obtained from the conversion e.g. "2023-11-10T10:00:00Z"
+     * @return the zoned date time in textual format obtained from the conversion e.g. "2023-11-10T10:00:00Z"
      * @throws IllegalArgumentException exception thrown when required parameter is missing.
      * @since 2.1.1
      */
@@ -87,6 +87,28 @@ public class DateTimeConverter {
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
         formatter.format(zonedDateTime);
         return formatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of(ZONE_ID_UTC)));
+    }
+
+    /**
+     * Converts a LocalDateTime object to ZonedDateTime in textual format with a specified target zone, in textual format using provided date format pattern
+     *
+     * @param localDateTime   the local date time to be converted
+     * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
+     * @param targetTimeZoneId the target time zone id for the output date time e.g. "Africa/Johannesburg"
+     * @param dateFormatPattern the date time format pattern for the supplied local date time e.g. "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+     * @return the zoned date time in textual format obtained from the conversion e.g. "2024-06-02T13:21:18.253+02:00"
+     * @throws IllegalArgumentException exception thrown when required parameter is missing.
+     * @since 2.2.0
+     */
+    public static String convertToZonedDateTimeText(final LocalDateTime localDateTime, final String localTimeZoneId, final String targetTimeZoneId, String dateFormatPattern) {
+        ValidationUtil.rejectEmpty(ValidationEntry.getInstance(localDateTime, ErrorMessages.LOCAL_DATE_TIME_NULL),
+                ValidationEntry.getInstance(localTimeZoneId, ErrorMessages.LOCAL_TIME_ZONE_ID_EMPTY),
+                ValidationEntry.getInstance(targetTimeZoneId, ErrorMessages.TARGET_TIME_ZONE_ID_EMPTY),
+                ValidationEntry.getInstance(dateFormatPattern, ErrorMessages.DATE_FORMAT_PATTERN_EMPTY));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatPattern);
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of(localTimeZoneId));
+        formatter.format(zonedDateTime);
+        return formatter.format(zonedDateTime.withZoneSameInstant(ZoneId.of(targetTimeZoneId)));
     }
 
     /**
