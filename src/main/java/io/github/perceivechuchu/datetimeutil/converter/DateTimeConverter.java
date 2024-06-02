@@ -93,7 +93,7 @@ public class DateTimeConverter {
      * Converts a LocalDateTime object to ZonedDateTime in textual format with a specified target zone, in textual format using provided date format pattern
      *
      * @param localDateTime   the local date time to be converted
-     * @param localTimeZoneId the local time zone id for the supplied date time e.g. "Africa/Johannesburg"
+     * @param localTimeZoneId the local time zone id for the supplied date time e.g. "UTC"
      * @param targetTimeZoneId the target time zone id for the output date time e.g. "Africa/Johannesburg"
      * @param dateFormatPattern the date time format pattern for the supplied local date time e.g. "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
      * @return the zoned date time in textual format obtained from the conversion e.g. "2024-06-02T13:21:18.253+02:00"
