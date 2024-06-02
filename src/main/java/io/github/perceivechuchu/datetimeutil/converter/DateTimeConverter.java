@@ -90,7 +90,7 @@ public class DateTimeConverter {
     }
 
     /**
-     * Converts a LocalDateTime object to ZonedDateTime in textual format with a specified target zone, in textual format using provided date format pattern
+     * Converts a LocalDateTime object to ZonedDateTime in textual format using provided target time zone and date time format pattern
      *
      * @param localDateTime   the local date time to be converted
      * @param localTimeZoneId the local time zone id for the supplied date time e.g. "UTC"

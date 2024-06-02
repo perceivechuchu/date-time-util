@@ -52,7 +52,7 @@ String zonedDateTimeText = DateTimeConverter.convertToUTCZonedDateTimeText(local
 ```
 <br />
 
-* **Converting a LocalDateTime object to ZonedDateTime in text with a specified target zone, in textual format using provided date format pattern**
+* **Converts a LocalDateTime object to ZonedDateTime in textual format using provided target time zone and date time format pattern**
 ```
 LocalDateTime localDateTime = LocalDateTime.of(2023, 11, 10, 12, 0, 0, 254000000);
 String zonedDateTimeText = DateTimeConverter.convertToZonedDateTimeText(localDateTime, "Africa/Johannesburg", "Africa/Johannesburg", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
