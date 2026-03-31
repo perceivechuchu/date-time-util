@@ -43,7 +43,7 @@ public class DateTimeValidator {
     }
 
     /**
-     * Validates the date and time in textual format. This method uses the default locale -> "Locale.ENGLISH"
+     * Validates the date and time in textual format. This method uses the default locale: "Locale.ENGLISH"
      *
      * @param dateTimeText the date time text to be validated
      * @return the boolean flag to indicate validity of the supplied datetime text
@@ -76,7 +76,7 @@ public class DateTimeValidator {
     }
 
     /**
-     * Validates the date and time in textual format with the date format pattern to validate against. This method uses the default locale -> "Locale.ENGLISH"
+     * Validates the date and time in textual format with the date format pattern to validate against. This method uses the default locale: "Locale.ENGLISH"
      *
      * @param dateTimeText      the date time text to be validated
      * @param dateFormatPattern the date format pattern to validate against
